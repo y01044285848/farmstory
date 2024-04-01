@@ -11,24 +11,24 @@
     <header>
         <a th:href="@{/index}" class="logo"><img th:src="@{../images/logo.png}" alt="로고"/></a>
         <p>
-            <a th:href="@{}">HOME |</a>
-            <a th:href="@{}">로그인 |</a>
-            <a th:href="@{}">회원가입 |</a>
-            <a th:href="@{}">고객센터</a>
+            <a th:href="@{#}">HOME |</a>
+            <a th:href="@{#}">로그인 |</a>
+            <a th:href="@{#}">회원가입 |</a>
+            <a th:href="@{#}">고객센터</a>
         </p>
         <img th:src="@{../images/head_txt_img.png}" alt="3만원 이상 무료배송"/>
 
         <ul class="gnb">
-            <li><a th:href="@{}">팜스토리소개</a></li>
-            <li><a th:href="@{}"><img th:src="@{../images/head_menu_badge.png}" alt="30%"/>장바구니</a></li>
-            <li><a th:href="@{}">농작물이야기</a></li>
-            <li><a th:href="@{}">이벤트</a></li>
-            <li><a th:href="@{}">커뮤니티</a></li>
+            <li><a th:href="@{#}">팜스토리소개</a></li>
+            <li><a th:href="@{#}"><img th:src="@{../images/head_menu_badge.png}" alt="30%"/>장바구니</a></li>
+            <li><a th:href="@{#}">농작물이야기</a></li>
+            <li><a th:href="@{#}">이벤트</a></li>
+            <li><a th:href="@{#}">커뮤니티</a></li>
         </ul>
     </header>
 
     <div id="sub">
-        <div><img th:src="../images/sub_top_tit2.png" alt="MARKET"></div>
+        <div><img th:src="@{../images/sub_top_tit2.png}" alt="MARKET"></div>
         <section class="market">
             <aside>
                 <img th:src="@{../images/sub_aside_cate2_tit.png}" alt="장보기"/>
@@ -47,7 +47,7 @@
 
                 <!-- 내용 시작 -->
                 <p class="sort">
-                    <a th:href="@{}" class="on">장바구니 전체(10)</a>
+                    <a th:href="@{#}" class="on">장바구니 전체(10)</a>
                 </p>
                 <table border="0">
                     <thead>
@@ -74,7 +74,22 @@
                             <input type="checkbox" name="">
                         </td>
                         <td>
-                            <a th:href="@{/productDetail}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
+                            <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
+                        </td>
+                        <td>과일</td>
+                        <td><a th:href="@{#}">사과 500g</a></td>
+                        <td>1</td>
+                        <td>10%</td>
+                        <td>40P</td>
+                        <td>4,000</td>
+                        <td><strong>3,600</strong>원</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="">
+                        </td>
+                        <td>
+                            <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
                         </td>
                         <td>과일</td>
                         <td><a href="#">사과 500g</a></td>
@@ -89,25 +104,10 @@
                             <input type="checkbox" name="">
                         </td>
                         <td>
-                            <a th:href="@{/productDetail}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
+                            <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
                         </td>
                         <td>과일</td>
-                        <td><a href="#">사과 500g</a></td>
-                        <td>1</td>
-                        <td>10%</td>
-                        <td>40P</td>
-                        <td>4,000</td>
-                        <td><strong>3,600</strong>원</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="">
-                        </td>
-                        <td>
-                            <a th:href="@{/productDetail}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
-                        </td>
-                        <td>과일</td>
-                        <td><a th:href="@{}">사과 500g</a></td>
+                        <td><a th:href="@{#}">사과 500g</a></td>
                         <td>1</td>
                         <td>10%</td>
                         <td>40P</td>
