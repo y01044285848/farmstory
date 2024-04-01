@@ -12,19 +12,19 @@
         <header>
             <a th:href="@{/index}" class="logo"><img th:src="@{../images/logo.png}" alt="로고"/></a>
             <p>
-                <a th:href="@{}">HOME |</a>
-                <a th:href="@{}">로그인 |</a>
-                <a th:href="@{}">회원가입 |</a>
-                <a th:href="@{}">고객센터</a>
+                <a th:href="@{#}">HOME |</a>
+                <a th:href="@{#}">로그인 |</a>
+                <a th:href="@{#}">회원가입 |</a>
+                <a th:href="@{#}">고객센터</a>
             </p>
             <img th:src="@{../images/head_txt_img.png}" alt="3만원 이상 무료배송"/>
             
             <ul class="gnb">
-                <li><a th:href="@{}">팜스토리소개</a></li>
-                <li><a th:href="@{}"><img th:src="@{../images/head_menu_badge.png}" alt="30%"/>장바구니</a></li>
-                <li><a th:href="@{}">농작물이야기</a></li>
-                <li><a th:href="@{}">이벤트</a></li>
-                <li><a th:href="@{}">커뮤니티</a></li>
+                <li><a th:href="@{#}">팜스토리소개</a></li>
+                <li><a th:href="@{#}"><img th:src="@{../images/head_menu_badge.png}" alt="30%"/>장바구니</a></li>
+                <li><a th:href="@{#}">농작물이야기</a></li>
+                <li><a th:href="@{#}">이벤트</a></li>
+                <li><a th:href="@{#}">커뮤니티</a></li>
             </ul>
         </header>
 
@@ -35,7 +35,7 @@
                     <img th:src="@{../images/sub_aside_cate2_tit.png}" alt="장보기"/>
 
                     <ul class="lnb">
-                        <li class="on"><a th:href="@{/market}">장보기</a></li>
+                        <li class="on"><a th:href="@{/market/list}">장보기</a></li>
                     </ul>
                 </aside>
                 <article class="list">
@@ -48,10 +48,10 @@
 
                     <!-- 내용 시작 -->
                     <p class="sort">
-                        <a th:href="@{}" class="on">전체(10) |</a>
-                        <a th:href="@{}">과일 |</a>
-                        <a th:href="@{}">야채 |</a>
-                        <a th:href="@{}">곡류</a>
+                        <a th:href="@{#}" class="on">전체(10) |</a>
+                        <a th:href="@{#}">과일 |</a>
+                        <a th:href="@{#}">야채 |</a>
+                        <a th:href="@{#}">곡류</a>
                     </p>
                     <table border="0">
                         <thead>
@@ -70,7 +70,7 @@
                                     <a th:href="@{/view}"><img th:src="@{../images/market_item1.jpg}" alt="사과 500g"></a>
                                 </td>
                                 <td class="type">과일</td>
-                                <td class="title"><a th:href="@{}">사과 500g</a></td>
+                                <td class="title"><a th:href="@{#}">사과 500g</a></td>
                                 <td class="discount">10%</td>
                                 <td class="point">400P</td>
                                 <td class="price">
@@ -83,7 +83,7 @@
                                     <a th:href="@{/view}"><img th:src="@{../images/market_item2.jpg}" alt="사과 500g"></a>
                                 </td>
                                 <td class="type">과일</td>
-                                <td class="title"><a th:href="@{}">전남 완주 배 5kg</a></td>
+                                <td class="title"><a th:href="@{#}">전남 완주 배 5kg</a></td>
                                 <td class="discount">10%</td>
                                 <td class="point">400P</td>
                                 <td class="price">
@@ -96,7 +96,7 @@
                                     <a th:href="@{/view}"><img th:src="@{../images/market_item3.jpg}" alt="사과 500g"></a>
                                 </td>
                                 <td class="type">과일</td>
-                                <td class="title"><a th:href="@{}">방울 토마토</a></td>
+                                <td class="title"><a th:href="@{#}">방울 토마토</a></td>
                                 <td class="discount">10%</td>
                                 <td class="point">400P</td>
                                 <td class="price">
@@ -109,7 +109,7 @@
                                     <a th:href="@{/view}"><img th:src="@{../images/market_item6.jpg}" alt="사과 500g"></a>
                                 </td>
                                 <td class="type">곡류</td>
-                                <td class="title"><a th:href="@{}">무농약 현미</a></td>
+                                <td class="title"><a th:href="@{#}">무농약 현미</a></td>
                                 <td class="discount">10%</td>
                                 <td class="point">400P</td>
                                 <td class="price">
@@ -122,7 +122,7 @@
                                     <a th:href="@{/view}"><img th:src="@{../images/market_item7.jpg}" alt="사과 500g"></a>
                                 </td>
                                 <td class="type">야채</td>
-                                <td class="title"><a th:href="@{}">팜스토리 하루야채 샐러드</a></td>
+                                <td class="title"><a th:href="@{#}">팜스토리 하루야채 샐러드</a></td>
                                 <td class="discount">10%</td>
                                 <td class="point">400P</td>
                                 <td class="price">
@@ -135,13 +135,13 @@
                     </table>
 
                     <p class="paging">
-                        <a th:href="@{}"><</a>
-                        <a th:href="@{}" class="on">[1]</a>
-                        <a th:href="@{}">[2]</a>
-                        <a th:href="@{}">[3]</a>
-                        <a th:href="@{}">[4]</a>
-                        <a th:href="@{}">[5]</a>
-                        <a th:href="@{}">></a>
+                        <a th:href="@{#}"><</a>
+                        <a th:href="@{#}" class="on">[1]</a>
+                        <a th:href="@{#}">[2]</a>
+                        <a th:href="@{#}">[3]</a>
+                        <a th:href="@{#}">[4]</a>
+                        <a th:href="@{#}">[5]</a>
+                        <a th:href="@{#}">></a>
                     </p>
 
                     <!-- 내용 끝 -->
