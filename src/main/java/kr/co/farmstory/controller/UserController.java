@@ -6,19 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @GetMapping("/croptalk/story")
-    public String story(){
-        return "/croptalk/story";
+    @GetMapping("/user/login")
+    public String login(){
+        return "/user/login";
     }
 
-    @GetMapping("/croptalk/grow")
-    public String grow(){
-        return "/croptalk/grow";
+    @GetMapping("/user/register")
+    public String register(){
+        return "/user/register";
     }
-
-    @GetMapping("/croptalk/school")
-    public String school(){
-        return "/croptalk/school";
+    @GetMapping("/user/terms")
+    public String terms(){
+        return "/user/terms";
     }
 
 }
