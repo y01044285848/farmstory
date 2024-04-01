@@ -25,7 +25,7 @@
 <body>
     <div id="container">
         <header>
-            <a th:href="@{/}" class="logo"><img src="./images/logo.png" alt="로고"/></a>
+            <a th:href="@{/}" class="logo"><img th:src="@{/images/logo.png}" alt="로고"/></a>
             <p>
                 <a th:href="@{/}">HOME |</a>
                 <a th:href="@{/user/login}">로그인 |</a>

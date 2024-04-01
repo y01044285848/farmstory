@@ -1053,7 +1053,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .register > form > table button {
     border: none;
-    vertical-align: -2px;
+    vertical-align: -5px;
 }
 
 .register > form > div {
@@ -1065,3 +1065,7 @@ input[type=number]::-webkit-outer-spin-button {
 .btnCancel {display: inline-block;padding: 8px;border: 1px solid #bebebe;background: #fdfdfd;color: #111;}
 .btnSubmit {display: inline-block;padding: 8px;border: 1px solid #3b3c3f;background: #4b545e;color: #fff;}
 .btnWrite  {display: inline-block;padding: 8px;border: 1px solid #3b3c3f;background: #4b545e;color: #fff;}
+
+button {
+    cursor: pointer;
+}
