@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>팜스토리::커뮤니티</title>
@@ -8,21 +7,21 @@
 <body>
     <div id="container">
         <header>
-            <a href="../index.html" class="logo"><img src="../images/logo.png" alt="로고"/></a>
+            <a th:href="@{/}" class="logo"><img src="../images/logo.png" alt="로고"/></a>
             <p>
-                <a href="#">HOME |</a>
-                <a href="#">로그인 |</a>
-                <a href="#">회원가입 |</a>
+                <a th:href="@{/}">HOME |</a>
+                <a th:href="@{/user/login}">로그인 |</a>
+                <a th:href="@{/user/register}">회원가입 |</a>
                 <a href="#">고객센터</a>
             </p>
             <img src="../images/head_txt_img.png" alt="3만원 이상 무료배송"/>
             
             <ul class="gnb">
-                <li><a href="#">팜스토리소개</a></li>
-                <li><a href="#"><img src="../images/head_menu_badge.png" alt="30%"/>장바구니</a></li>
-                <li><a href="#">농작물이야기</a></li>
-                <li><a href="#">이벤트</a></li>
-                <li><a href="#">커뮤니티</a></li>
+                <li><a th:href="@{/introduction/hello}">팜스토리소개</a></li>
+                <li><a th:href="@{/market/list}"><img th:src="@{/images/head_menu_badge.png}" alt="30%"/>장보기</a></li>
+                <li><a th:href="@{/croptalk/story}">농작물이야기</a></li>
+                <li><a th:href="@{/event/event}">이벤트</a></li>
+                <li><a th:href="@{/community/notice}">커뮤니티</a></li>
             </ul>
         </header>
 
@@ -33,11 +32,11 @@
                     <img src="../images/sub_aside_cate5_tit.png" alt="커뮤니티"/>
 
                     <ul class="lnb">
-                        <li><a href="./notice.html">공지사항</a></li>
-                        <li><a href="./menu.html">오늘의식단</a></li>
-                        <li class="on"><a href="./chef.html">나도요리사</a></li>
-                        <li><a href="./qna.html">1:1고객문의</a></li>
-                        <li><a href="./faq.html">자주묻는질문</a></li>
+                        <li><a th:href="@{/community/notice}">공지사항</a></li>
+                        <li><a th:href="@{/community/menu}">오늘의식단</a></li>
+                        <li class="on"><a th:href="@{/community/chef}">나도요리사</a></li>
+                        <li><a th:href="@{/community/qna}">1:1고객문의</a></li>
+                        <li><a th:href="@{/community/faq}">자주묻는질문</a></li>
                     </ul>
 
                 </aside>
