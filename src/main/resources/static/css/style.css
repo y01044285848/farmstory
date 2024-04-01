@@ -891,3 +891,122 @@ input[type=number]::-webkit-outer-spin-button {
 #sub > .user > article > nav {
 	width: 100%;
 }
+
+/* 🎈login */
+.login {
+    position: relative;
+    width: 360px;
+    height: auto;
+    border: 1px solid #cfded8;
+    box-sizing: border-box;
+    margin: 100px auto;
+}
+.login > form {
+}
+.login > form > table {
+    margin-left: 52px;
+    margin-top: 30px;
+}
+.login > form > table tr {
+}
+.login > form > table td {
+}
+.login > form > table img {
+    width: 20px;
+}
+.login > form > table input {
+    width: 162px;
+    height: 22px;
+    margin-left: 6px;
+    margin-bottom: 4px;
+    border: 1px solid #e4eaec;
+    background: #f7f7f7;
+}
+.login > form > input[type="submit"] {
+    position: absolute;
+    right: 48px;
+    top: 33px;
+    width: 60px;
+    height: 52px;
+    border: 1px solid #bebebe;
+    background-color: #fdfdfd;
+}
+
+.login > div {
+    width: 100%;
+    height: 100px;
+    background-color: #f5f6fa;
+    border-top: 1px solid #cfded8;
+    margin-top: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.login > div > h3 {
+}
+.login > div > p {
+    margin: 10px 0;
+}
+.login > div > a {
+    float: right;
+}
+
+
+/* 🎈register */
+.register {
+    width: 600px;
+    height: auto;
+    margin: 60px auto;
+    box-sizing: border-box;
+}
+.register > form {
+}
+.register > form > table {
+    width: 100%;
+    margin-bottom: 10px;
+    border-top: 2px solid #111;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.register > form > table > caption {
+    text-align: left;
+    padding: 10px 0;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.register > form > table tr {
+}
+.register > form > table td {
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+}
+.register > form > table td:nth-child(1) {
+    width: 106px;
+    background: #f5f8f9;
+}
+.register > form > table td:nth-child(2) {
+}
+.register > form > table input {
+    width: 162px;
+    height: 22px;
+    border: 1px solid #e4eaec;
+    background: #f7f7f7;
+    text-indent: 4px;
+}
+
+.register > form > table input[name="addr1"] {
+    width: 360px;
+    margin: 4px 0;
+}
+.register > form > table input[name="addr2"] {
+    width: 360px;
+}
+
+.register > form > table button {
+    border: none;
+    vertical-align: -2px;
+}
+
+.register > form > div {
+    text-align: right;
+}
