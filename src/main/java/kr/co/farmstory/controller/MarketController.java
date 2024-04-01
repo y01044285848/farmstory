@@ -1,14 +1,24 @@
 package kr.co.farmstory.controller;
 
+import kr.co.farmstory.dto.ProductDTO;
+import kr.co.farmstory.service.ProductService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+import java.util.List;
+
+@Controller @RequiredArgsConstructor
 public class MarketController {
 
+    private final ProductService productService;
+
     @GetMapping("/market/list")
-    public String list(){
-        return "/market/list";
+    public ResponseEntity<List<ProductDTO>> list(){
+
+        return productService.selectProducts();
     }
 
     @GetMapping("/market/view")
