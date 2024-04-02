@@ -1,4 +1,10 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<!-- Default Layout Import-->
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layouts/defaultLayout}"
+      layout:fragment="Content"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -6,106 +12,75 @@
     <title>팜스토리::커뮤니티</title>
     <link rel="stylesheet" href="../css/style.css"/>
 </head>
-<body>
-    <div id="container">
-        <header>
-            <a th:href="@{/}" class="logo"><img th:src="@{../images/logo.png}" alt="로고"/></a>
-            <p>
-                <a th:href="@{/}">HOME |</a>
-                <a th:href="@{/user/login}">로그인 |</a>
-                <a th:href="@{/user/register}">회원가입 |</a>
-                <a href="#">고객센터</a>
-            </p>
-            <img th:src="@{../images/head_txt_img.png}" alt="3만원 이상 무료배송"/>
+<div id="sub">
+    <div><img src="../images/sub_top_tit5.png" alt="COMMUNITY"></div>
+    <section class="community">
+        <aside>
+            <img src="../images/sub_aside_cate5_tit.png" alt="커뮤니티"/>
 
-            <ul class="gnb">
-                <li><a th:href="@{/introduction/hello}">팜스토리소개</a></li>
-                <li><a th:href="@{/market/list}"><img th:src="@{../images/head_menu_badge.png}" alt="30%"/>장바구니</a></li>
-                <li><a th:href="@{/croptalk/story}">농작물이야기</a></li>
-                <li><a th:href="@{/event/event}">이벤트</a></li>
-                <li><a th:href="@{/community/notice}">커뮤니티</a></li>
+            <ul class="lnb">
+                <li><a th:href="@{/community/notice}">공지사항</a></li>
+                <li><a th:href="@{/community/menu}">오늘의식단</a></li>
+                <li class="on"><a th:href="@{/community/chef}">나도요리사</a></li>
+                <li><a th:href="@{/community/qna}">1:1고객문의</a></li>
+                <li><a th:href="@{/community/faq}">자주묻는질문</a></li>
             </ul>
-        </header>
 
-        <div id="sub">
-            <div><img src="../images/sub_top_tit5.png" alt="COMMUNITY"></div>
-            <section class="community">
-                <aside>
-                    <img src="../images/sub_aside_cate5_tit.png" alt="커뮤니티"/>
+        </aside>
+        <article>
+            <nav>
+                <img src="../images/sub_nav_tit_cate5_tit3.png" alt="나도요리사"/>
+                <p>
+                    HOME > 커뮤니티 > <em>나도요리사</em>
+                </p>
+            </nav>
 
-                    <ul class="lnb">
-                        <li><a th:href="@{/community/notice}">공지사항</a></li>
-                        <li><a th:href="@{/community/menu}">오늘의식단</a></li>
-                        <li class="on"><a th:href="@{/community/chef}">나도요리사</a></li>
-                        <li><a th:href="@{/community/qna}">1:1고객문의</a></li>
-                        <li><a th:href="@{/community/faq}">자주묻는질문</a></li>
-                    </ul>
+            <!-- 내용 시작 -->
+            <table class="table table-hover">
+                <thead>
+                <tr class="table-dark">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>날짜</th>
+                    <th>조회</th>
+                </tr>
+                </thead>
 
-                </aside>
-                <article>
-                    <nav>
-                        <img src="../images/sub_nav_tit_cate5_tit3.png" alt="나도요리사"/>
-                        <p>
-                            HOME > 커뮤니티 > <em>나도요리사</em>
-                        </p>
-                    </nav>
+                <tbody>
+                <tr th:each="article:${articles}">
+                    <td>[[${article.ano}]]</td>
+                    <td>[[${article.title}]]</td>
+                    <td>홍길동</td>
+                    <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
+                    <td>[[${article.hit}]]</td>
+                </tr>
 
-                    <!-- 내용 시작 -->
-                    <table class="table table-hover">
-                        <thead>
-                        <tr class="table-dark">
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>글쓴이</th>
-                            <th>날짜</th>
-                            <th>조회</th>
-                        </tr>
-                        </thead>
+                </tbody>
+            </table>
 
-                        <tbody>
-                        <tr th:each="article:${articles}">
-                            <td>[[${article.ano}]]</td>
-                            <td>[[${article.title}]]</td>
-                            <td>홍길동</td>
-                            <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
-                            <td>[[${article.hit}]]</td>
-                        </tr>
+            <!-- 페이지네이션 -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
 
-                        </tbody>
-                    </table>
+                    <li class="page-item disabled">
+                        <a class="page-link">이전</a>
+                    </li>
+                    <li th:each="num : ${#numbers.sequence(1, articlePage.pages)}" class="page-item">
+                        <a class="page-link" th:href="@{/community/chef(pageNum=${num})}">[[${num}]]</a>
+                    </li>
 
-                    <!-- 페이지네이션 -->
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#">다음</a>
+                    </li>
+                </ul>
+            </nav>
 
-                            <li class="page-item disabled">
-                                <a class="page-link">이전</a>
-                            </li>
-                            <li th:each="num : ${#numbers.sequence(1, articlePage.pages)}" class="page-item">
-                                <a class="page-link" th:href="@{/community/chef(pageNum=${num})}">[[${num}]]</a>
-                            </li>
+            <!-- 내용 끝 -->
 
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </nav>
+        </article>
+    </section>
 
-                    <!-- 내용 끝 -->
+</div>
 
-                </article>
-            </section>
-
-        </div>
-        <footer>
-            <img th:src="@{../images/footer_logo.png}" alt="로고"/>
-            <p>
-                (주)팜스토리 / 사업자등록번호 123-45-67890 / 통신판매업신고 제 2013-팜스토리구-123호 / 벤처기업확인 서울지방중소기업청 제 012345678-9-01234호<br />
-                등록번호 팜스토리01234 (2013.04.01) / 발행인 : 홍길동<br />
-                대표 : 홍길동 / 이메일 : email@mail.mail / 전화 : 01) 234-5678 / 경기도 성남시 잘한다구 신난다동 345<br />
-                <em>Copyright(C)홍길동 All rights reserved.</em>
-            </p>
-        </footer>
-    </div>    
-</body>
 </html>

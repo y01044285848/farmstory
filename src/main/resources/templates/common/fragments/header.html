@@ -9,11 +9,11 @@
         <a th:href="@{/}" class="logo"><img th:src="@{/images/logo.png}" alt="로고"/></a>
         <p>
             <a th:href="@{/}">HOME |</a>
-            <a sec:authorize="isAnonymous()" th:href="@{/user/register}">회원가입 |</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/user/terms}">회원가입 |</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/user/mypage}">[[${#authentication.principal.user.nick}]] |</a>
             <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인 |</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃 |</a>
-
+            <a th:href="@{/admin/index}">관리자 |</a>
             <a href="#">고객센터</a>
         </p>
         <img th:src="@{/images/head_txt_img.png}" alt="3만원 이상 무료배송"/>
