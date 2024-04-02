@@ -29,7 +29,7 @@ public class MainController {
         model.addAttribute("school", school);
         model.addAttribute("story", story);
 
-        return "index";
+        return "/index";
 
     }
 
