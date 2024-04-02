@@ -1053,7 +1053,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .register > form > table button {
     border: none;
-    vertical-align: -5px;
+    vertical-align: 1px;
 }
 
 .register > form > div {
@@ -1068,4 +1068,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 button {
     cursor: pointer;
+}
+
+.regHeaderImg {
+    margin: 18px;
 }

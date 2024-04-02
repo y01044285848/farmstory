@@ -22,6 +22,8 @@ public class User {
     private String zip;
     private String addr1;
     private String addr2;
+
+
     private String role;
     private String sms;
     private String provider;

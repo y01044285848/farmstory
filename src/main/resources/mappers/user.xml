@@ -10,6 +10,8 @@
         select * from terms
     </select>
 
+
+    <!--회원가입 중복체크-->
     <select id="selectCountUser" resultType="int">
         select count(*) from user
         <where>
@@ -19,6 +21,7 @@
             <if test="type == 'email'">email=#{value}</if>
         </where>
     </select>
+
 
     <!--회원 가입-->
     <insert id="insertUser">
