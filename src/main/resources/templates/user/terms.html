@@ -1,9 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{/layout/userLayout}"> -->
+
 <head>
     <meta charset="UTF-8">
-    <title>팜스토리::약관</title>    
+    <title>팜스토리::약관</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
     <style>
         #user > img {
@@ -12,9 +13,42 @@ layout:decorate="~{/layout/userLayout}"> -->
         }
     </style>
 </head>
+
+
+<script>
+
+    window.onload = function () {
+        const agree1 = document.getElementsByName('agree1')[0];
+        const agree2 = document.getElementsByName('agree2')[0];
+        const sms = document.getElementsByName('sms')[0];
+        const btnNext = document.getElementsByClassName('btnNext')[0];
+
+
+        btnNext.onclick = () => {
+            if (agree1.checked && agree2.checked) {
+                if (sms.checked) {
+                    smsvalue = "Y"
+                    window.location.href = "/farmstory/user/register?sms=" + smsvalue;
+                } else {
+                    smsvalue = "N"
+                    window.location.href = "/farmstory/user/register?sms=" + smsvalue;
+                }
+                return false;
+            } else {
+                // 확인 대화상자 표시
+                const confirmation = window.confirm("체크항목 1, 2번은 필수항목입니다");
+                return false; // 폼 제출 중단
+            }
+        }
+    }
+
+
+</script>
+
 <body>
     <div id="container">
         <header>
+
             <a th:href="@{/}" class="logo"><img th:src="@{../images/logo.png}" alt="로고"/></a>
             <p>
                 <a th:href="@{/}">HOME |</a>
@@ -40,7 +74,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                         <td>
                             <textarea readonly>[[${termsDTO.terms}]]</textarea>
                             <p>
-                                <label><input type="checkbox" name="agree2">동의합니다</label>
+                                <label><input type="checkbox" name="agree1">동의합니다</label>
                             </p>
                         </td>
                     </tr>
@@ -62,7 +96,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                         <td>
                             <textarea readonly>[[${termsDTO.sms}]]</textarea>
                             <p>
-                                <label><input type="checkbox" name="agree3">동의합니다</label>
+                                <label><input type="checkbox" id=sms name="sms" value="Y">동의합니다</label>
                             </p>
                         </td>
                     </tr>
@@ -83,6 +117,6 @@ layout:decorate="~{/layout/userLayout}"> -->
             </p>
         </footer>
     </div>
-    
+
 </body>
 </html>
