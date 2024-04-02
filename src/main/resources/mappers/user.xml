@@ -10,6 +10,18 @@
         select * from terms
     </select>
 
+    <!--회원가입 중복체크-->
+    <select id="selectCountUser" resultType="int">
+        select count(*) from user
+        <where>
+            <if test="type == 'uid'">uid=#{value}</if>
+            <if test="type == 'nick'">nick=#{value}</if>
+            <if test="type == 'hp'">hp=#{value}</if>
+            <if test="type == 'email'">email=#{value}</if>
+        </where>
+    </select>
+
+
     <!--회원 가입-->
     <insert id="insertUser">
         insert into user set
@@ -22,8 +34,8 @@
         zip=#{zip},
         addr1=#{addr1},
         addr2=#{addr2},
-        regip=#{regip},
-        regDate=NOW()
+        regIp=#{regIp},
+        rDate=NOW()
     </insert>
 
 
