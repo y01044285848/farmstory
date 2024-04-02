@@ -9,7 +9,7 @@ layout:decorate="~{/layout/userLayout}"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="../../../static/css/admin/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/admin/css/style.css}">
     <style></style>
 </head>
 
@@ -24,34 +24,36 @@ layout:decorate="~{/layout/userLayout}"> -->
             </p>
         </header>
         <main>
+
             <aside>
                 <h3>주요기능</h3>
                 <ul>
-                    <li class="on"><a href="#">상품관리</a></li>
-                    <li><a href="#">주문관리</a></li>
-                    <li><a href="#">회원관리</a></li>                    
+                    <li><a th:href="@{/admin/product/list}">상품관리</a></li>
+                    <li><a th:href="@{/admin/order/list}">주문관리</a></li>
+                    <li class="on"><a th:href="@{/admin/user/list}">회원관리</a></li>
                 </ul>
             </aside>
+
             <section id="productRegister">
                 <nav>
                     <h3>상품등록</h3>
                 </nav>
 
                 <article>
-                    <form action="#" method="post">
+                    <form name="productForm" method="post">
                         <table border="0">
                             <tr>
                                 <td>상품명</td>
-                                <td><input type="text" name="productName"/></td>
+                                <td><input type="text" name="pname"/></td>
                             </tr>
                             <tr>
                                 <td>종류</td>
                                 <td>
-                                    <select name="type">
-                                        <option>종류</option>
-                                        <option>과일</option>
-                                        <option>야채</option>
-                                        <option>곡류</option>
+                                    <select name="cate">
+                                        <option disabled selected>종류</option>
+                                        <option value="과일">과일</option>
+                                        <option value="야채">야채</option>
+                                        <option value="곡류">곡류</option>
                                     </select>
                                 </td>
                             </tr>
@@ -70,21 +72,21 @@ layout:decorate="~{/layout/userLayout}"> -->
                                 <td>할인</td>
                                 <td>
                                     <select>
-                                        <option value="">5%</option>
-                                        <option value="">12%</option>
-                                        <option value="">15%</option>
-                                        <option value="">18%</option>
-                                        <option value="">20%</option>
+                                        <option value="5">5%</option>
+                                        <option value="12">12%</option>
+                                        <option value="15">15%</option>
+                                        <option value="18">18%</option>
+                                        <option value="20">20%</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>배송비</td>
                                 <td>
-                                    <label><input type="radio" name="delivery">2,000원</label>                                    
-                                    <label><input type="radio" name="delivery">3,000원</label>
-                                    <label><input type="radio" name="delivery">5,000원</label>
-                                    <label><input type="radio" name="delivery">무료</label>
+                                    <label><input type="radio" name="delivery" value="2000">2,000원</label>
+                                    <label><input type="radio" name="delivery" value="3000">3,000원</label>
+                                    <label><input type="radio" name="delivery" value="5000">5,000원</label>
+                                    <label><input type="radio" name="delivery" value="0">무료</label>
                                 </td>
                             </tr>
                             <tr>
@@ -121,8 +123,9 @@ layout:decorate="~{/layout/userLayout}"> -->
                             <input type="submit" value="상품등록"/>
                         </p>
                     </form>
-                </article>                
+                </article>
             </section>
+            </form>
         </main>
         <footer>            
             <p>                
