@@ -25,6 +25,7 @@ public class User {
     private String role;
     private String sms;
     private String provider;
+    private String regIp;
 
     @CreationTimestamp
     private LocalDateTime rDate;

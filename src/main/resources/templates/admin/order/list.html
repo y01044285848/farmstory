@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layout/userLayout}"> -->
 <head>
     <meta charset="UTF-8">
     <title>팜스토리</title>
@@ -15,7 +16,7 @@
 <body>
     <div id="container">
         <header>
-            <a href="./index.html" class="logo"><img src="../../../static/images/admin/images/admin_logo.jpg" alt="로고"/></a>
+            <a th:href="@{/}" class="logo"><img src="../../../static/images/admin/images/admin_logo.jpg" alt="로고"/></a>
             <p>
                 <a href="#">HOME |</a>
                 <a href="#">로그아웃 |</a>
