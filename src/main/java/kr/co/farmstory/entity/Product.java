@@ -1,8 +1,6 @@
 package kr.co.farmstory.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter @ToString @NoArgsConstructor @AllArgsConstructor @Builder
@@ -10,6 +8,7 @@ import lombok.*;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pno;
     private String cate;
     private String pname;

@@ -18,5 +18,8 @@
         etc=#{etc}
     </insert>
 
+    <select id="selectProducts" resultType="kr.co.farmstory.dto.ProductDTO">
+        select * from `product`
+    </select>
 
 </mapper>
