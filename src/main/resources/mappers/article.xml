@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.farmstory.mapper.ArticleMapper">
+
+    <select id="selectArticles" resultType="kr.co.farmstory.dto.ArticleDTO">
+        select * from `article`
+        <where>
+            <if test="cate == 'notice'">cate=#{value}</if>
+            <if test="cate == 'menu'">cate=#{value}</if>
+            <if test="cate == 'chef'">cate=#{value}</if>
+            <if test="cate == 'qna'">cate=#{value}</if>
+            <if test="cate == 'faq'">cate=#{value}</if>
+            <if test="cate == 'event'">cate=#{value}</if>
+            <if test="cate == 'story'">cate=#{value}</if>
+            <if test="cate == 'grow'">cate=#{value}</if>
+            <if test="cate == 'school'">cate=#{value}</if>
+        </where>
+    </select>
+
+    <select id="selectArticleNick" resultType="kr.co.farmstory.dto.ArticleDTO">
+        SELECT nick FROM `user` AS a JOIN `article` AS b ON a.uid = b.uid WHERE ano=#{value}
+    </select>
+</mapper>

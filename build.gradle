@@ -43,6 +43,9 @@ dependencies {
 
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
+    // my batis로 페이지 처리를 위한 pagehelper사용
+    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:2.1.0'
 
 }
 

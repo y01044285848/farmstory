@@ -16,9 +16,11 @@ public class MarketController {
     private final ProductService productService;
 
     @GetMapping("/market/list")
-    public ResponseEntity<List<ProductDTO>> list(){
+    public String list(Model model){
+        List<ProductDTO> products = productService.selectProducts();
+        model.addAttribute("products",products);
 
-        return productService.selectProducts();
+        return "/market/list";
     }
 
     @GetMapping("/market/view")
