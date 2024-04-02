@@ -1,5 +1,6 @@
 package kr.co.farmstory.security;
 
+import kr.co.farmstory.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,20 +20,24 @@ import java.util.Map;
 @Builder
 public class MyUserDetails implements UserDetails {
 
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        // 계정이 갖는 권한 목록
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPass();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUid();
     }
 
     @Override

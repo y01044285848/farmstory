@@ -28,7 +28,7 @@ public class User {
     private String regIp;
 
     @CreationTimestamp
-    private LocalDateTime rDate;
+    private LocalDateTime rdate;
     private LocalDateTime leaveDate;
 
 }
