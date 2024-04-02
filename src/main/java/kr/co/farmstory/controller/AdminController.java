@@ -7,8 +7,11 @@ import kr.co.farmstory.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,7 +31,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin/product/list")
-    public String productlist(){
+    public String productlist(Model model){
+
+        List<ProductDTO> products = productService.selectProducts();
+        model.addAttribute("products", products);
+
         return "/admin/product/list";
     }
 
