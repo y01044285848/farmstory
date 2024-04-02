@@ -18,16 +18,18 @@ public class ProductService {
 
     private final ModelMapper modelMapper;
 
-    public ResponseEntity<List<ProductDTO>> selectProducts(){
+    public List<ProductDTO> selectProducts(){
 
         log.info("selectProduct...1");
         List<Product> productList = productRepository.findAll();
+        log.info("selectProduct...2");
 
         List<ProductDTO> productDTOS = productList.stream()
                 .map(entity-> modelMapper.map(entity, ProductDTO.class))
                 .toList();
+        log.info("selectProduct...3" + productDTOS);
 
-        return ResponseEntity.ok().body(productDTOS);
+        return productDTOS;
     }
 
 }

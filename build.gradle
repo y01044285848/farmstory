@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -39,6 +40,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.0'
+
+    // my batis로 페이지 처리를 위한 pagehelper사용
+    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:2.1.0'
+
 }
 
 tasks.named('test') {
