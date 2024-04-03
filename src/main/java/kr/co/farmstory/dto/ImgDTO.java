@@ -3,6 +3,8 @@ package kr.co.farmstory.dto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -13,8 +15,11 @@ public class ImgDTO {
 
     private int ino;
     private int pno;
-    private MultipartFile img1;
-    private MultipartFile img2;
-    private MultipartFile img3;
+
+    private String img1;
+    private String img2;
+    private String img3;
+
+    private List<MultipartFile> files;
 
 }

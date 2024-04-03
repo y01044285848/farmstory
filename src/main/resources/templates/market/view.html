@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <!-- Default Layout Import-->
 <html lang="en"
@@ -9,7 +5,20 @@
       layout:decorate="~{/common/layouts/defaultLayout}"
       layout:fragment="Content"
 >
+<script>
+    window.onload = function (){
+        const btnCart = document.getElementById('btnCart');
+        btnCart.onclick = function (e){
 
+            if(confirm("장바구니에 담으시겠습니까")) {
+                return true;
+            }else{
+                e.preventDefault();
+                return false;
+            }
+        }
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <title>팜스토리::장보기</title>
@@ -18,18 +27,18 @@
 
 
 <div id="sub">
-    <div><img th:src="@{../images/sub_top_tit2.png}" alt="MARKET"></div>
+    <div><img th:src="@{/images/sub_top_tit2.png}" alt="MARKET"></div>
     <section class="market">
         <aside>
-            <img th:src="@{../images/sub_aside_cate2_tit.png}" alt="장보기"/>
+            <img th:src="@{/images/sub_aside_cate2_tit.png}" alt="장보기"/>
 
             <ul class="lnb">
                 <li class="on"><a th:href="@{/market/list}">장보기</a></li>
             </ul>
         </aside>
-        <article class="order">
+        <article class="view">
             <nav>
-                <img th:src="@{../images/sub_nav_tit_cate2_tit1.png}" alt="장보기"/>
+                <img th:src="@{/images/sub_nav_tit_cate2_tit1.png}" alt="장보기"/>
                 <p>
                     HOME > 장보기 > <em>장보기</em>
                 </p>
@@ -38,7 +47,7 @@
             <!-- 내용 시작 -->
             <h3>기본정보</h3>
             <div class="basic">
-                <img th:src="@{../images/market_item_thumb.jpg}" alt="딸기 500g">
+                <img th:src="@{/images/market_item_thumb.jpg}" alt="딸기 500g">
 
                 <table border="0">
                     <tr>
@@ -77,13 +86,13 @@
                 </table>
 
                 <div style="float: right; margin-top: 10px;">
-                    <a th:href="@{/cart}" id="btnCart" class="btn btnCart">장바구니</a>
-                    <a th:href="@{/order}" id="btnOrder" class="btn btnOrder">바로구매</a>
+                    <a th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
+                    <a th:href="@{/market/order}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>
             </div>
             <h3>상품설명</h3>
             <div class="detail">
-                <img th:src="@{../images/market_detail_sample.jpg}" alt="">
+                <img th:src="@{/images/market_detail_sample.jpg}" alt="">
 
             </div>
 

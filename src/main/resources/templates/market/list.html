@@ -59,8 +59,9 @@
                     <td class="discount">[[${product.discount}]]%</td>
                     <td class="point">[[${product.point}]]</td>
                     <td class="price">
-                        <strong>[[${product.price}]]</strong>
-                        <del>4,000</del>
+
+                        <strong>[[${product.price} - (${product.price} / 100 * ${product.discount})]]</strong></br>
+                        <del>[[${product.price}]]</del>
                     </td>
                 </tr>
                 </tbody>

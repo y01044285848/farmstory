@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.entity.Product;
 import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
 import kr.co.farmstory.service.ProductService;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class AdminController {
     private final UserService userService;
 
 
-    @GetMapping(value = {"/admin/","/admin/index"})
+    @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
 
         List<UserDTO> users = userService.selectUsers();
@@ -137,17 +139,21 @@ public class AdminController {
 
         log.info(""+productDTO);
 
+        List<MultipartFile> files = new ArrayList<>();
+        files.add(fileA);
+        files.add(fileB);
+        files.add(fileC);
+
         ImgDTO imgDTO = new ImgDTO();
+
         imgDTO.setPno(productDTO.getPno());
-        imgDTO.setImg1(fileA);
-        imgDTO.setImg2(fileB);
-        imgDTO.setImg3(fileC);
-
-        imgService.imgUpload(imgDTO);
-
-        productService.insertProduct(productDTO);
+        imgDTO.setFiles(files);
 
 
+        imgService.imgUpload(imgDTO, productDTO.getCate());
+        Product product = productService.insertProduct(productDTO);
+        imgDTO.setPno(product.getPno());
+        imgService.insertImg(imgDTO);
 
         return "redirect:/admin/product/register?success=200";
     }

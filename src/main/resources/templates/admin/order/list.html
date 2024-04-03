@@ -16,10 +16,10 @@ layout:decorate="~{/layout/userLayout}"> -->
 <body>
     <div id="container">
         <header>
-            <a th:href="@{/}" class="logo"><img src="../../../static/images/admin/images/admin_logo.jpg" alt="로고"/></a>
+            <a th:href="@{/admin}" class="logo"><img th:src="@{/images/admin/images/admin_logo.jpg}" alt="로고"/></a>
             <p>
                 <a th:href="@{/}">HOME |</a>
-                <a href="#">로그아웃 |</a>
+                <a th:href="@{/user/logout}">로그아웃 |</a>
                 <a href="#">고객센터</a>
             </p>
         </header>
@@ -84,7 +84,7 @@ layout:decorate="~{/layout/userLayout}"> -->
         </main>
         <footer>            
             <p>                
-                Copyright(C)Farmstory All rights reserved. FARMSTORY ADMINISTRATOR Version 1.0.1
+                Copyright(C)Farmstory All rights reserved. FARMSTORY ADMINISTRATOR Version 1.0.2
             </p>
         </footer>
         

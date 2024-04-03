@@ -60,9 +60,10 @@ public class ProductService {
     }
 
     //상품 등록
-    public void insertProduct(ProductDTO productDTO) {
+    public Product insertProduct(ProductDTO productDTO) {
 
-
-
+        Product product = modelMapper.map(productDTO, Product.class);
+        Product savedProduct = productRepository.save(product);
+        return savedProduct;
     }
 }
