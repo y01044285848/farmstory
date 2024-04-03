@@ -5,6 +5,21 @@
 
 <mapper namespace="kr.co.farmstory.mapper.AdminMapper">
 
+    <insert id="insertAdmin">
+        insert into user set
+        uid=#{uid},
+        pass=#{pass},
+        name=#{name},
+        nick=#{nick},
+        email=#{email},
+        hp=#{hp},
+        zip=#{zip},
+        addr1=#{addr1},
+        addr2=#{addr2},
+        regip=#{regip},
+        role=#{role},
+        rdate=NOW()
+    </insert>
 
 
 

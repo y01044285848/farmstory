@@ -4,6 +4,7 @@ import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,17 @@ import java.util.List;
 public class AdminService {
 
     private final AdminMapper adminMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserDTO> selectUsers(String uid){
         return adminMapper.selectUsers(uid);
 
+    }
+
+    public void insertAdmin(UserDTO userDTO){
+        String encoded = passwordEncoder.encode(userDTO.getPass());
+        userDTO.setPass(encoded);
+        adminMapper.insertAdmin(userDTO);
     }
 
 

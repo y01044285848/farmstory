@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ProductService;
 import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,9 @@ import java.util.Map;
 @Controller
 public class AdminController {
 
-    private final UserService userService;
+    private final AdminService adminService;
     private final ProductService productService;
+    private final UserService userService;
 
     @GetMapping(value = {"/admin/","/admin/index"})
     public String admin(Model model){
@@ -54,11 +56,11 @@ public class AdminController {
         String regIp = req.getRemoteAddr();
         userDTO.setRegip(regIp);
 
-        userDTO.setRole("USER");
-        userService.insertUser(userDTO);
+        log.info(userDTO.getRole());
+        adminService.insertAdmin(userDTO);
         log.info(userDTO.toString());
 
-        return "redirect: /admin/user/login?success=200";
+        return "redirect:/user/login?success=200";
 
     }
 
