@@ -15,7 +15,7 @@ layout:decorate="~{/layout/userLayout}"> -->
 <body>
     <div id="container">
         <header>
-            <a th:href="@{/}" class="logo"><img src="../../static/images/admin/images/admin_logo.jpg" alt="로고"/></a>
+            <a th:href="@{/}" class="logo"><img th:src="@{/static/images/admin/images/admin_logo.jpg}" alt="로고"/></a>
             <p>
                 <a th:href="@{/}">HOME |</a>
                 <a th:href="@{/user/login}">로그아웃 |</a>
@@ -56,7 +56,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                 </nav>
                 <article>
                     <h3>
-                        <a href="#">회원현황</a>
+                        <a th:href="@{/admin/user/list}">회원현황</a>
                         <a href="#" class="more">+ 더보기</a>
                     </h3>
                     <table border="0">
@@ -69,32 +69,14 @@ layout:decorate="~{/layout/userLayout}"> -->
                             <th>등급</th>
                             <th>회원가입일</th>
                         </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
+                        <tr th:each="user : ${users}">
+                            <td>[[${user.uid}]]</td>
+                            <td>[[${user.name}]]</td>
+                            <td>[[${user.nick}]]</td>
+                            <td>[[${user.hp}]]</td>
+                            <td>[[${user.email}]]</td>
+                            <td>[[${user.role}]]</td>
+                            <td th:text="${#temporals.format(user.rdate, 'yy-MM-dd')}"></td>
                         </tr>
                     </table>
                 </article>
@@ -113,30 +95,14 @@ layout:decorate="~{/layout/userLayout}"> -->
                             <th>재고</th>
                             <th>등록일</th>
                         </tr>
-                        <tr>
-                            <td>1011</td>
-                            <td>사과 500g</td>
-                            <td>과일</td>
-                            <td>4,000원</td>
-                            <td>100</td>
-                            <td>2023-01-01</td>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.pno}"></td>
+                            <td>[[${product.pname}]]</td>
+                            <td>[[${product.cate}]]</td>
+                            <td>[[${product.price}]]</td>
+                            <td>[[${product.stock}]]</td>
+                            <td th:text="${#temporals.format(product.rdate, 'yy-MM-dd')}"></td>
                         </tr>
-                        <tr>
-                            <td>1011</td>
-                            <td>사과 500g</td>
-                            <td>과일</td>
-                            <td>4,000원</td>
-                            <td>100</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>1011</td>
-                            <td>사과 500g</td>
-                            <td>과일</td>
-                            <td>4,000원</td>
-                            <td>100</td>
-                            <td>2023-01-01</td>
-                        </tr>                        
                     </table>
                 </article>
 

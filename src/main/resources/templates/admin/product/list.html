@@ -52,7 +52,7 @@
                             <th>재고</th>
                             <th>등록일</th>
                         </tr>
-                        <tr th:each="product:${products}">
+                        <tr th:each="product: ${products}">
                             <td><input type="checkbox" name=""/></td>
                             <td><img src="./images/sample_item1.jpg" class="thumb" alt="샘플1"></td>
                             <td>[[${product.pno}]]</td>
@@ -60,7 +60,8 @@
                             <td>[[${product.cate}]]</td>
                             <td>[[${product.price}]]</td>
                             <td>[[${product.stock}]]</td>
-                            <td>2023-01-01</td>
+                            <td th:text="${#temporals.format(product.rdate, 'yyyy-MM-dd')}"></td>
+
                         </tr>
                     </table>
 

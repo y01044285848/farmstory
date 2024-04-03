@@ -11,5 +11,11 @@ public interface AdminMapper {
 
     public void insertProduct(ProductDTO productDTO);
     public List<ProductDTO> selectProduct();
-    public List<UserDTO> selectUsers(String uid);
+    
+    // adminIndex 상품 목록 표시
+    public List<ProductDTO> indexProducts();
+
+    // adminIndex 회원 목록 표시
+    public List<UserDTO> selectUsers();
+
 }

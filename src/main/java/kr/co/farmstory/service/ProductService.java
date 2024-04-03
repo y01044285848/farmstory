@@ -1,20 +1,17 @@
 package kr.co.farmstory.service;
 
-import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
-import kr.co.farmstory.entity.Img;
+
+
 import kr.co.farmstory.entity.Product;
-import kr.co.farmstory.mapper.AdminMapper;
-import kr.co.farmstory.mapper.UserMapper;
-import kr.co.farmstory.repository.ImgRepository;
+
 import kr.co.farmstory.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +19,6 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    private final ImgService imgService;
-    private final ImgRepository imgRepository;
-
-    private final AdminMapper adminMapper;
 
     private final ModelMapper modelMapper;
 
@@ -66,10 +58,6 @@ public class ProductService {
 
         return productDTO;
     }
-
-
-
-
 
     //상품 등록
     public void insertProduct(ProductDTO productDTO) {
