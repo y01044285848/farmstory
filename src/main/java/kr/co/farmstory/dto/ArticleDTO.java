@@ -1,8 +1,10 @@
 package kr.co.farmstory.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +26,8 @@ public class ArticleDTO {
     private LocalDateTime rdate;
     private int file;
 
+    private List<MultipartFile> files;
+
+    private List<FileDTO> filelist;
 
 }

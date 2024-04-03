@@ -18,9 +18,11 @@
             <if test="cate == 'grow'">cate=#{value}</if>
             <if test="cate == 'school'">cate=#{value}</if>
         </where>
+        ORDER BY `ano` DESC
     </select>
 
     <select id="selectArticleNick" resultType="kr.co.farmstory.dto.ArticleDTO">
         SELECT nick FROM `user` AS a JOIN `article` AS b ON a.uid = b.uid WHERE ano=#{value}
     </select>
+
 </mapper>
