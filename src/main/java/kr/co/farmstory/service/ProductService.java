@@ -36,9 +36,9 @@ public class ProductService {
         return productDTOS;
     }
 
-    public void insertProduct(ProductDTO productDTO){
+    public void insertProduct(ProductDTO productDTO, String uid){
 
-        adminMapper.insertProduct(productDTO);
+        adminMapper.insertProduct(productDTO, uid);
 
     }
 
