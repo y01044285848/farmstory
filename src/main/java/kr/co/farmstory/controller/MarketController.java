@@ -24,7 +24,11 @@ public class MarketController {
     }
 
     @GetMapping("/market/view")
-    public String view(){
+    public String view(Model model, Integer pno){
+
+        ProductDTO productDTO = productService.findById(pno);
+
+        model.addAttribute(productDTO);
         return "/market/view";
     }
 

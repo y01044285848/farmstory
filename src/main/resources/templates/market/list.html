@@ -52,10 +52,10 @@
                 <tbody>
                 <tr th:each="product:${products}">
                     <td>
-                        <a th:href="@{/view}"><img th:src="@{/images/market_item1.jpg}" alt="사과 500g"></a>
+                        <a th:href="@{/market/view}"><img th:src="@{/images/market_item1.jpg}" alt="사과 500g"></a>
                     </td>
                     <td class="type">[[${product.cate}]]</td>
-                    <td class="title"><a th:href="@{#}"></a>[[${product.pname}]]</td>
+                    <td class="title"><a th:href="@{/market/view(pno=${product.pno})}">[[${product.pname}]]</a></td>
                     <td class="discount">[[${product.discount}]]%</td>
                     <td class="point">[[${product.point}]]</td>
                     <td class="price">
