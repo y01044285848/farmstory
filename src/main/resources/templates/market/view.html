@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <title>팜스토리::장보기</title>
-    <link rel="stylesheet" th:href="@{../css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 
 
@@ -43,22 +43,22 @@
                 <table border="0">
                     <tr>
                         <td>상품명</td>
-                        <td>딸기 500g</td>
+                        <td>[[${productDTO.pname}]]</td>
                     </tr>
                     <tr>
                         <td>상품코드</td>
-                        <td>01</td>
+                        <td>[[${productDTO.pno}]]</td>
                     </tr>
                     <tr>
                         <td>배송비</td>
                         <td>
-                            <span>5,000</span>원
+                            <span>[[${productDTO.delprice}]]</span>원
                             <em>3만원 이상 무료배송</em>
                         </td>
                     </tr>
                     <tr>
                         <td>판매가격</td>
-                        <td>4,000원</td>
+                        <td>[[${productDTO.price}]]</td>
                     </tr>
                     <tr>
                         <td>구매수량</td>
@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td>합계</td>
-                        <td class="total">4,000원</td>
+                        <td class="total" th:text="${productDTO.delprice} + ${productDTO.price}"></td>
                     </tr>
                     <style>
 
