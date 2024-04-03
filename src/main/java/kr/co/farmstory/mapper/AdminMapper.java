@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
 
-    public void insertProduct(ProductDTO productDTO, String uid);
+    public void insertProduct(ProductDTO productDTO);
     public List<ProductDTO> selectProduct();
     public List<UserDTO> selectUsers(String uid);
 }
