@@ -24,9 +24,9 @@ public class UserDTO {
     private String role;
     private String sms;
     private String provider;
-    private String regIp;
+    private String regip;
 
     @CreationTimestamp
-    private LocalDateTime rDate;
-    private LocalDateTime leaveDate;
+    private LocalDateTime rdate;
+    private LocalDateTime ddate;
 }

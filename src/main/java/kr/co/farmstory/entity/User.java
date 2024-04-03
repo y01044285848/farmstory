@@ -27,10 +27,10 @@ public class User {
     private String role;
     private String sms;
     private String provider;
-    private String regIp;
+    private String regip;
 
     @CreationTimestamp
     private LocalDateTime rdate;
-    private LocalDateTime leaveDate;
+    private LocalDateTime ddate;
 
 }

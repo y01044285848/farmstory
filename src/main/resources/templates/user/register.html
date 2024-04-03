@@ -55,11 +55,21 @@
             font-size: 11px;
         }
 
+        .checkEmailCode {
+            width: 70px;
+            height: 20px;
+            font-size: 11px;
+            line-height: 11px;
+            border-radius: 5px;
+            background-color: #005793;
+            color: #fff;
+        }
 
     </style>
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+
         window.onload = function () {
 
             // 아이디 중복 체크
@@ -240,8 +250,15 @@
             // 우편번호 주소검색
             // 다음 우편번호 API 스크립트 상단 추가, postcode 함수 util.js 파일 추가
             const inputZip = document.getElementById('inputZip');
+            const zipBtn = document.getElementById('zipBtn');
+            zipBtn.onclick = function (e) {
+                e.preventDefault();
+                alert('클릭금지!');
+            }
+
             inputZip.onclick = function (){
                 postcode();
+                console.log("postcode");
             }
 
 
@@ -374,7 +391,7 @@
                                     readonly
                                     id="inputZip"
                             />
-                            <button>
+                            <button id="zipBtn">
                                 <img th:src="@{../images/user/chk_post.gif}" alt="우편번호 검색" />
                             </button>
                         </div>

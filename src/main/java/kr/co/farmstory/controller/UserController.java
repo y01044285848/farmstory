@@ -40,8 +40,8 @@ public class UserController {
     @PostMapping("/user/register")
     public String registerUser(HttpServletRequest req, UserDTO userDTO) {
 
-        String regIp = req.getRemoteAddr();
-        userDTO.setRegIp(regIp);
+        String regip = req.getRemoteAddr();
+        userDTO.setRegip(regip);
 
         userDTO.setRole("USER");
         userService.insertUser(userDTO);
