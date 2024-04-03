@@ -46,28 +46,7 @@ public class ProductService {
 
     public void insertProduct(ProductDTO productDTO) {
 
-        List<ImgDTO> imgs = imgService.imgUpload(productDTO);
 
-        productDTO.setImg(imgs.size());
-
-        // articleDTO를 articleEntity로 변환
-        Product product = modelMapper.map(productDTO, Product.class);
-        log.info(product.toString());
-
-        // 저장 후 저장한 엔티티 객체 반환(사실 JPA sava() 메서드는 default로 저장한 Entity를 반환)
-        Product savedProduct = productRepository.save(product);
-        log.info("insertProduct : " + savedProduct.toString());
-
-        // 파일 insert
-        for (ImgDTO imgDTO : imgs) {
-
-            imgDTO.setIno(savedProduct.getPno());
-
-            // 여기서 에러나는데 RootConfig 파일에 ModelMapper 설정에 이거 추가 -> .setMatchingStrategy(MatchingStrategies.STRICT)
-            Img img = modelMapper.map(imgDTO, Img.class);
-
-            imgRepository.save(img);
-        }
 
     }
 }

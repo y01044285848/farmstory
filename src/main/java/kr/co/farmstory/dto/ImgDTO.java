@@ -1,6 +1,7 @@
 package kr.co.farmstory.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -12,8 +13,8 @@ public class ImgDTO {
 
     private int ino;
     private int pno;
-    private String img1;
-    private String img2;
-    private String img3;
+    private MultipartFile img1;
+    private MultipartFile img2;
+    private MultipartFile img3;
 
 }

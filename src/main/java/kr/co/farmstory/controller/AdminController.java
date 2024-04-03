@@ -2,6 +2,7 @@ package kr.co.farmstory.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.service.ImgService;
@@ -34,6 +35,7 @@ public class AdminController {
 
     private final UserService userService;
     private final ProductService productService;
+    private final ImgService imgService;
 
     @GetMapping(value = {"/admin/","/admin/index"})
     public String admin(Model model){
@@ -123,19 +125,25 @@ public class AdminController {
     }
 
     @GetMapping("/admin/product/register")
-    public String productregister(){
+    public String productRegister(){
         return "/admin/product/register";
     }
 
     @PostMapping("/admin/product/register")
-    public String productregister(ProductDTO productDTO){
-
-
-
+    public String productRegister(ProductDTO productDTO,
+                                  @RequestParam("imgMain") MultipartFile fileA,
+                                  @RequestParam("imgSub1") MultipartFile fileB,
+                                  @RequestParam("imgSub2") MultipartFile fileC){
 
         log.info(""+productDTO);
 
+        ImgDTO imgDTO = new ImgDTO();
+        imgDTO.setPno(productDTO.getPno());
+        imgDTO.setImg1(fileA);
+        imgDTO.setImg2(fileB);
+        imgDTO.setImg3(fileC);
 
+        imgService.imgUpload(imgDTO);
 
         productService.insertProduct(productDTO);
 
