@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,12 +30,13 @@ public class UserController {
     }
 
     @GetMapping("/user/register")
-    public String register() {
+    public String register(String sms, Model model) {
+        model.addAttribute("sms", sms);
         return "/user/register";
     }
 
     @PostMapping("/user/register")
-    public String registerUser(HttpServletRequest req, UserDTO userDTO) {
+    public String registerUser(HttpServletRequest req, UserDTO userDTO, @RequestParam String sms) {
 
         String regip = req.getRemoteAddr();
         userDTO.setRegip(regip);
@@ -47,9 +45,11 @@ public class UserController {
         userService.insertUser(userDTO);
         log.info(userDTO.toString());
 
+
         return "redirect:/user/login?success=200";
 
     }
+
 
     @ResponseBody
     @GetMapping("/user/{type}/{value}")
