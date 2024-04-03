@@ -26,6 +26,13 @@ layout:decorate="~{/layout/userLayout}"> -->
             <aside>
                 <h3>주요기능</h3>
                 <ul>
+                    <li>
+                        <span>회원관리</span>
+                        <ol>
+                            <li><a th:href="@{/admin/user/list}">회원목록</a></li>
+                            <li><a th:href="@{/admin/user/register}">관리자등록</a></li>
+                        </ol>
+                    </li>
                     <li>                        
                         <span>상품관리</span>
                         <ol>
@@ -40,19 +47,57 @@ layout:decorate="~{/layout/userLayout}"> -->
                             <li><a th:href="@{/admin/order/delivery}">배송관리</a></li>
                         </ol>
                     </li>
-                    <li>                        
-                        <span>회원관리</span>
-                        <ol>
-                            <li><a th:href="@{/admin/user/list}">회원목록</a></li>
-                            <li><a th:href="@{/admin/user/register}">회원등록</a></li>
-                        </ol>
-                    </li>
+
                 </ul>
             </aside>
             <section>
                 <nav>
                     <h3>관리자 메인</h3>
                 </nav>
+                <article>
+                    <h3>
+                        <a href="#">회원현황</a>
+                        <a href="#" class="more">+ 더보기</a>
+                    </h3>
+                    <table border="0">
+                        <tr>
+                            <th>회원아이디</th>
+                            <th>이름</th>
+                            <th>닉네임</th>
+                            <th>휴대폰</th>
+                            <th>이메일</th>
+                            <th>등급</th>
+                            <th>회원가입일</th>
+                        </tr>
+                        <tr>
+                            <td>a101</td>
+                            <td>김유신</td>
+                            <td>유신123</td>
+                            <td>010-1234-1001</td>
+                            <td>yusin123@naver.com</td>
+                            <td>2</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>a101</td>
+                            <td>김유신</td>
+                            <td>유신123</td>
+                            <td>010-1234-1001</td>
+                            <td>yusin123@naver.com</td>
+                            <td>2</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>a101</td>
+                            <td>김유신</td>
+                            <td>유신123</td>
+                            <td>010-1234-1001</td>
+                            <td>yusin123@naver.com</td>
+                            <td>2</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                    </table>
+                </article>
 
                 <article>
                     <h3>
@@ -143,50 +188,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                         </tr>
                     </table>
                 </article>
-                <article>
-                    <h3>
-                        <a href="#">회원현황</a>
-                        <a href="#" class="more">+ 더보기</a>
-                    </h3>
-                    <table border="0">
-                        <tr>
-                            <th>회원아이디</th>
-                            <th>이름</th>
-                            <th>닉네임</th>
-                            <th>휴대폰</th>
-                            <th>이메일</th>
-                            <th>등급</th>
-                            <th>회원가입일</th>
-                        </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>a101</td>
-                            <td>김유신</td>
-                            <td>유신123</td>
-                            <td>010-1234-1001</td>
-                            <td>yusin123@naver.com</td>
-                            <td>2</td>
-                            <td>2023-01-01</td>
-                        </tr>                        
-                    </table>
-                </article>
+
             </section>
         </main>
         <footer>            
