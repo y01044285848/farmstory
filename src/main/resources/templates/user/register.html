@@ -17,33 +17,21 @@
     <script th:src="@{/js/util.js}"></script>
     <link rel="stylesheet" href="../css/style.css"/>
     <style>
-        #user > img {
-            display: block;
-            margin: 20px auto;
-        }
-
-        .regInput {
-            display: flex;
-        }
+        .regInput {display: flex;}
 
         .regBtn {
             padding-left: 10px;
             background-color: inherit;
         }
 
-        .resultText {
-            width: auto;
-        }
+        .resultText {width: auto;}
 
         h5 {
             font-size: 11px;
             font-weight: bold;
             color: #585858;
         }
-
-        .valid-feedback {
-            display: block;
-        }
+        .valid-feedback {display: block;}
 
         .invalid-feedback {
             color: #ff2d43;
@@ -65,14 +53,51 @@
             color: #fff;
         }
 
+        .emailChkBtn {
+            width: 80px;
+            height: 20px;
+            background-color: dimgrey;
+            color: #fff;
+            padding: 3px;
+            margin-left: 5px;
+            margin-top: 6px;
+            border-radius: 3px;
+        }
+
+        .emailChkBtn:hover {
+            background-color: #005b91;
+            transition: 0.3s;
+        }
+
+        .emailChkBtn span {font-size: 11px;}
+
     </style>
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
 
+        //유효성 검사에 사용할 상태변수
+        let isUidOk   = false;
+        let isPassOk  = false;
+        let isNameOk  = false;
+        let isNickOk  = false;
+        let isEmailOk = false;
+        let isHpOk    = false;
+
+        // 유효성 검사에 사용할 정규표현식
+        const reUid   = /^[a-z]+[a-z0-9]{3,19}$/g;
+        const rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
+        const reName  = /^[가-힣]{2,10}$/
+        const reNick  = /^[a-zA-Zㄱ-힣0-9][a-zA-Zㄱ-힣0-9]*$/;
+        const reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        const reHp    = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
+
+
+
+
         window.onload = function () {
 
-            // 아이디 중복 체크
+            // 아이디
             const inputUid = document.getElementsByClassName('inputUid');
             const resultUid = document.getElementById('resultUid');
             const btnCheckUid = document.getElementById('btnCheckUid');
@@ -84,7 +109,19 @@
 
                 console.log('value : ' + value);
 
+                // 아이디 정규식 검사
+                if(!value.match(reUid)){
+                    resultUid.classList.remove('green');
+                    resultUid.classList.add('invalid-feedback');
+                    showInputInvalid(inputUid);
+                    showResultInvalid(resultUid, '아이디 형식이 맞지 않습니다.')
+                    isUidOk = false;
+                    return;
+                }
+                spinner.classList.remove('d-none');
 
+
+                // 아이디 중복 체크
                 spinner.classList.remove('d-none');
 
                 setTimeout(async () => {
@@ -108,8 +145,64 @@
                 }, 1000);
 
             }
-            // 닉네임 중복 체크
 
+            // 비밀번호 유효성 검사
+            const inputPasses = document.getElementsByClassName('inputPass');
+            const resultPass = document.getElementById('resultPass');
+
+            inputPasses[1].addEventListener('focusout', ()=>{
+
+                if(inputPasses[0].value == inputPasses[1].value){
+
+                    if(!inputPasses[0].value.match(rePass)){
+                        resultPass.classList.remove('green');
+                        resultPass.classList.add('invalid-feedback');
+                        showInputInvalid(inputPasses);
+                        showResultInvalid(resultPass, '비밀번호 형식에 맞지 않습니다.');
+                        isPassOk = false;
+                    }else{
+                        resultPass.classList.remove('invalid-feedback');
+                        resultPass.classList.add('green');
+                        showInputValid(inputPasses);
+                        showResultValid(resultPass, '사용 가능한 비밀번호 입니다.');
+                        isPassOk = true;
+                    }
+
+                }else{
+                    resultPass.classList.remove('green');
+                    resultPass.classList.add('invalid-feedback');
+                    showInputInvalid(inputPasses);
+                    showResultInvalid(resultPass, '비밀번호가 일치하지 않습니다.');
+                    isPassOk = false;
+                }
+            });
+
+
+            // 이름 유효성 검사
+            const inputNames = document.getElementsByClassName('inputName');
+            const resultName = document.getElementById('resultName');
+
+            inputNames[0].addEventListener('focusout', ()=>{
+
+                const value = inputNames[0].value;
+
+                if(!value.match(reName)){
+                    resultName.classList.remove('green');
+                    resultName.classList.add('invalid-feedback');
+                    showInputInvalid(inputNames);
+                    showResultInvalid(resultName, '이름 형식이 맞지 않습니다.');
+                    isNameOk = false;
+                }else{
+                    resultName.classList.remove('green');
+                    resultName.classList.add('invalid-feedback');
+                    showInputValid(inputNames);
+                    showResultValid(resultName, '');
+                    isNameOk = true;
+                }
+            });
+
+
+            // 별명 중복 체크
             const inputNick = document.getElementsByClassName('inputNick');
             const resultNick = document.getElementById('resultNick');
             const btnCheckNick = document.getElementById('btnCheckNick');
@@ -121,6 +214,17 @@
 
                 console.log('value : ' + value);
 
+                // 별명 정규식 검사
+                if(!value.match(reNick)){
+                    resultNick.classList.remove('green');
+                    resultNick.classList.add('invalid-feedback');
+                    showInputInvalid(inputNick);
+                    showResultInvalid(resultNick, '닉네임 형식이 맞지 않습니다.');
+                    isNickOk = false;
+                    return;
+                }
+
+                // 별명 중복 체크
                 spinner.classList.remove('d-none');
 
                 setTimeout(async () => {
@@ -136,7 +240,6 @@
                     }else {
                         spinner.classList.add('d-none');
                         resultNick.classList.remove('invalid-feedback');
-                        //resultNick.classList.add('valid-feedback');
                         resultNick.classList.add('green');
                         showInputInvalid(inputNick);
                         showResultValid(resultNick, '사용 가능한 닉네임 입니다.');
@@ -146,44 +249,8 @@
 
             }
 
-            // 휴대폰 중복 체크
-            const inputHp = document.getElementsByClassName('inputHp');
-            const resultHp = document.getElementById('resultHp');
-            const btnCheckHp = document.getElementById('btnCheckHp');
 
-            btnCheckHp.onclick = function (){
-                const type = this.dataset.type;
-                const value = inputHp[0].value;
-                const spinner = this.getElementsByClassName('spinner')[0];
-
-                console.log('value : ' + value);
-
-                spinner.classList.remove('d-none');
-
-                setTimeout(async () => {
-                    const data = await fetchGet(`/farmstory/user/${type}/${value}`);
-                    console.log(data);
-
-                    if(data.result > 0){
-                        spinner.classList.add('d-none');
-                        resultHp.classList.remove('green');
-                        resultHp.classList.add('invalid-feedback');
-                        showInputInvalid(inputHp);
-                        showResultInvalid(resultHp, '이미 사용중인 휴대폰 입니다.');
-
-                    }else{
-                        spinner.classList.add('d-none');
-                        resultHp.classList.remove('invalid-feedback');
-                        resultHp.classList.add('green');
-                        showInputValid(inputHp);
-                        showResultValid(resultHp, '사용 가능한 휴대폰 입니다.');
-
-                    }
-                }, 1000);
-
-            }
-
-            // 이메일 중복 체크
+            // 이메일 체크
             const inputEmail = document.getElementsByClassName('inputEmail');
             const resultEmail = document.getElementById('resultEmail');
             const btnCheckEmail = document.getElementById('btnCheckEmail');
@@ -194,6 +261,16 @@
                 const type      = this.dataset.type;
                 const value     = inputEmail[0].value;
                 const spinner   = this.getElementsByClassName('spinner')[0];
+
+                // 이메일 유효성 검사
+                if(!value.match(reEmail)){
+                    resultEmail.classList.remove('green');
+                    resultEmail.classList.add('invalid-feedback');
+                    showInputInvalid(inputEmail);
+                    showResultInvalid(resultEmail, '이메일 형식이 맞지 않습니다.');
+                    isEmailOk = false;
+                    return;
+                }
 
                 spinner.classList.remove('d-none');
                 // 이메일 인증코드 발급 및 중복 체크
@@ -229,15 +306,20 @@
             btnCheckEmailCode.onclick = async function (){
 
                 const value = inputEmailCode[0].value;
+                console.log(value);
 
                 const data = await fetchGet(`/farmstory/email/${value}`);
 
                 if(!data.result){
+                    resultEmail.classList.remove('green');
+                    resultEmail.classList.add('invalid-feedback');
                     showInputInvalid(inputEmail);
                     showInputInvalid(inputEmailCode);
                     showResultInvalid(resultEmail, '인증코드가 일치하지 않습니다.');
 
                 }else{
+                    resultEmail.classList.remove('invalid-feedback');
+                    resultEmail.classList.add('green');
                     showInputValid(inputEmail);
                     showInputValid(inputEmailCode);
                     showResultValid(resultEmail, '이메일이 인증되었습니다.');
@@ -247,18 +329,66 @@
             }
 
 
+
+            // 휴대폰
+            const inputHp = document.getElementsByClassName('inputHp');
+            const resultHp = document.getElementById('resultHp');
+            const btnCheckHp = document.getElementById('btnCheckHp');
+
+            btnCheckHp.onclick = function (){
+                const type = this.dataset.type;
+                const value = inputHp[0].value;
+                const spinner = this.getElementsByClassName('spinner')[0];
+
+                console.log('value : ' + value);
+
+                // 휴대폰 정규식 검사
+                if(!value.match(reHp)){
+                    resultHp.classList.remove('green');
+                    resultHp.classList.add('invalid-feedback');
+                    showInputInvalid(inputHp);
+                    showResultInvalid(resultHp, '휴대폰 형식이 맞지 않습니다.');
+                    isHpOk = false;
+                    return;
+                }
+
+                // 휴대폰 중복 체크
+                spinner.classList.remove('d-none');
+                setTimeout(async () => {
+                    const data = await fetchGet(`/farmstory/user/${type}/${value}`);
+                    console.log(data);
+
+                    if(data.result > 0){
+                        spinner.classList.add('d-none');
+                        resultHp.classList.remove('green');
+                        resultHp.classList.add('invalid-feedback');
+                        showInputInvalid(inputHp);
+                        showResultInvalid(resultHp, '이미 사용중인 휴대폰 입니다.');
+
+                    }else{
+                        spinner.classList.add('d-none');
+                        resultHp.classList.remove('invalid-feedback');
+                        resultHp.classList.add('green');
+                        showInputValid(inputHp);
+                        showResultValid(resultHp, '사용 가능한 휴대폰 입니다.');
+
+                    }
+                }, 1000);
+
+            }
+
+
             // 우편번호 주소검색
-            // 다음 우편번호 API 스크립트 상단 추가, postcode 함수 util.js 파일 추가
+            // 다음 우편번호 API 스크립트 상단 추가
             const inputZip = document.getElementById('inputZip');
             const zipBtn = document.getElementById('zipBtn');
+
             zipBtn.onclick = function (e) {
                 e.preventDefault();
-                alert('클릭금지!');
             }
 
             inputZip.onclick = function (){
                 postcode();
-                console.log("postcode");
             }
 
 
@@ -277,6 +407,7 @@
                         <div class="regInput">
                             <input type="text" name="uid" id="inputUid" class="inputUid" placeholder="아이디 입력" required/>
                             <div id="resultUid" class="resultText"></div>
+
                             <button class="regBtn" type="button" id="btnCheckUid" data-type="uid">
                                 <span class="spinner spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
                                 <img th:src="@{../images/user/chk_id.gif}" alt="아이디 중복체크"/>
@@ -294,7 +425,10 @@
                                 type="password"
                                 name="pass"
                                 placeholder="비밀번호 입력"
+                                class="inputPass"
+                                id="inputPass1"
                         />
+                        <div id="resultPass" class="d-block"></div>
                     </td>
                 </tr>
                 <tr>
@@ -305,6 +439,8 @@
                                 type="password"
                                 name="pass2"
                                 placeholder="비밀번호 입력 확인"
+                                class="inputPass"
+                                id="inputPass2"
                         />
                         <span class="result_pass"></span>
                     </td>
@@ -317,7 +453,8 @@
                 <tr>
                     <td>이름</td>
                     <td>
-                        <input type="text" name="name" placeholder="이름 입력" required />
+                        <input type="text" class="inputName" id="inputName" name="name" placeholder="이름 입력" required />
+                        <div id="resultName" class="d-block"></div>
                     </td>
                 </tr>
                 <tr>
@@ -346,10 +483,20 @@
                                 <img th:src="@{../images/user/chk_id.gif}" alt="이메일 중복체크"/>
                                 <span class="resultEmail"></span>
                             </button>
-                            <!--이메일 인증코드 폼 생성-->
-                            <div id="divEmailCode" class="d-block">
-                                <input type="text" placeholder="이메일 인증코드 입력">
-                                <button class="checkEmailCode">이메일인증</button>
+                        </div>
+                        <!--이메일 인증코드 필드-->
+                        <div id="divEmailCode" class="row d-none">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input id="inputEmailCode" class="mt-2 inputEmailCode" name="code" type="text" placeholder="이메일 인증코드 입력"/>
+                                </div>
+                                <div id="resultEmailCode" class="d-block"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="emailChkBtn" id="btnCheckEmailCode" data-type="email">
+                                    <span class="spinner spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+                                    <span class="" role="status">인증코드 확인</span>
+                                </button>
                             </div>
                         </div>
                     </td>
@@ -363,7 +510,7 @@
                         <div class="regInput">
                             <input
                                     type="text"
-                                    name="email"
+                                    name="hp"
                                     placeholder="- 포함 13자리 입력"
                                     minlength="13"
                                     maxlength="13"
@@ -414,8 +561,10 @@
                     </td>
                 </tr>
             </table>
+            <input type="hidden" name="sms" th:value="${sms}">
+
             <div>
-                <a href="#" class="btnCancel">취소</a>
+                <a th:href="@{/user/login}" class="btnCancel">취소</a>
                 <input type="submit" class="btnSubmit" value="회원가입"/>
             </div>
         </form>

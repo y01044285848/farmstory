@@ -35,7 +35,7 @@
         zip=#{zip},
         addr1=#{addr1},
         addr2=#{addr2},
-        regip=#{regIp},
+        regip=#{regip},
         rdate=NOW()
     </insert>
 
