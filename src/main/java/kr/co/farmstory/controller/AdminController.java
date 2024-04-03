@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
 import kr.co.farmstory.service.ProductService;
 import kr.co.farmstory.service.UserService;
@@ -13,17 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +26,13 @@ import java.util.Map;
 @Controller
 public class AdminController {
 
-    private final UserService userService;
+    private final AdminService adminService;
     private final ProductService productService;
+
     private final ImgService imgService;
+
+    private final UserService userService;
+
 
     @GetMapping(value = {"/admin/","/admin/index"})
     public String admin(Model model){
@@ -65,11 +62,11 @@ public class AdminController {
         String regIp = req.getRemoteAddr();
         userDTO.setRegip(regIp);
 
-        userDTO.setRole("USER");
-        userService.insertUser(userDTO);
+        log.info(userDTO.getRole());
+        adminService.insertAdmin(userDTO);
         log.info(userDTO.toString());
 
-        return "redirect: /admin/user/login?success=200";
+        return "redirect:/user/login?success=200";
 
     }
 

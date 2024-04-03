@@ -5,11 +5,28 @@
 
 <mapper namespace="kr.co.farmstory.mapper.AdminMapper">
 
+
     <!--adminIndex 회원 목록-->
     <select id="selectUsers" resultType="kr.co.farmstory.dto.UserDTO">
         SELECT `uid`, `name`, `nick`, `hp`, `email`, `role`, `rdate` FROM `user`
         ORDER BY `rdate` DESC
         LIMIT 3
     </select>
+
+    <insert id="insertAdmin">
+        insert into user set
+        uid=#{uid},
+        pass=#{pass},
+        name=#{name},
+        nick=#{nick},
+        email=#{email},
+        hp=#{hp},
+        zip=#{zip},
+        addr1=#{addr1},
+        addr2=#{addr2},
+        regip=#{regip},
+        role=#{role},
+        rdate=NOW()
+    </insert>
 
 </mapper>

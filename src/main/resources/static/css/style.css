@@ -1061,7 +1061,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* 공통 */
-.btnNext   {display: inline-block;padding: 8px;border: 1px solid #bebebe;background: #e9e9e9;color: #111;}
+.btnNext   {display: inline-block;padding: 8px;border: 1px solid #666666;background: #8d8d8d;color: #fff; margin-left: 5px}
 .btnCancel {display: inline-block;padding: 8px;border: 1px solid #bebebe;background: #fdfdfd;color: #111;}
 .btnSubmit {display: inline-block;padding: 8px;border: 1px solid #3b3c3f;background: #4b545e;color: #fff;}
 .btnWrite  {display: inline-block;padding: 8px;border: 1px solid #3b3c3f;background: #4b545e;color: #fff;}
@@ -1070,6 +1070,20 @@ button {
     cursor: pointer;
 }
 
-.regHeaderImg {
-    margin: 18px;
+.oauth2 {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
 }
+
+.oauth2 img {
+    width: 255px;
+    height: 40px;
+
+}
+
+input {
+    outline: none;
+}
+
+

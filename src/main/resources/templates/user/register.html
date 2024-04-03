@@ -488,7 +488,7 @@
                         <div id="divEmailCode" class="row d-none">
                             <div class="col-md-4">
                                 <div class="form-floating mb-3 mb-md-0">
-                                    <input id="inputEmailCode" class="mt-2 inputEmailCode" name="code" type="text" placeholder="이메일 인증코드 입력"/>
+                                    <input id="inputEmailCode" class="mt-2 inputEmailCode" name="code" type="text" required  placeholder="이메일 인증코드 입력"/>
                                 </div>
                                 <div id="resultEmailCode" class="d-block"></div>
                             </div>
@@ -537,6 +537,7 @@
                                     placeholder="우편번호 검색"
                                     readonly
                                     id="inputZip"
+                                    required
                             />
                             <button id="zipBtn">
                                 <img th:src="@{../images/user/chk_post.gif}" alt="우편번호 검색" />
