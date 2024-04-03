@@ -6,6 +6,7 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.TermsDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final AdminMapper adminMapper;
     private final PasswordEncoder passwordEncoder;
 
     // JavaMailSender 주입
@@ -38,6 +40,12 @@ public class UserService {
 
         userMapper.insertUser(userDTO);
     }
+
+    // adminIndex 회원목록 표시
+    public List<UserDTO> selectUsers(){
+        return adminMapper.selectUsers();
+    }
+
 
     public int selectCountUser(String type, String value) {
         return userMapper.selectCountUser(type, value);

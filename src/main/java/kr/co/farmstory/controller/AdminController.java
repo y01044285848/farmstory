@@ -32,8 +32,11 @@ public class AdminController {
     @GetMapping(value = {"/admin/","/admin/index"})
     public String admin(Model model){
 
+        List<UserDTO> users = userService.selectUsers();
+        List<ProductDTO> products = productService.selectProducts();
 
-
+        model.addAttribute("users", users);
+        model.addAttribute("products", products);
 
         return "/admin/index";
     }

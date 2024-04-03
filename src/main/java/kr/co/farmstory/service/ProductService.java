@@ -1,6 +1,7 @@
 package kr.co.farmstory.service;
 
 import kr.co.farmstory.dto.ProductDTO;
+import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.Product;
 import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.mapper.UserMapper;
@@ -17,9 +18,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
     private final AdminMapper adminMapper;
-
     private final ModelMapper modelMapper;
 
     public List<ProductDTO> selectProducts(){
