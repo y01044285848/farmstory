@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 @Slf4j
@@ -47,13 +48,16 @@ public class AdminController {
     @PostMapping("/admin/product/register")
     public String productregister(HttpServletRequest req, ProductDTO productDTO){
 
+
+
         log.info(""+productDTO);
 
-        productService.insertProduct(productDTO);
+        String uid = "admin";
+        productService.insertProduct(productDTO, uid);
 
 
 
-        return "/admin/product/register";
+        return "redirect:/admin/product/register?success=200";
     }
 
     @GetMapping("/admin/order/list")

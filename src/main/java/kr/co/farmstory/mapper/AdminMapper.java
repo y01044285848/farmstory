@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
 
-    public void insertProduct(ProductDTO productDTO);
+    public void insertProduct(ProductDTO productDTO, String uid);
     public List<ProductDTO> selectProduct();
 }
