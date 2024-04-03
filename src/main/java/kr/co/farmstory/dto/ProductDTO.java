@@ -5,8 +5,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +25,8 @@ public class ProductDTO {
     private String uid;
     private String cate;
     private String pname;
+
+    private int img;
 
     @CreationTimestamp
     private LocalDateTime rdate;
@@ -44,6 +48,8 @@ public class ProductDTO {
     @Builder.Default
     private int point=0;
 
-
+    private List<MultipartFile> imgs;
+    private List<ImgDTO> imgDTOList;
     private String etc;
+
 }

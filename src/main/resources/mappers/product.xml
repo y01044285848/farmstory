@@ -7,9 +7,10 @@
 
     <insert id="insertProduct">
         insert into product set
-        uid='admin'
+        uid=#{uid},
         pname=#{pname},
         cate=#{cate},
+        rdate=NOW(),
         price=#{price},
         stock=#{stock},
         delprice=#{delprice},

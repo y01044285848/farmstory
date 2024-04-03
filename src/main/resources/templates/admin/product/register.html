@@ -40,7 +40,8 @@ layout:decorate="~{/layout/userLayout}"> -->
                 </nav>
 
                 <article>
-                    <form th:href="@{/}" name="productForm" method="post">
+                    <form th:action="@{/admin/product/register}" name="productForm" method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:value="${#authentication.principal.user.uid}" name="uid">
                         <table border="0">
                             <tr>
                                 <td>상품명</td>
@@ -98,15 +99,15 @@ layout:decorate="~{/layout/userLayout}"> -->
                                 <td>
                                     <p>
                                         <span>상품목록 이미지(약 120 x 120)</span>
-                                        <input type="file" name="thumb120"/>
+                                        <input type="file" name="img"/>
                                     </p>
                                     <p>
                                         <span>기본정보 이미지(약 240 x 240)</span>
-                                        <input type="file" name="thumb240"/>
+                                        <input type="file" name="img2"/>
                                     </p>
                                     <p>
                                         <span>상품설명 이미지(약 750 x Auto)</span>
-                                        <input type="file" name="thumb750"/>
+                                        <input type="file" name="img3"/>
                                     </p>
                                 </td>
                             </tr>

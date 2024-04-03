@@ -3,6 +3,7 @@ package kr.co.farmstory.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.service.ImgService;
 import kr.co.farmstory.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.PrivateKey;
 import java.util.List;
@@ -46,14 +49,16 @@ public class AdminController {
     }
 
     @PostMapping("/admin/product/register")
-    public String productregister(HttpServletRequest req, ProductDTO productDTO){
+    public String productregister(ProductDTO productDTO){
+
 
 
 
         log.info(""+productDTO);
 
-        String uid = "admin";
-        productService.insertProduct(productDTO, uid);
+
+
+        productService.insertProduct(productDTO);
 
 
 
