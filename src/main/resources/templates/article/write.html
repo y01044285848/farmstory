@@ -3,8 +3,16 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layouts/defaultLayout}"
-      layout:fragment="Content"
->
+      layout:fragment="Content">
+<script>
+    window.onload = function (){
+        const btnSubmit = document.getElementById('btnSubmit');
+        btnSubmit.onclick = function (e){
+            e.preventDefault();
+            document.formWrite.submit();
+        }
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,9 +33,9 @@
                 글쓰기
             </div>
             <div class="card-body">
-                <form name="formWrite" th:action="@{#}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="writer">
-                    <input type="text" name="cate">
+                <form name="formWrite" th:action="@{/article/write/${cate}}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
+                    <input type="hidden" name="cate" th:value="${cate}">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">글 제목</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="제목 입력">
@@ -44,7 +52,7 @@
             </div>
         </div>
         <div class="text-end">
-            <a th:href="@{#}" class="btn btn-primary m-3">취소</a>
+            <a th:href="@{/community/notice}" class="btn btn-primary m-3">취소</a>
             <a th:href="@{#}" class="btn btn-primary m-3" id="btnSubmit">글등록</a>
         </div>
             <!-- 내용 끝 -->

@@ -1,35 +1,43 @@
 package kr.co.farmstory.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import kr.co.farmstory.dto.ArticleDTO;
+import kr.co.farmstory.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller @Slf4j @RequiredArgsConstructor
 public class ArticleController {
 
+    private final ArticleService articleService;
     @GetMapping("/article/write")
-    public String write(){
+    public String write(@RequestParam String cate, Model model){
+        model.addAttribute("cate", cate);
         return "/article/write";
     }
 
-    @GetMapping("/article/commuity/notice")
-    public String list(String cate){
+    @PostMapping("/article/write/{cate}")
+    public String insertArticle(HttpServletRequest req, ArticleDTO articleDTO){
+        String regip = req.getRemoteAddr();
+        String cate = articleDTO.getCate();
+        articleDTO.setRegip(regip);
+        log.info(articleDTO.toString());
 
-        return "/board";
+        articleService.insertArticle(articleDTO);
+
+        return "redirect:/community/"+cate;
     }
 
-    /*
-    article/board?group=community&cate=notice
-    select * from article
-    where group=coummuity and cate=notice;
-
-    article/community
-    article/event
-    article/croptalk
+    @GetMapping("/article/list")
+    public String articleList(String cate){
 
 
-
-     */
+        return "/article/list";
+    }
 
 }
