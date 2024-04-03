@@ -28,7 +28,11 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/"));
-        
+
+        //OAuth 설정
+        httpSecurity.oauth2Login(oauth -> oauth
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/"));
 
         /*
             인가 설정

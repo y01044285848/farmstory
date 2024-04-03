@@ -12,4 +12,24 @@ public class ArticleController {
     public String write(){
         return "/article/write";
     }
+
+    @GetMapping("/article/commuity/notice")
+    public String list(String cate){
+
+        return "/board";
+    }
+
+    /*
+    article/board?group=community&cate=notice
+    select * from article
+    where group=coummuity and cate=notice;
+
+    article/community
+    article/event
+    article/croptalk
+
+
+
+     */
+
 }
