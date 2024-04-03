@@ -21,9 +21,11 @@ import java.util.List;
 @Slf4j @RequiredArgsConstructor @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-    private final ModelMapper modelMapper;
-    private final FileService fileService;
     private final FileRepository fileRepository;
+
+    private final ModelMapper modelMapper;
+
+    private final FileService fileService;
 
     private final ArticleMapper articleMapper;
     private final CropTalkMapper cropTalkMapper;

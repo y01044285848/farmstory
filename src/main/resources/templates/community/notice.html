@@ -51,7 +51,7 @@
                 <tr th:each="article, index:${articles}">
                     <td th:text="${(articlePage.total)-(articlePage.pageNum - 1)*10 - index.index}" ></td>
                     <td>[[${article.title}]]</td>
-                    <td>홍길동</td>
+                    <td>[[${article.nick}]]</td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     <td>[[${article.hit}]]</td>
                 </tr>
@@ -66,7 +66,7 @@
                     <li th:if="${!articlePage.isIsFirstPage()}" class="page-item">
                         <a class="page-link" th:href="@{/community/notice(pageNum=${articlePage.pageNum} -1)}">이전</a>
                     </li>
-                    <li th:each="num : ${#numbers.sequence(1, articlePage.pageSize)}" class="page-item">
+                    <li th:each="num : ${#numbers.sequence(1, (articlePage.pages/10)*10)}" class="page-item">
                         <a class="page-link" th:href="@{/community/notice(pageNum=${num})}">[[${num}]]</a>
                     </li>
 

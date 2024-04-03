@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.farmstory.mapper.ArticleMapper">
 
     <select id="selectArticles" resultType="kr.co.farmstory.dto.ArticleDTO">
-        select * from `article`
+        select a.*, b.nick from `article` AS a JOIN `user` AS b on a.uid = b.uid
         <where>
             <if test="cate == 'notice'">cate=#{value}</if>
             <if test="cate == 'menu'">cate=#{value}</if>
@@ -17,8 +17,9 @@
             <if test="cate == 'story'">cate=#{value}</if>
             <if test="cate == 'grow'">cate=#{value}</if>
             <if test="cate == 'school'">cate=#{value}</if>
+            and a.parent=0
         </where>
-        ORDER BY `ano` DESC
+        ORDER BY a.ano DESC
     </select>
 
     <select id="selectArticleNick" resultType="kr.co.farmstory.dto.ArticleDTO">
