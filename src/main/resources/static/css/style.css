@@ -513,6 +513,8 @@ main > .info > div > .account {
 }
 #sub > .market > .view > .basic > img {
     float: left;
+    width: 35%;
+    height: 250px;
 }
 #sub > .market > .view > .basic > table {
     float: right;
@@ -538,7 +540,9 @@ main > .info > div > .account {
 }
 
 
-#sub > .market > .view > .detail {}
+#sub > .market > .view > .detail img{
+    height: auto;
+}
 #sub > .market > .view > .delivery {}
 #sub > .market > .view > .exchange table {
     width: 100%;
