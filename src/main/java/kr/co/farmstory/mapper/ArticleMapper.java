@@ -10,5 +10,4 @@ import java.util.List;
 public interface ArticleMapper {
     Page<ArticleDTO> selectAll();
     public List<ArticleDTO> selectArticles(String cate);
-    public String selectArticleNick(int ano);
 }

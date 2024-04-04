@@ -1,5 +1,7 @@
 package kr.co.farmstory.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +22,37 @@ public class MarketController {
     private final ProductService productService;
 
     @GetMapping("/market/list")
-    public String list(Model model){
+    public String list(Model model, Integer pageNum, Integer pageSize){
+
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 20 : pageSize;
+
+        PageHelper.startPage(pageNum, pageSize);
         List<ProductDTO> products = productService.selectProducts();
+
+        PageInfo<ProductDTO> productPage = new PageInfo<>(products);
+        log.info("productPage : "+productPage);
+        model.addAttribute("productPage", productPage);
+        /*
         List<ProductDTO> modelProducts = new ArrayList<>();
+
+        model.addAttribute("modelProducts", modelProducts);
+
         Map<String, String> trans = new HashMap<>();
         trans.put("fruit","과일");
         trans.put("vegetable","야채");
         trans.put("grains","곡류");
+
         model.addAttribute("trans", trans);
+
         for(ProductDTO productDTO : products){
             productDTO.setCate(trans.get(productDTO.getCate()));
             modelProducts.add(productDTO);
         }
-        model.addAttribute("products",modelProducts);
 
+        model.addAttribute("products",modelProducts);
+        */
+        model.addAttribute("products",products);
         return "/market/list";
     }
 
