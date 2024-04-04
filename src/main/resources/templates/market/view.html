@@ -47,7 +47,7 @@
             <!-- 내용 시작 -->
             <h3>기본정보</h3>
             <div class="basic">
-                <img th:src="@{/images/market_item_thumb.jpg}" alt="딸기 500g">
+                <img th:src="@{|/product/${productDTO.cate}/${productDTO.img1}|}" alt="딸기 500g">
 
                 <table border="0">
                     <tr>

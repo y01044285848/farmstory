@@ -12,6 +12,6 @@ public interface ProductMapper {
     public void insertProduct(ProductDTO productDTO);
     public List<ProductDTO> selectProducts();
 
-    public List<ProductDTO> selectProduct();
+    public ProductDTO selectProduct(int pno);
 
 }

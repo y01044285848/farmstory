@@ -29,8 +29,8 @@ public class ProductService {
     }
 
     //등록상품 view 보기
-    public ProductDTO findById(Integer pno){
-
+    public ProductDTO findById(int pno){
+/*
         Optional<Product> optProduct = productRepository.findById(pno);
         log.info("findById...1");
 
@@ -48,7 +48,9 @@ public class ProductService {
 
         log.info("productDTO : " +productDTO.toString());
 
-        return productDTO;
+        */
+
+        return productMapper.selectProduct(pno);
     }
 
     //상품 등록
