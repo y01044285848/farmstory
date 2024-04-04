@@ -1,11 +1,12 @@
 package kr.co.farmstory.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.farmstory.dto.ImgDTO;
-import kr.co.farmstory.dto.ProductDTO;
-import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.dto.*;
 import kr.co.farmstory.entity.Product;
+import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
 import kr.co.farmstory.service.ProductService;
@@ -30,20 +31,17 @@ public class AdminController {
 
     private final AdminService adminService;
     private final ProductService productService;
-
     private final ImgService imgService;
-
     private final UserService userService;
-
 
     @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
 
-        List<UserDTO> users = userService.selectUsers();
-        List<ProductDTO> products = productService.selectProducts();
+        List<UserDTO> idxUsers = adminService.adminIdxUsers();
+        List<ProductDTO> idxProducts = adminService.adminIdxProducts();
 
-        model.addAttribute("users", users);
-        model.addAttribute("products", products);
+        model.addAttribute("idxUsers", idxUsers);
+        model.addAttribute("idxProducts", idxProducts);
 
         return "/admin/index";
     }
@@ -118,13 +116,29 @@ public class AdminController {
     }
 
     @GetMapping("/admin/product/list")
-    public String productlist(Model model){
+    public String productlist(Model model, Integer pageNum, Integer pageSize){
 
+
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+
+        // pageHelper를 사용하여 페이징 시작(1~10)
+        PageHelper.startPage(pageNum, pageSize);
         List<ProductDTO> products = productService.selectProducts();
+
+        PageInfo<ProductDTO> adminProductPage = new PageInfo<>(products);
+        log.info("productList" + adminProductPage);
+
         model.addAttribute("products", products);
+        model.addAttribute("adminProductPage", adminProductPage);
 
         return "/admin/product/list";
     }
+
+
+
+
+
 
     @GetMapping("/admin/product/register")
     public String productRegister(){

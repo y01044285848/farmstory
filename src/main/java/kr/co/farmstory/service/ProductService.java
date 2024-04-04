@@ -11,44 +11,29 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j @Service @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-
     private final ModelMapper modelMapper;
 
+    // 상품 전체 리스트 출력
     public List<ProductDTO> selectProducts() {
         return productMapper.selectProducts();
     }
 
+
     //등록상품 view 보기
     public ProductDTO findById(int pno){
-/*
-        Optional<Product> optProduct = productRepository.findById(pno);
-        log.info("findById...1");
-
-        ProductDTO productDTO = null;
-
-        if(optProduct.isPresent()){
-            log.info("findById...2");
-            Product product = optProduct.get();
-
-            log.info("findById...3 : " +product.toString());
-            productDTO = modelMapper.map(product, ProductDTO.class);
-            log.info("findById...4");
-
-        }
-
-        log.info("productDTO : " +productDTO.toString());
-
-        */
 
         return productMapper.selectProduct(pno);
     }
@@ -60,4 +45,7 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         return savedProduct;
     }
+
+
+
 }

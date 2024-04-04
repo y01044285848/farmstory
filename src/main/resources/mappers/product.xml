@@ -21,6 +21,7 @@
     </insert>
 
     <select id="selectProducts" resultType="kr.co.farmstory.dto.ProductDTO">
+
         SELECT a.* , b.img1 FROM `product` AS a join `img` AS b on a.pno = b.pno
         <where>
             <if test="cate == 'vegetable'"> cate=#{value} </if>
