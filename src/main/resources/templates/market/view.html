@@ -10,7 +10,9 @@
         const btnCart = document.getElementById('btnCart');
         btnCart.onclick = function (e){
 
-            if(confirm("장바구니에 담으시겠습니까")) {
+            if(confirm("장바구니에 담으시겠습니까?")) {
+                btnCart.href += "&count="+document.getElementById('count').value;
+
                 return true;
             }else{
                 e.preventDefault();
@@ -72,7 +74,7 @@
                     <tr>
                         <td>구매수량</td>
                         <td>
-                            <input type="number" name="count" min="1" value="1">
+                            <input type="number" id="count" min="1" value="1">
                         </td>
                     </tr>
                     <tr>
