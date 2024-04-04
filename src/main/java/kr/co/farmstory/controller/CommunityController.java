@@ -33,10 +33,6 @@ public class CommunityController {
         PageInfo<ArticleDTO> articlesPage = new PageInfo<>(articles);
         log.info("selectArticlePage" + articlesPage);
 
-        // 닉네임 가져오기
-        // String nick = articleService.selectArticleNick(articles.);
-        //model.addAttribute("nick", nick);
-
         model.addAttribute("articles", articles);
         model.addAttribute("articlePage", articlesPage);
 

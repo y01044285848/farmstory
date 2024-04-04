@@ -5,6 +5,7 @@ import kr.co.farmstory.dto.ProductDTO;
 
 import kr.co.farmstory.entity.Product;
 
+import kr.co.farmstory.mapper.ProductMapper;
 import kr.co.farmstory.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,21 +20,12 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     private final ModelMapper modelMapper;
 
     public List<ProductDTO> selectProducts() {
-
-        log.info("selectProduct...1");
-        List<Product> productList = productRepository.findAll();
-        log.info("selectProduct...2");
-
-        List<ProductDTO> productDTOS = productList.stream()
-                .map(entity -> modelMapper.map(entity, ProductDTO.class))
-                .toList();
-        log.info("selectProduct...3" + productDTOS);
-
-        return productDTOS;
+        return productMapper.selectProducts();
     }
 
     //등록상품 view 보기

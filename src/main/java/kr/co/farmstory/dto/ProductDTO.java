@@ -52,4 +52,6 @@ public class ProductDTO {
     private List<ImgDTO> imgDTOList;
     private String etc;
 
+    private String img1;
+
 }
