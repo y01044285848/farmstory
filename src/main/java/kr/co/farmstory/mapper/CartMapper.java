@@ -9,6 +9,8 @@ import java.util.List;
 public interface CartMapper {
 
     public void insertCart(CartDTO cartDTO);
-    public List<CartDTO> selectCartList();
+    
+    // 장바구니 리스트
+    public List<CartDTO> selectCartList(int pno, String uid);
 
 }
