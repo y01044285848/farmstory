@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
@@ -67,35 +68,31 @@ public class MarketController {
         return "/market/view";
     }
 
+
     // 장바구니 목록
-    @GetMapping("/market/cart")
-    public String cart(Principal principal, int pno, @RequestParam int count, Model model){
-        log.info(pno+"dd");
+    @PostMapping("/market/cart")
+    public String cart(Principal principal, CartDTO cartDTO, Model model){
+        log.info(cartDTO.getPno()+"dd");
         log.info(principal.getName());
 
-        ProductDTO productDTO = productService.findById(pno);
-        model.addAttribute("count", count);
-        log.info("count:" + count);
+        ProductDTO productDTO = productService.findById(cartDTO.getPno());
+        model.addAttribute("count", cartDTO.getPcount());
+        log.info("count:" + cartDTO.getPcount());
 
         model.addAttribute(productDTO);
         log.info(productDTO.toString());
 
         String uid = principal.getName();
-        model.addAttribute("uid", uid);
-        log.info("uid:" + uid);
 
-        CartDTO cartDTO = new CartDTO();
         cartDTO.setUid(uid);
-        cartDTO.setPno(pno);
-        cartDTO.setPcount(count);
         log.info("uid2:" + uid);
-        log.info("pno:" + pno);
+
         model.addAttribute(cartDTO);
 
         cartService.insertCart(cartDTO);
         log.info("insertCart: " + cartDTO);
 
-        List<CartDTO> cartDTOList = cartService.selectCartList(pno, uid);
+        List<CartDTO> cartDTOList = cartService.selectCartList(cartDTO.getPno(), uid);
         for(CartDTO cartDTO1 : cartDTOList){
             log.info(cartDTO1.toString());
         }

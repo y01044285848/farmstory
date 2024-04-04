@@ -36,13 +36,15 @@
         /*
             장바구니 클릭 시 구매수량 값을 get으로 포함시켜 전송
          */
-        btnCart.onclick = function (e){
-            if(confirm("장바구니에 담으시겠습니까?")) {
-                btnCart.href += "&count="+document.getElementById('count').value;
 
-                return true;
+        const sendForm = document.getElementById('sendForm');
+
+        btnCart.onclick = function (e){
+            e.preventDefault();
+            if(confirm("장바구니에 담으시겠습니까?")) {
+                sendForm.submit();
             }else{
-                e.preventDefault();
+
                 return false;
             }
         }
@@ -83,47 +85,52 @@
             <h3>기본정보</h3>
             <div class="basic">
 
-                <img th:src="@{|/product/${productDTO.cate}/${productDTO.img1}|}" alt="딸기 500g">
+                <form th:action="@{/market/cart}" id="sendForm" method="post">
+                    <img th:src="@{|/product/${productDTO.cate}/${productDTO.img1}|}" alt="딸기 500g">
+                    <table border="0">
 
-                <table border="0">
-
-                    <tr>
-                        <td>상품명</td>
-                        <td>[[${productDTO.pname}]]</td>
-                    </tr>
-                    <tr>
-                        <td>상품코드</td>
-                        <td>[[${productDTO.pno}]]</td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td>
-                            <span id="delPrice">[[${productDTO.delprice}]]</span>원
-                            <em>3만원 이상 무료배송</em>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>판매가격</td>
-                        <td>[[${productDTO.price}]]</td>
-                    </tr>
-                    <tr>
-                        <td>구매수량</td>
-                        <td>
-                            <input type="number" id="count" min="1" value="1">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>합계</td>
-                        <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100)))"></td>
-                        <td class="hiddetotal" id="hiddetotal" th:text="(${productDTO.price} - ${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
-                    </tr>
-                    <style>
-                    </style>
-                </table>
+                        <tr>
+                            <td>상품명</td>
+                            <td>[[${productDTO.pname}]]</td>
+                        </tr>
+                        <tr>
+                            <td>상품코드</td>
+                            <td>[[${productDTO.pno}]]</td>
+                            <td>
+                                <input type="hidden" name="pno" th:value="${productDTO.pno}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td>
+                                <span id="delPrice">[[${productDTO.delprice}]]</span>원
+                                <em>3만원 이상 무료배송</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>판매가격</td>
+                            <td>[[${productDTO.price}]]</td>
+                        </tr>
+                        <tr>
+                            <td>구매수량</td>
+                            <td>
+                                <input type="number" name="pcount" id="count" min="1" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>합계</td>
+                            <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100)))"></td>
+                            <td class="hiddetotal" id="hiddetotal" th:text="(${productDTO.price} - ${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
+                        </tr>
+                        <style>
+                        </style>
+                    </table>
+                </form>
                 <div style="float: right; margin-top: 10px;">
                     <a th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
                     <a th:href="@{/market/order(pno=${productDTO.pno})}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>
+
             </div>
 
             <h3>상품설명</h3>

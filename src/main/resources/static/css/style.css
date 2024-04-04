@@ -505,18 +505,18 @@ main > .info > div > .account {
     font-weight: bold;
 }
 
-#sub > .market > .view > .basic {
+#sub > .market > .view > .basic{
     width: 100%;
     height: 270px;
     position: relative;
     overflow: hidden;
 }
-#sub > .market > .view > .basic > img {
+#sub > .market > .view > .basic > form > img {
     float: left;
     width: 35%;
     height: 250px;
 }
-#sub > .market > .view > .basic > table {
+#sub > .market > .view > .basic > form > table {
     float: right;
     width: 60%;
     height: 200px;
@@ -575,7 +575,7 @@ main > .info > div > .account {
 }
 
 #sub > .market > .view .btnCart {
-    background-color: #769b0a;
+    background-color: #7ea600;
 }
 
 #sub > .market > .view .btnOrder {
