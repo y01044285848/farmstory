@@ -36,7 +36,6 @@
             </nav>
 
             <!-- 내용 시작 -->
-            <!-- 내용 시작 -->
             <table class="table table-hover">
                 <thead>
                 <tr class="table-dark">
@@ -49,10 +48,10 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="article:${articles}">
-                    <td>[[${article.ano}]]</td>
+                <tr th:each="article, index:${articles}">
+                    <td th:text="${(articlePage.total)-(articlePage.pageNum - 1)*10 - index.index}" ></td>
                     <td>[[${article.title}]]</td>
-                    <td>홍길동</td>
+                    <td>[[${article.nick}]]</td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     <td>[[${article.hit}]]</td>
                 </tr>
@@ -64,19 +63,22 @@
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
 
-                    <li class="page-item disabled">
-                        <a class="page-link">이전</a>
+                    <li th:if="${!articlePage.isIsFirstPage()}" class="page-item">
+                        <a class="page-link" th:href="@{/event/event(pageNum=${articlePage.pageNum} -1)}">이전</a>
                     </li>
-                    <li th:each="num : ${#numbers.sequence(1, articlePage.pages)}" class="page-item">
+                    <li th:each="num : ${#numbers.sequence(1, (articlePage.pages/10)*10)}" class="page-item">
                         <a class="page-link" th:href="@{/event/event(pageNum=${num})}">[[${num}]]</a>
                     </li>
 
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
+                    <li th:if="${articlePage.hasNextPage}" class="page-item">
+                        <a class="page-link" th:href="@{/event/event(pageNum=${articlePage.pageNum} +1)}">다음</a>
                     </li>
                 </ul>
             </nav>
 
+            <div class="text-end">
+                <a th:href="@{/article/write(cate=event)}" class="btn btn-primary m-3"> 글쓰기</a>
+            </div>
             <!-- 내용 끝 -->
 
         </article>
