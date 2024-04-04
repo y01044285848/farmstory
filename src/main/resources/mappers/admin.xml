@@ -6,18 +6,11 @@
 <mapper namespace="kr.co.farmstory.mapper.AdminMapper">
 
 
-    <!--adminIndex 회원 목록 5명 출력-->
-    <select id="adminIdxUsers" resultType="kr.co.farmstory.dto.UserDTO">
+    <!--adminIndex 회원 목록-->
+    <select id="selectUsers" resultType="kr.co.farmstory.dto.UserDTO">
         SELECT `uid`, `name`, `nick`, `hp`, `email`, `role`, `rdate` FROM `user`
         ORDER BY `rdate` DESC
-        LIMIT 5
-    </select>
-
-    <!--adminIndex 상품 목록 5개 출력-->
-    <select id="adminIdxProducts" resultType="kr.co.farmstory.dto.ProductDTO">
-        SELECT * FROM `product`
-        ORDER BY `pno` DESC
-        LIMIT 5
+        LIMIT 3
     </select>
 
     <insert id="insertAdmin">

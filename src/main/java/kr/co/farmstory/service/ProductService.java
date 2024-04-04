@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +24,11 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ModelMapper modelMapper;
 
+
     public List<ProductDTO> selectProducts(String cate) {
         return productMapper.selectProducts(cate);
 
     }
-
 
     //등록상품 view 보기
     public ProductDTO findById(int pno){
@@ -46,6 +44,7 @@ public class ProductService {
         return savedProduct;
     }
 
+    //상품삭제
 
 
 }

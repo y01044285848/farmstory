@@ -13,5 +13,6 @@ public interface ProductMapper {
     public List<ProductDTO> selectProducts(String cate);
 
     public ProductDTO selectProduct(int pno);
+    public List<ProductDTO> deleteProducts();
 
 }

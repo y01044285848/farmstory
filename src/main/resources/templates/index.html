@@ -63,7 +63,6 @@
 
                     <td>&#xF234;</td>
 
-
                     <td><a th:href="@{/croptalk/grow}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -76,8 +75,8 @@
             <table border="0">
                 <tr th:each="article: ${school}">
 
-                    <td>&#xF683;</td>
 
+                    <td>&#xF683;</td>
 
                     <td><a th:href="@{/croptalk/school}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>

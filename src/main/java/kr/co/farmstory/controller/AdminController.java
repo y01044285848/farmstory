@@ -1,12 +1,11 @@
 package kr.co.farmstory.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.farmstory.dto.*;
+import kr.co.farmstory.dto.ImgDTO;
+import kr.co.farmstory.dto.ProductDTO;
+import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.Product;
-import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
 import kr.co.farmstory.service.ProductService;
@@ -33,16 +32,18 @@ public class AdminController {
     private final ProductService productService;
 
     private final ImgService imgService;
+
     private final UserService userService;
+
 
     @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
 
-        List<UserDTO> idxUsers = adminService.adminIdxUsers();
-        List<ProductDTO> idxProducts = adminService.adminIdxProducts();
+        List<UserDTO> users = userService.selectUsers();
+        List<ProductDTO> products = productService.selectProducts();
 
-        model.addAttribute("idxUsers", idxUsers);
-        model.addAttribute("idxProducts", idxProducts);
+        model.addAttribute("users", users);
+        model.addAttribute("products", products);
 
         return "/admin/index";
     }
@@ -115,7 +116,15 @@ public class AdminController {
         }
 
     }
-    
+
+    @GetMapping("/admin/product/list")
+    public String productlist(Model model){
+
+        List<ProductDTO> products = productService.selectProducts();
+        model.addAttribute("products", products);
+
+        return "/admin/product/list";
+    }
 
     @GetMapping("/admin/product/register")
     public String productRegister(){
