@@ -18,8 +18,6 @@ import java.util.List;
 @Builder
 public class ProductDTO {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pno;
 
     private String uid;

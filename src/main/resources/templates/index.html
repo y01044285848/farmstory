@@ -60,7 +60,7 @@
             <img th:src="@{./images/main_latest1_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${grow}">
-                    <td>[[${article.ano}]]</td>
+                    <td>&#xF234;</td>
                     <td><a th:href="@{/croptalk/grow}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -72,7 +72,7 @@
             <img th:src="@{./images/main_latest2_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article: ${school}">
-                    <td>[[${article.ano}]]</td>
+                    <td>&#xF683;</td>
                     <td><a th:href="@{/croptalk/school}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -83,7 +83,7 @@
             <img th:src="@{./images/main_latest3_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${story}">
-                    <td>[[${article.ano}]]</td>
+                    <td>&#xF683;</td>
                     <td><a th:href="@{/croptalk/story}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
