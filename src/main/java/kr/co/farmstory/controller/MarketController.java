@@ -22,13 +22,16 @@ public class MarketController {
     private final ProductService productService;
 
     @GetMapping("/market/list")
-    public String list(Model model, Integer pageNum, Integer pageSize){
+    public String list(Model model, Integer pageNum, Integer pageSize, String cate){
+
+        log.info("cate:"+cate);
+        model.addAttribute("cate", cate);
 
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 20 : pageSize;
 
         PageHelper.startPage(pageNum, pageSize);
-        List<ProductDTO> products = productService.selectProducts();
+        List<ProductDTO> products = productService.selectProducts(cate);
 
         PageInfo<ProductDTO> productPage = new PageInfo<>(products);
         log.info("productPage : "+productPage);

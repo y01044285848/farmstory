@@ -31,6 +31,7 @@ public class AdminController {
 
     private final AdminService adminService;
     private final ProductService productService;
+
     private final ImgService imgService;
     private final UserService userService;
 
@@ -114,31 +115,7 @@ public class AdminController {
         }
 
     }
-
-    @GetMapping("/admin/product/list")
-    public String productlist(Model model, Integer pageNum, Integer pageSize){
-
-
-        pageNum = pageNum == null ? 1 : pageNum;
-        pageSize = pageSize == null ? 10 : pageSize;
-
-        // pageHelper를 사용하여 페이징 시작(1~10)
-        PageHelper.startPage(pageNum, pageSize);
-        List<ProductDTO> products = productService.selectProducts();
-
-        PageInfo<ProductDTO> adminProductPage = new PageInfo<>(products);
-        log.info("productList" + adminProductPage);
-
-        model.addAttribute("products", products);
-        model.addAttribute("adminProductPage", adminProductPage);
-
-        return "/admin/product/list";
-    }
-
-
-
-
-
+    
 
     @GetMapping("/admin/product/register")
     public String productRegister(){
@@ -165,8 +142,6 @@ public class AdminController {
 
 
         imgService.imgUpload(imgDTO, productDTO.getCate());
-        Product product = productService.insertProduct(productDTO);
-        imgDTO.setPno(product.getPno());
         imgService.insertImg(imgDTO);
 
         return "redirect:/admin/product/register?success=200";

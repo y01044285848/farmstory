@@ -46,7 +46,7 @@
                 <a th:href="@{/market/list}" class="on">전체(20) |</a>
                 <a th:href="@{/market/list(cate=fruit)}">과일 |</a>
                 <a th:href="@{/market/list(cate=vegetable)}">야채 |</a>
-                <a th:href="@{/market/list(cate=grain)}">곡류</a>
+                <a th:href="@{/market/list(cate=grains)}">곡류</a>
             </p>
             <table border="0" id="listTable">
                 <thead>
@@ -83,14 +83,17 @@
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
                     <li th:if="${!productPage.isIsFirstPage()}" class="page-item">
-                        <a class="page-link" th:href="@{/market/list(pageNum=${productPage.pageNum} -1)}">이전</a>
+                        <a th:if="${cate == null}" class="page-link" th:href="@{/market/list(pageNum=${productPage.pageNum} -1)}">이전</a>
+                        <a th:if="${cate != null}"class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${productPage.pageNum} -1)}">이전</a>
                     </li>
                     <li th:each="num : ${#numbers.sequence(1, (productPage.total)/20)}" class="page-item">
-                        <a class="page-link" th:href="@{/market/list(cate=${cate}, pageNum=${num})}">[[${num}]]</a>
+                        <a th:if="${cate == null}" class="page-link" th:href="@{/market/list(pageNum=${num})}">[[${num}]]</a>
+                        <a th:if="${cate != null}" class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${num})}">[[${num}]]</a>
                     </li>
 
                     <li th:if="${productPage.hasNextPage}" class="page-item">
-                        <a class="page-link" th:href="@{/market/list(pageNum=${productPage.pageNum} +1)}">다음</a>
+                        <a th:if="${cate == null}" class="page-link" th:href="@{/market/list(pageNum=${productPage.pageNum} +1)}">다음</a>
+                        <a th:if="${cate != null}" class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${productPage.pageNum} +1)}">다음</a>
                     </li>
                 </ul>
             </nav>

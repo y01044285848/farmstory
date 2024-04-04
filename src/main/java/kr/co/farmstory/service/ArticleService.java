@@ -34,6 +34,10 @@ public class ArticleService {
         return articleMapper.selectArticles(cate);
     }
 
+    public List<ArticleDTO>selectArticlesMain(String cate){
+        return articleMapper.selectArticlesMain(cate);
+    }
+
     public List<ArticleDTO> getRecentArticles(String cate) {
         return cropTalkMapper.selectRecentArticles(cate);
     }

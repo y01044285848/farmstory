@@ -24,10 +24,18 @@ public class MainController {
         List<ArticleDTO> school = articleService.getRecentArticles("school");
         List<ArticleDTO> story = articleService.getRecentArticles("story");
 
+        List<ArticleDTO> notice = articleService.selectArticlesMain("notice");
+        List<ArticleDTO> qna = articleService.selectArticlesMain("qna");
+        List<ArticleDTO> faq = articleService.selectArticlesMain("faq");
+
         //log.info(grow.toString());
         model.addAttribute("grow", grow);
         model.addAttribute("school", school);
         model.addAttribute("story", story);
+
+        model.addAttribute("notice", notice);
+        model.addAttribute("qna", qna);
+        model.addAttribute("faq", faq);
 
         return "/index";
 

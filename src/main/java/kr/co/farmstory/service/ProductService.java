@@ -26,9 +26,9 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ModelMapper modelMapper;
 
-    // 상품 전체 리스트 출력
-    public List<ProductDTO> selectProducts() {
-        return productMapper.selectProducts();
+    public List<ProductDTO> selectProducts(String cate) {
+        return productMapper.selectProducts(cate);
+
     }
 
 

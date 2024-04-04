@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductMapper {
     Page<ProductDTO> selectAll();
     public void insertProduct(ProductDTO productDTO);
-    public List<ProductDTO> selectProducts();
+    public List<ProductDTO> selectProducts(String cate);
 
     public ProductDTO selectProduct(int pno);
 
