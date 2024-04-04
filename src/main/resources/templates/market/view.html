@@ -35,8 +35,10 @@
 
         btnCart.onclick = function (e){
 
-            if(confirm("장바구니에 담으시겠습니까")) {
-                btnCart.href += "&count=" + document.getElementById('count').value;
+
+            if(confirm("장바구니에 담으시겠습니까?")) {
+                btnCart.href += "&count="+document.getElementById('count').value;
+
                 return true;
             }else{
                 e.preventDefault();
