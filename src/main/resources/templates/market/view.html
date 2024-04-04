@@ -7,10 +7,34 @@
 >
 <script>
     window.onload = function (){
+
+        const totalElement = document.getElementById('total');
+        const totalValue = parseInt(totalElement.innerText)
+        totalElement.innerText = totalValue;
+
+
         const btnCart = document.getElementById('btnCart');
+        const count = document.getElementById('count');
+        const hiddenPrice = document.getElementById('hiddetotal');
+        const delprice = document.getElementById('delPrice');
+        const totalPrice = document.getElementById('total');
+
+
+        count.onchange = function () {
+
+            const price = parseInt(hiddenPrice.innerText);
+            const quantity = parseInt(count.value);
+            const delprice2 = parseInt(delprice.innerText);
+            const total = price * quantity + delprice2;
+            totalPrice.innerText = total;
+
+
+        }
+
         btnCart.onclick = function (e){
 
             if(confirm("장바구니에 담으시겠습니까")) {
+                btnCart.href += "&count=" + document.getElementById('count').value;
                 return true;
             }else{
                 e.preventDefault();
@@ -45,11 +69,14 @@
             </nav>
 
             <!-- 내용 시작 -->
+
             <h3>기본정보</h3>
             <div class="basic">
+
                 <img th:src="@{|/product/${productDTO.cate}/${productDTO.img1}|}" alt="딸기 500g">
 
                 <table border="0">
+                    <form method="post">
                     <tr>
                         <td>상품명</td>
                         <td>[[${productDTO.pname}]]</td>
@@ -61,7 +88,7 @@
                     <tr>
                         <td>배송비</td>
                         <td>
-                            <span>[[${productDTO.delprice}]]</span>원
+                            <span id="delPrice">[[${productDTO.delprice}]]</span>원
                             <em>3만원 이상 무료배송</em>
                         </td>
                     </tr>
@@ -72,24 +99,25 @@
                     <tr>
                         <td>구매수량</td>
                         <td>
-                            <input type="number" name="count" min="1" value="1">
+                            <input type="number" id="count" min="1" value="1">
                         </td>
                     </tr>
                     <tr>
                         <td>합계</td>
-                        <td class="total" th:text="${productDTO.delprice} + ${productDTO.price}"></td>
+                        <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100)))"></td>
+                        <td class="hiddetotal" id="hiddetotal" th:text="(${productDTO.price} - ${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
+
+
                     </tr>
                     <style>
-
                     </style>
-
                 </table>
-
                 <div style="float: right; margin-top: 10px;">
                     <a th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
                     <a th:href="@{/market/order}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>
             </div>
+            </form>
             <h3>상품설명</h3>
             <div class="detail">
                 <img th:src="@{|/product/${productDTO.cate}/${productDTO.img3}|}" alt="">
@@ -126,6 +154,7 @@
                             </ul>
                         </td>
                     </tr>
+
                 </table>
             </div>
             <!-- 내용 끝 -->

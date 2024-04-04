@@ -21,7 +21,6 @@
     </insert>
 
     <select id="selectProducts" resultType="kr.co.farmstory.dto.ProductDTO">
-
         SELECT a.* , b.img1 FROM `product` AS a join `img` AS b on a.pno = b.pno
         <where>
             <if test="cate == 'vegetable'"> cate=#{value} </if>
@@ -35,5 +34,6 @@
     <select id="selectProduct" resultType="kr.co.farmstory.dto.ProductDTO">
         SELECT a.* , b.img1, b.img3 FROM `product` AS a join `img` AS b on a.pno = b.pno WHERE a.pno=#{pno} and b.img1 is not NULL
     </select>
+
  </mapper>
 

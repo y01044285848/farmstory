@@ -1,6 +1,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <html lang="en">
+
+<script>
+
+
+    window.onload = function (){
+        const selectAllCheckbox = document.getElementsByName('allcheckbox')[0];
+        const checkBoxes = document.getElementsByName('checkbox');
+        const deleteSelctedLink = document.getElementById('deleteSelected');
+
+        selectAllCheckbox.addEventListener('change', function () {
+            for (let i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].checked = selectAllCheckbox.checked;
+            }
+        });
+
+        //선택삭제 링크 클릭 이벤트 처리
+        deleteSelctedLink.addEventListener('click',function (event){
+            event.preventDefault(); // 링크 기본 동작 중단
+            const selectedCheckboxes = [];
+            checkBoxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedCheckboxes.push(checkbox.value);
+                }
+            });
+
+            // 선택된 체크박스의 값을 서버로 전송하는 코드 작성
+            fetch('/delete-selected-items', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(selectedCheckboxes)
+            }).then(response => {
+                if (response.ok) {
+                    // 성공적으로 처리된 경우
+                } else {
+                    // 오류 처리
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    };
+
+</script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +89,7 @@
 
                     <table border="0">
                         <tr>
-                            <th><input type="checkbox" name="all"/></th>
+                            <th><input type="checkbox" name="allcheckbox"/></th>
                             <th>사진</th>
                             <th>상품번호</th>
                             <th>상품명</th>
@@ -53,7 +99,7 @@
                             <th>등록일</th>
                         </tr>
                         <tr th:each="product: ${products}">
-                            <td><input type="checkbox" name=""/></td>
+                            <td><input type="checkbox" name="checkbox"/></td>
                             <td><img src="./images/sample_item1.jpg" class="thumb" alt="샘플1"></td>
                             <td>[[${product.pno}]]</td>
                             <td>[[${product.pname}]]</td>
@@ -66,7 +112,7 @@
                     </table>
 
                     <p>
-                        <a href="#" class="productDelete">선택삭제</a>
+                        <a href="#" class="productDelete" id="deleteSelected">선택삭제</a>
                         <a href="./productRegister.html" class="productRegister">상품등록</a>
                     </p>
 
