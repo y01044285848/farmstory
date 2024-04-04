@@ -24,8 +24,8 @@ public class ProductService {
 
     private final ModelMapper modelMapper;
 
-    public List<ProductDTO> selectProducts() {
-        return productMapper.selectProducts();
+    public List<ProductDTO> selectProducts(String cate) {
+        return productMapper.selectProducts(cate);
     }
 
     //등록상품 view 보기

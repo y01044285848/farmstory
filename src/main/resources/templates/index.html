@@ -60,7 +60,7 @@
             <img th:src="@{./images/main_latest1_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${grow}">
-                    <td>[[${article.ano}]]</td>
+                    <td>></td>
                     <td><a th:href="@{/croptalk/grow}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -72,7 +72,7 @@
             <img th:src="@{./images/main_latest2_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article: ${school}">
-                    <td>[[${article.ano}]]</td>
+                    <td>></td>
                     <td><a th:href="@{/croptalk/school}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -83,7 +83,7 @@
             <img th:src="@{./images/main_latest3_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${story}">
-                    <td>[[${article.ano}]]</td>
+                    <td>></td>
                     <td><a th:href="@{/croptalk/story}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
@@ -128,24 +128,18 @@
                     <li><a href="#tabs-3">자주묻는 질문</a></li>
                 </ul>
                 <div id="tabs-1">
-                    <ul class="txt">
-                        <li><a th:href="@{/community/notice}">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                        <li><a th:href="@{/community/notice}">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                        <li><a th:href="@{/community/notice}">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
+                    <ul th:each="article:${notice}" class="txt">
+                        <li><a th:href="@{/community/notice}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
                 <div id="tabs-2">
-                    <ul class="txt">
-                        <li><a th:href="@{/community/qna}">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                        <li><a th:href="@{/community/qna}">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                        <li><a th:href="@{/community/qna}">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
+                    <ul th:each="article:${qna}" class="txt">
+                        <li><a th:href="@{/community/qna}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
                 <div id="tabs-3">
-                    <ul class="txt">
-                        <li><a th:href="@{/community/faq}">· 홈페이지를 오픈하였습니다.</a></li>
-                        <li><a th:href="@{/community/faq}">· 홈페이지를 오픈하였습니다.</a></li>
-                        <li><a th:href="@{/community/faq}">· 홈페이지를 오픈하였습니다.</a></li>
+                    <ul th:each="article:${faq}" class="txt">
+                        <li><a th:href="@{/community/faq}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
             </div>

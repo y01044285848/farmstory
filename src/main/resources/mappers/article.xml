@@ -22,8 +22,11 @@
         ORDER BY a.ano DESC
     </select>
 
-    <select id="selectArticleNick" resultType="kr.co.farmstory.dto.ArticleDTO">
-        SELECT nick FROM `user` AS a JOIN `article` AS b ON a.uid = b.uid WHERE ano=#{value}
+    <select id="selectArticlesMain" resultType="kr.co.farmstory.dto.ArticleDTO">
+        SELECT * FROM `article`
+        WHERE `cate`=#{cate}
+        ORDER BY `rdate` DESC
+        LIMIT 3
     </select>
 
 </mapper>

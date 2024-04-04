@@ -29,7 +29,6 @@ import java.util.Map;
 public class AdminController {
 
     private final AdminService adminService;
-    private final ProductService productService;
 
     private final ImgService imgService;
 
@@ -38,12 +37,6 @@ public class AdminController {
 
     @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
-
-        List<UserDTO> users = userService.selectUsers();
-        List<ProductDTO> products = productService.selectProducts();
-
-        model.addAttribute("users", users);
-        model.addAttribute("products", products);
 
         return "/admin/index";
     }
@@ -120,9 +113,6 @@ public class AdminController {
     @GetMapping("/admin/product/list")
     public String productlist(Model model){
 
-        List<ProductDTO> products = productService.selectProducts();
-        model.addAttribute("products", products);
-
         return "/admin/product/list";
     }
 
@@ -151,8 +141,6 @@ public class AdminController {
 
 
         imgService.imgUpload(imgDTO, productDTO.getCate());
-        Product product = productService.insertProduct(productDTO);
-        imgDTO.setPno(product.getPno());
         imgService.insertImg(imgDTO);
 
         return "redirect:/admin/product/register?success=200";
