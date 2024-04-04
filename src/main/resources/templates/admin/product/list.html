@@ -58,7 +58,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/admin/css/style.css}">
-    <style></style>
+    <style>
+        #adminProdList .admProdImg1{
+            max-width: 120px;
+            max-height: 120px;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -87,7 +95,7 @@
 
                 <article>
 
-                    <table border="0">
+                    <table id="adminProdList" border="0">
                         <tr>
                             <th><input type="checkbox" name="allcheckbox"/></th>
                             <th>사진</th>
@@ -98,9 +106,11 @@
                             <th>재고</th>
                             <th>등록일</th>
                         </tr>
-                        <tr th:each="product: ${products}">
-                            <td><input type="checkbox" name="checkbox"/></td>
-                            <td><img src="./images/sample_item1.jpg" class="thumb" alt="샘플1"></td>
+
+                        <tr th:each="product: ${adminProducts}">
+                            <td><input type="checkbox" name=""/></td>
+                            <td><img class="admProdImg1" th:src="@{|/product/${product.cate}/${product.img1}|}" alt="썸네일"></td>
+
                             <td>[[${product.pno}]]</td>
                             <td>[[${product.pname}]]</td>
                             <td>[[${product.cate}]]</td>
@@ -112,29 +122,25 @@
                     </table>
 
                     <p>
-                        <a href="#" class="productDelete" id="deleteSelected">선택삭제</a>
-                        <a href="./productRegister.html" class="productRegister">상품등록</a>
+                        <a href="#" class="productDelete">선택삭제</a>
+                        <a th:href="@{/admin/product/register}" class="productRegister">상품등록</a>
+
                     </p>
 
                     <!-- 페이지네이션 -->
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-
-                            <li class="page-item disabled">
-                                <a class="page-link">이전</a>
+                            <li th:if="${!adminProductPage.isIsFirstPage()}" class="page-item">
+                                <a class="page-link" th:href="@{/admin/product/list(pageNum=${adminProductPage.pageNum} - 1)}">이전</a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link">1</a>
+                            <!-- 현재 페이지 번호와의 차이가 10 이하일 때까지만 페이지 번호를 출력합니다 -->
+                            <li th:each="num : ${#numbers.sequence(adminProductPage.navigateFirstPage, adminProductPage.navigateLastPage)}"
+                                th:classappend="${num == adminProductPage.pageNum} ? 'active' : ''"
+                                class="page-item">
+                                <a class="page-link" th:href="@{/admin/product/list(pageNum=${num})}" th:text="${num}"></a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link">3</a>
-                            </li>
-
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
+                            <li th:if="${adminProductPage.hasNextPage}" class="page-item">
+                                <a class="page-link" th:href="@{/admin/product/list(pageNum=${adminProductPage.pageNum} + 1)}">다음</a>
                             </li>
                         </ul>
                     </nav>

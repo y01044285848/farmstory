@@ -5,6 +5,7 @@ import kr.co.farmstory.dto.ProductDTO;
 
 import kr.co.farmstory.entity.Product;
 
+import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.mapper.ProductMapper;
 import kr.co.farmstory.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
