@@ -14,9 +14,29 @@
             pcount = #{pcount}
     </insert>
 
-    <select id="selectCartList" resultType="map">
+    <select id="selectCartList" resultType="kr.co.farmstory.dto.CartDTO">
 
-   
+        SELECT
+        cart.pcount,
+        product.cate,
+        product.pname,
+        product.discount,
+        product.point,
+        product.price,
+        product.pno,
+        user.name,
+        user.hp,
+        user.userpoint,
+        user.zip,
+        user.addr1,
+        user.addr2,
+        user.uid,
+        img.img1
+        FROM cart
+        INNER JOIN product ON cart.pno = product.pno
+        INNER JOIN img ON cart.pno = img.pno
+        INNER JOIN user ON user.uid = cart.uid
+        WHERE cart.uid = #{uid}
 
     </select>
 

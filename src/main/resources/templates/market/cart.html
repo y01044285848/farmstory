@@ -63,20 +63,20 @@
                         <td colspan="9">장바구니에 상품이 없습니다.</td>
                     </tr>
 
-                    <tr>
+                    <tr th:each="cartDTO, index:${cartDTOList}">
                         <td>
                             <input type="checkbox" name="checkCart">
                         </td>
                         <td>
-                            <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
+                            <a th:href="@{#}"><img th:src="@{|/product/${cartDTO.cate}/${cartDTO.img1}|}" class="thumb" alt="사과 500g"></a>
                         </td>
-                        <td th:text="${productDTO.cate}"></td>
-                        <td th:text="${productDTO.pname}"><a th:href="@{#}"></a></td>
+                        <td th:text="${cartDTO.cate}"></td>
+                        <td th:text="${cartDTO.pname}"><a th:href="@{#}"></a></td>
                         <td th:text="${cartDTO.pcount}"></td>
-                        <td th:text="${productDTO.discount} + '%'"></td>
-                        <td th:text="${productDTO.point} + 'p'"></td>
-                        <td th:text="${productDTO.price} + '원'"></td>
-                        <td th:text="${productDTO.price - (productDTO.price * productDTO.discount / 100)} + '원'"></td>
+                        <td th:text="${cartDTO.discount} + '%'"></td>
+                        <td th:text="${cartDTO.point} + 'p'"></td>
+                        <td th:text="${cartDTO.price} + '원'"></td>
+                        <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'"></td>
                     </tr>
                     </tbody>
                 </table>
