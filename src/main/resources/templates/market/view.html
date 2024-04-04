@@ -14,14 +14,16 @@
 
 
         const btnCart = document.getElementById('btnCart');
-
+        const btnOrder = document.getElementById('btnOrder');
 
         const count = document.getElementById('count');
         const hiddenPrice = document.getElementById('hiddetotal');
         const delprice = document.getElementById('delPrice');
         const totalPrice = document.getElementById('total');
 
-
+        /*
+            구매 수량 수정 시 합계 정보 갱신
+         */
         count.onchange = function () {
 
             const price = parseInt(hiddenPrice.innerText);
@@ -30,12 +32,11 @@
             const total = price * quantity + delprice2;
             totalPrice.innerText = total;
 
-
         }
-
+        /*
+            장바구니 클릭 시 구매수량 값을 get으로 포함시켜 전송
+         */
         btnCart.onclick = function (e){
-
-
             if(confirm("장바구니에 담으시겠습니까?")) {
                 btnCart.href += "&count="+document.getElementById('count').value;
 
@@ -44,6 +45,11 @@
                 e.preventDefault();
                 return false;
             }
+        }
+        btnOrder.onclick = function (){
+            alert("dd");
+            btnOrder.href += "&count="+document.getElementById('count').value;
+            return true;
         }
     }
 </script>
@@ -80,7 +86,7 @@
                 <img th:src="@{|/product/${productDTO.cate}/${productDTO.img1}|}" alt="딸기 500g">
 
                 <table border="0">
-                    <form method="post">
+
                     <tr>
                         <td>상품명</td>
                         <td>[[${productDTO.pname}]]</td>
@@ -110,8 +116,6 @@
                         <td>합계</td>
                         <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100)))"></td>
                         <td class="hiddetotal" id="hiddetotal" th:text="(${productDTO.price} - ${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
-
-
                     </tr>
                     <style>
                     </style>
@@ -121,7 +125,7 @@
                     <a th:href="@{/market/order(pno=${productDTO.pno})}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>
             </div>
-            </form>
+
             <h3>상품설명</h3>
             <div class="detail">
                 <img th:src="@{|/product/${productDTO.cate}/${productDTO.img3}|}" alt="">

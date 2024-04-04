@@ -100,7 +100,8 @@ public class MarketController {
     }
 
     @GetMapping("/market/order")
-    public String order(){
+    public String order(Principal principal, int pno, int count){
+
         return "/market/order";
     }
 
