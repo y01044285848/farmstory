@@ -28,6 +28,16 @@ public class AdminService {
         return adminMapper.adminIdxProducts();
     }
 
+    // admin.product.list 출력
+    public List<ProductDTO> adminSelectProducts() {
+        return adminMapper.adminSelectProducts();
+    }
+
+    // admin.user.list 출력
+    public List<UserDTO> adminSelectUsers() {
+        return adminMapper.adminSelectUsers();
+    }
+
 
     public void insertAdmin(UserDTO userDTO){
         String encoded = passwordEncoder.encode(userDTO.getPass());

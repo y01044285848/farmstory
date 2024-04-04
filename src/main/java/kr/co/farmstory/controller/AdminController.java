@@ -46,11 +46,6 @@ public class AdminController {
         return "/admin/index";
     }
 
-    @GetMapping("/admin/user/list")
-    public String userlist(){
-        return "/admin/user/list";
-    }
-
     @GetMapping("/admin/user/register")
     public String adminReg(){
         return "/admin/user/register";
@@ -115,8 +110,27 @@ public class AdminController {
 
     }
 
+    @GetMapping("/admin/user/list")
+    public String adminUserlist(Model model, Integer pageNum, Integer pageSize){
+
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+
+        // pageHelper를 사용하여 페이징 시작(1~10)
+        PageHelper.startPage(pageNum, pageSize);
+        List<UserDTO> adminUsers = adminService.adminSelectUsers();
+
+        PageInfo<UserDTO> adminUserPage = new PageInfo<>(adminUsers);
+        log.info("adminUsers" + adminUserPage);
+
+        model.addAttribute("adminUsers", adminUsers);
+        model.addAttribute("adminUserPage", adminUserPage);
+
+        return "/admin/user/list";
+    }
+
     @GetMapping("/admin/product/list")
-    public String productlist(Model model, Integer pageNum, Integer pageSize){
+    public String adminProductlist(Model model, Integer pageNum, Integer pageSize){
 
 
         pageNum = pageNum == null ? 1 : pageNum;
@@ -124,12 +138,12 @@ public class AdminController {
 
         // pageHelper를 사용하여 페이징 시작(1~10)
         PageHelper.startPage(pageNum, pageSize);
-        List<ProductDTO> products = productService.selectProducts();
+        List<ProductDTO> adminProducts = adminService.adminSelectProducts();
 
-        PageInfo<ProductDTO> adminProductPage = new PageInfo<>(products);
-        log.info("productList" + adminProductPage);
+        PageInfo<ProductDTO> adminProductPage = new PageInfo<>(adminProducts);
+        log.info("adminProducts" + adminProductPage);
 
-        model.addAttribute("products", products);
+        model.addAttribute("adminProducts", adminProducts);
         model.addAttribute("adminProductPage", adminProductPage);
 
         return "/admin/product/list";

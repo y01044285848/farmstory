@@ -13,11 +13,9 @@
         LIMIT 5
     </select>
 
-    <!--adminIndex 상품 목록 5개 출력-->
-    <select id="adminIdxProducts" resultType="kr.co.farmstory.dto.ProductDTO">
-        SELECT * FROM `product`
-        ORDER BY `pno` DESC
-        LIMIT 5
+    <!--admin.user.list 출력-->
+    <select id="adminSelectUsers" resultType="kr.co.farmstory.dto.UserDTO">
+        SELECT * FROM `user`
     </select>
 
     <insert id="insertAdmin">
@@ -35,5 +33,21 @@
         role=#{role},
         rdate=NOW()
     </insert>
+
+    <!--adminIndex 상품 목록 5개 출력-->
+    <select id="adminIdxProducts" resultType="kr.co.farmstory.dto.ProductDTO">
+        SELECT * FROM `product`
+        ORDER BY `pno` DESC
+        LIMIT 5
+    </select>
+
+    <select id="adminSelectProducts" resultType="kr.co.farmstory.dto.ProductDTO">
+        SELECT a.*, b.img1 FROM `product` AS a
+        JOIN `img` AS b ON a.pno = b.pno
+        AND b.img1 IS NOT NULL
+        ORDER BY a.rdate DESC, a.pno ASC
+    </select>
+
+
 
 </mapper>

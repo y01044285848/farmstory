@@ -17,10 +17,11 @@ public interface AdminMapper {
     // adminIndex 상품 목록 표시
     public List<ProductDTO> adminIdxProducts();
 
-
-
     // adminProduct 상품 목록
-    public List<ProductDTO> selectProducts();
+    public List<ProductDTO> adminSelectProducts();
+
+    // adminUser 회원 목록
+    public List<UserDTO> adminSelectUsers();
 
 
 }
