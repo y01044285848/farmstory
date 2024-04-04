@@ -66,7 +66,12 @@
                     <li th:if="${!articlePage.isIsFirstPage()}" class="page-item">
                         <a class="page-link" th:href="@{/community/notice(pageNum=${articlePage.pageNum} -1)}">이전</a>
                     </li>
+                    <!--
                     <li th:each="num : ${#numbers.sequence(1, (articlePage.pages/10)*10)}" class="page-item">
+                        <a class="page-link" th:href="@{/community/notice(pageNum=${num})}">[[${num}]]</a>
+                    </li>
+                    -->
+                    <li th:each="num : ${#numbers.sequence(articlePage.navigateFirstPage,articlePage.navigateLastPage)}" class="page-item">
                         <a class="page-link" th:href="@{/community/notice(pageNum=${num})}">[[${num}]]</a>
                     </li>
 

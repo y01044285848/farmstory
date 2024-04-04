@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j @Controller @RequiredArgsConstructor
@@ -28,9 +29,18 @@ public class CommunityController {
 
         // PageHelper를 사용하여 페이징 시작 (1~10까지)
         PageHelper.startPage(pageNum, pageSize);
+
         List<ArticleDTO> articles = articleService.selectArticles(cate);
 
         PageInfo<ArticleDTO> articlesPage = new PageInfo<>(articles);
+        log.info(articlesPage.getPages()+"");
+        int lastPage = (pageNum/11)*10+10;
+        if(lastPage > articlesPage.getPages()){
+            lastPage = articlesPage.getPages();
+        }
+        articlesPage.setNavigateFirstPage((pageNum/11)*10+1);
+        articlesPage.setNavigateLastPage(lastPage);
+
         log.info("selectArticlePage" + articlesPage);
 
         model.addAttribute("articles", articles);
