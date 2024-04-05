@@ -6,8 +6,8 @@
 <mapper namespace="kr.co.farmstory.mapper.AdminMapper">
 
 
-    <!--adminIndex 회원 목록-->
-    <select id="selectUsers" resultType="kr.co.farmstory.dto.UserDTO">
+    <!--admin.index 회원 목록-->
+    <select id="adminIdxUsers" resultType="kr.co.farmstory.dto.UserDTO">
         SELECT `uid`, `name`, `nick`, `hp`, `email`, `role`, `rdate` FROM `user`
         ORDER BY `rdate` DESC
         LIMIT 5
@@ -16,9 +16,15 @@
     <!--admin.user.list 출력-->
     <select id="adminSelectUsers" resultType="kr.co.farmstory.dto.UserDTO">
         SELECT * FROM `user`
-
     </select>
 
+    <!-- admin.user.modify 출력 -->
+    <select id="adminSelectUserByUid" resultType="kr.co.farmstory.dto.UserDTO">
+        SELECT * FROM `user`
+        WHERE `uid` = #{uid}
+    </select>
+
+    <!--admin.user.register 등록-->
     <insert id="insertAdmin">
         insert into user set
         uid=#{uid},
@@ -35,13 +41,14 @@
         rdate=NOW()
     </insert>
 
-    <!--adminIndex 상품 목록 5개 출력-->
+    <!--admin.index 상품 목록 5개 출력-->
     <select id="adminIdxProducts" resultType="kr.co.farmstory.dto.ProductDTO">
         SELECT * FROM `product`
         ORDER BY `pno` DESC
         LIMIT 5
     </select>
 
+    <!--admin.product.list 출력-->
     <select id="adminSelectProducts" resultType="kr.co.farmstory.dto.ProductDTO">
         SELECT a.*, b.img1 FROM `product` AS a
         JOIN `img` AS b ON a.pno = b.pno

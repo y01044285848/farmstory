@@ -7,10 +7,9 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
-import kr.co.farmstory.entity.Product;
+import kr.co.farmstory.entity.User;
 import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
-import kr.co.farmstory.service.ProductService;
 import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +30,8 @@ import java.util.Map;
 public class AdminController {
 
     private final AdminService adminService;
-    private final ProductService productService;
-
     private final ImgService imgService;
-
     private final UserService userService;
-
 
     @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
@@ -50,11 +45,13 @@ public class AdminController {
         return "/admin/index";
     }
 
+    // admin 회원 등록
     @GetMapping("/admin/user/register")
     public String adminReg(){
         return "/admin/user/register";
     }
 
+    // admin 회원 등록
     @PostMapping("/admin/user/register")
     public String regAdmin(HttpServletRequest req, UserDTO userDTO) {
 
@@ -114,6 +111,7 @@ public class AdminController {
 
     }
 
+    // admin.user.list 출력
     @GetMapping("/admin/user/list")
     public String adminUserlist(Model model, Integer pageNum, Integer pageSize){
 
@@ -133,8 +131,18 @@ public class AdminController {
         return "/admin/user/list";
     }
 
-    @GetMapping("/admin/product/list")
+    // admin.user.modify
+    @GetMapping("/admin/user/{uid}")
+    public String adminUserModify(@PathVariable String uid, Model model){
+        UserDTO user = adminService.adminSelectUser(uid);
+        model.addAttribute("user", user);
+        return "/admin/user/modify";
+    }
 
+
+
+    // admin.product.list 출력
+    @GetMapping("/admin/product/list")
     public String adminProductlist(Model model, Integer pageNum, Integer pageSize){
 
 
@@ -153,6 +161,7 @@ public class AdminController {
 
         return "/admin/product/list";
     }
+
 
     @GetMapping("/admin/product/register")
     public String productRegister(){
@@ -183,6 +192,7 @@ public class AdminController {
 
         return "redirect:/admin/product/register?success=200";
     }
+
 
     @GetMapping("/admin/order/list")
     public String orderlist(){
