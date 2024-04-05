@@ -30,13 +30,6 @@ public class CartService {
         return  cartMapper.selectCartList(pno, uid);
     }
 
-    // 장바구니 목록 삭제
-    public void deleteCartProducts(int[] pnos) {
-        for(int pno : pnos) {
-            cartMapper.deleteCartProducts(pno);
-            log.info("deleteCart..1: " + pno);
-        }
-    }
 }
 
 
