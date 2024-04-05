@@ -44,7 +44,7 @@
                 <tbody>
                 <tr th:each="article, index:${articles}">
                     <td th:text="${(articlePage.total)-(articlePage.pageNum - 1)*10 - index.index}" ></td>
-                    <td>[[${article.title}]]</td>
+                    <td><a th:href="@{#}">[[${article.title}]]</a></td>
                     <td>[[${article.nick}]]</td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     <td>[[${article.hit}]]</td>
