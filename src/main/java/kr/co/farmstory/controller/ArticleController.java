@@ -21,31 +21,33 @@ public class ArticleController {
 
     private final ArticleService articleService;
     @GetMapping("/article/write")
-    public String write(@RequestParam String cate, Model model){
+    public String write(String cate, String grp, Model model){
         model.addAttribute("cate", cate);
+        model.addAttribute("grp", grp);
         return "/article/write";
     }
 
-    @PostMapping("/article/write/{cate}")
+    @PostMapping("/article/write")
     public String insertArticle(HttpServletRequest req, ArticleDTO articleDTO){
+
+
         String regip = req.getRemoteAddr();
-        String cate = articleDTO.getCate();
         articleDTO.setRegip(regip);
-        log.info(articleDTO.toString());
+        log.info("insertArticle : "+articleDTO.toString());
 
         articleService.insertArticle(articleDTO);
 
-        return "redirect:/community/"+cate;
+        return "redirect:/article/list?grp="+articleDTO.getGrp()+"&cate="+articleDTO.getCate();
     }
 
     @GetMapping("/article/list")
-    public String articleList(@Param("group") String group,
+    public String articleList(@Param("grp") String grp,
                               @Param("cate") String cate, Model model,
                               Integer pageNum, Integer pageSize){
 
-        log.info("group : " + group);
+        log.info("grp : " + grp);
         log.info("cate : " + cate);
-        model.addAttribute("group", group);
+        model.addAttribute("grp", grp);
         model.addAttribute("cate", cate);
         // 페이지 값을 기본으로 1, 사이즈를 10으로 설정
         pageNum = pageNum == null ? 1 : pageNum;
@@ -54,7 +56,7 @@ public class ArticleController {
         // PageHelper를 사용하여 페이징 시작 (1~10까지)
         PageHelper.startPage(pageNum, pageSize);
 
-        List<ArticleDTO> articles = articleService.selectArticles(group, cate);
+        List<ArticleDTO> articles = articleService.selectArticles(grp, cate);
 
         PageInfo<ArticleDTO> articlesPage = new PageInfo<>(articles);
 

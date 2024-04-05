@@ -23,6 +23,7 @@ public class ArticleDTO {
     private String content;
     private int hit;
     private String regip;
+    private String grp;
     private LocalDateTime rdate;
     private int file;
 
