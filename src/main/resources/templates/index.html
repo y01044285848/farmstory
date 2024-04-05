@@ -46,31 +46,31 @@
     </div>
 
     <div class="quick">
-        <a th:href="@{/community/menu}"><img src="./images/main_banner_sub1_tit.png" alt="오늘의 식단"></a>
-        <a th:href="@{/community/chef}"><img src="./images/main_banner_sub2_tit.png" alt="나도 요리사"></a>
-        <a th:href="@{/community/menu}"><img th:src="@{./images/main_banner_sub1_tit.png}" alt="오늘의 식단"></a>
-        <a th:href="@{/community/chef}"><img th:src="@{./images/main_banner_sub2_tit.png}" alt="나도 요리사"></a>
+        <a th:href="@{/article/list(grp='community',cate='menu')}"><img src="./images/main_banner_sub1_tit.png" alt="오늘의 식단"></a>
+        <a th:href="@{/article/list(grp='community',cate='chef')}"><img src="./images/main_banner_sub2_tit.png" alt="나도 요리사"></a>
+        <a th:href="@{/article/list(grp='community',cate='menu')}"><img th:src="@{./images/main_banner_sub1_tit.png}" alt="오늘의 식단"></a>
+        <a th:href="@{/article/list(grp='community',cate='chef')}"><img th:src="@{./images/main_banner_sub2_tit.png}" alt="나도 요리사"></a>
     </div>
 
     <div class="latest">
         <div>
-            <a th:href="@{/article/list(group='croptalk',cate='grow')}"><img th:src="@{/images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
+            <a th:href="@{/article/list(grp='croptalk',cate='grow')}"><img th:src="@{/images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
             <img th:src="@{/images/main_latest1_img.jpg}" alt="이미지"/>
-            <a th:href="@{/article/list(group='croptalk',cate='grow')}"><img th:src="@{./images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
+            <a th:href="@{/article/list(grp='croptalk',cate='grow')}"><img th:src="@{./images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
             <img th:src="@{./images/main_latest1_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${grow}">
 
                     <td>&#xF234;</td>
 
-                    <td><a th:href="@{/article/list(group='croptalk',cate='grow')}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(grp='croptalk',cate='grow')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
 
             </table>
         </div>
         <div>
-            <a th:href="@{/article/list(group='croptalk',cate='school')}"><img th:src="@{./images/main_latest2_tit.png}" alt="귀농학교"/></a>
+            <a th:href="@{/article/list(grp='croptalk',cate='school')}"><img th:src="@{./images/main_latest2_tit.png}" alt="귀농학교"/></a>
             <img th:src="@{./images/main_latest2_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article: ${school}">
@@ -78,13 +78,13 @@
 
                     <td>&#xF683;</td>
 
-                    <td><a th:href="@{/article/list(group='croptalk',cate='school')}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(grp='croptalk',cate='school')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
             </table>
         </div>
         <div>
-            <a th:href="@{/article/list(group='croptalk',cate='story')}"><img th:src="@{./images/main_latest3_tit.png}" alt="농작물 이야기"/></a>
+            <a th:href="@{/article/list(grp='croptalk',cate='story')}"><img th:src="@{./images/main_latest3_tit.png}" alt="농작물 이야기"/></a>
             <img th:src="@{./images/main_latest3_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${story}">
@@ -92,7 +92,7 @@
                     <td>&#xF683;</td>
 
 
-                    <td><a th:href="@{/article/list(group='croptalk',cate='story')}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(grp='croptalk',cate='story')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
             </table>
@@ -113,8 +113,8 @@
                 </p>
             </div>
             <div class="btns">
-                <a th:href="@{/community/qna}"><img th:src="@{./images/main_sub2_cs_bt1.png}" alt="1:1 고객문의"></a>
-                <a th:href="@{/community/faq}"><img th:src="@{./images/main_sub2_cs_bt2.png}" alt="자주묻는질문"></a>
+                <a th:href="@{/article/list(grp='community',cate='qna')}"><img th:src="@{./images/main_sub2_cs_bt1.png}" alt="1:1 고객문의"></a>
+                <a th:href="@{/article/list(grp='community',cate='faq')}"><img th:src="@{./images/main_sub2_cs_bt2.png}" alt="자주묻는질문"></a>
                 <a href="#"><img src="./images/main_sub2_cs_bt3.png" alt="배송조회"></a>
             </div>
         </div>
@@ -137,17 +137,17 @@
                 </ul>
                 <div id="tabs-1">
                     <ul th:each="article:${notice}" class="txt">
-                        <li><a th:href="@{/community/notice}">· [[${article.title}]]</a></li>
+                        <li><a th:href="@{/article/list(grp='community',cate='notice')}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
                 <div id="tabs-2">
                     <ul th:each="article:${qna}" class="txt">
-                        <li><a th:href="@{/community/qna}">· [[${article.title}]]</a></li>
+                        <li><a th:href="@{/article/list(grp='community',cate='qna')}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
                 <div id="tabs-3">
                     <ul th:each="article:${faq}" class="txt">
-                        <li><a th:href="@{/community/faq}">· [[${article.title}]]</a></li>
+                        <li><a th:href="@{/article/list(grp='community',cate='faq')}">· [[${article.title}]]</a></li>
                     </ul>
                 </div>
             </div>
