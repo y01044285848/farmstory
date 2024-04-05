@@ -54,23 +54,23 @@
 
     <div class="latest">
         <div>
-            <a th:href="@{/croptalk/grow}"><img th:src="@{/images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
+            <a th:href="@{/article/list(group='croptalk',cate='grow')}"><img th:src="@{/images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
             <img th:src="@{/images/main_latest1_img.jpg}" alt="이미지"/>
-            <a th:href="@{/croptalk/grow}"><img th:src="@{./images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
+            <a th:href="@{/article/list(group='croptalk',cate='grow')}"><img th:src="@{./images/main_latest1_tit.png}" alt="텃밭 가꾸기"/></a>
             <img th:src="@{./images/main_latest1_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${grow}">
 
                     <td>&#xF234;</td>
 
-                    <td><a th:href="@{/croptalk/grow}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(group='croptalk',cate='grow')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
 
             </table>
         </div>
         <div>
-            <a th:href="@{/croptalk/school}"><img th:src="@{./images/main_latest2_tit.png}" alt="귀농학교"/></a>
+            <a th:href="@{/article/list(group='croptalk',cate='school')}"><img th:src="@{./images/main_latest2_tit.png}" alt="귀농학교"/></a>
             <img th:src="@{./images/main_latest2_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article: ${school}">
@@ -78,13 +78,13 @@
 
                     <td>&#xF683;</td>
 
-                    <td><a th:href="@{/croptalk/school}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(group='croptalk',cate='school')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
             </table>
         </div>
         <div>
-            <a th:href="@{/croptalk/story}"><img th:src="@{./images/main_latest3_tit.png}" alt="농작물 이야기"/></a>
+            <a th:href="@{/article/list(group='croptalk',cate='story')}"><img th:src="@{./images/main_latest3_tit.png}" alt="농작물 이야기"/></a>
             <img th:src="@{./images/main_latest3_img.jpg}" alt="이미지"/>
             <table border="0">
                 <tr th:each="article : ${story}">
@@ -92,7 +92,7 @@
                     <td>&#xF683;</td>
 
 
-                    <td><a th:href="@{/croptalk/story}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/list(group='croptalk',cate='story')}">[[${article.title}]]</a></td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                 </tr>
             </table>
