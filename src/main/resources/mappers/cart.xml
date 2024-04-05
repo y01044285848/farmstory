@@ -40,5 +40,10 @@
 
     </select>
 
+    <!--장바구니 상품 삭제-->
+    <delete id="deleteCartProducts" parameterType="int">
+        DELETE FROM cart WHERE pno = #{pno}
+    </delete>
+
 
 </mapper>
