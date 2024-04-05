@@ -1,0 +1,29 @@
+
+*, ::after, ::before {
+    box-sizing: inherit;
+}
+
+dl, ol, ul {
+    margin-bottom: 0;
+}
+
+header > .gnb {
+    left: -24px;
+}
+
+header > img {
+    margin-top: 14px;
+}
+
+#sub > .market > .list > table th {
+    text-align: center;
+}
+
+#sub > .market > .list > table tr > td:nth-child(3) {
+    text-align: center;
+}
+
+/* 부트스트랩 게시판 리스트 텍스트 정렬*/
+tbody, td, tfoot, th, thead, tr {
+    text-align: center;
+}
