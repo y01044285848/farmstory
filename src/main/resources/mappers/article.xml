@@ -8,18 +8,21 @@
     <select id="selectArticles" resultType="kr.co.farmstory.dto.ArticleDTO">
         select a.*, b.nick from `article` AS a JOIN `user` AS b on a.uid = b.uid
         <where>
-            <if test="cate == 'notice'">cate=#{value}</if>
-            <if test="cate == 'menu'">cate=#{value}</if>
-            <if test="cate == 'chef'">cate=#{value}</if>
-            <if test="cate == 'qna'">cate=#{value}</if>
-            <if test="cate == 'faq'">cate=#{value}</if>
-            <if test="cate == 'event'">cate=#{value}</if>
-            <if test="cate == 'story'">cate=#{value}</if>
-            <if test="cate == 'grow'">cate=#{value}</if>
-            <if test="cate == 'school'">cate=#{value}</if>
-            and a.parent=0
+            <if test="group == 'croptalk'">a.group=#{param1}</if>
+            <if test="group == 'event'">a.group=#{param1}</if>
+            <if test="group == 'community'">a.group=#{param1}</if>
+
+            <if test="cate == 'notice'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'menu'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'chef'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'qna'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'faq'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'event'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'story'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'grow'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
+            <if test="cate == 'school'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
         </where>
-        ORDER BY a.ano DESC
+
     </select>
 
     <select id="selectArticlesMain" resultType="kr.co.farmstory.dto.ArticleDTO">

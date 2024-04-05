@@ -30,8 +30,8 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
     private final CropTalkMapper cropTalkMapper;
 
-    public List<ArticleDTO> selectArticles(String cate){
-        return articleMapper.selectArticles(cate);
+    public List<ArticleDTO> selectArticles(String group, String cate){
+        return articleMapper.selectArticles(group, cate);
     }
 
     public List<ArticleDTO>selectArticlesMain(String cate){
