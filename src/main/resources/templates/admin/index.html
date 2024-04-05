@@ -1,27 +1,30 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{/layout/userLayout}"> -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>팜스토리</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" th:href="@{/css/admin/css/style.css}">
 </head>
 <body>
-    <div id="container">
-        <header>
-            <a th:href="@{/admin}" class="logo"><img th:src="@{/images/admin/images/admin_logo.jpg}" alt="로고"/></a>
-            <p>
-                <a th:href="@{/}">HOME |</a>
-                <a th:href="@{/user/logout}">로그아웃 |</a>
-                <a href="#">고객센터</a>
-            </p>
-        </header>
+<div id="container">
+    <header>
+        <a th:href="@{/admin}" class="logo"><img th:src="@{/images/admin/images/admin_logo.jpg}" alt="로고"/></a>
+        <p>
+            <a th:href="@{/}">HOME |</a>
+            <a th:href="@{/user/logout}">로그아웃 |</a>
+            <a href="#">고객센터</a>
+        </p>
+    </header>
+    <main layout:fragment="content">
         <main>
             <aside>
                 <h3>주요기능</h3>
@@ -33,21 +36,20 @@ layout:decorate="~{/layout/userLayout}"> -->
                             <li><a th:href="@{/admin/user/register}">관리자등록</a></li>
                         </ol>
                     </li>
-                    <li>                        
+                    <li>
                         <span>상품관리</span>
                         <ol>
                             <li><a th:href="@{/admin/product/list}">상품목록</a></li>
                             <li><a th:href="@{/admin/product/register}">상품등록</a></li>
                         </ol>
                     </li>
-                    <li>                        
+                    <li>
                         <span>주문관리</span>
                         <ol>
                             <li><a th:href="@{/admin/order/list}">주문목록</a></li>
                             <li><a th:href="@{/admin/order/delivery}">배송관리</a></li>
                         </ol>
                     </li>
-
                 </ul>
             </aside>
             <section>
@@ -59,7 +61,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                         <a th:href="@{/admin/user/list}">회원현황</a>
                         <a href="#" class="more">+ 더보기</a>
                     </h3>
-                    <table border="0">
+                    <table border="0" >
                         <tr>
                             <th>회원아이디</th>
                             <th>이름</th>
@@ -163,6 +165,6 @@ layout:decorate="~{/layout/userLayout}"> -->
             </p>
         </footer>
     </div>
-    
+
 </body>
 </html>
