@@ -10,10 +10,64 @@
     <meta charset="UTF-8">
     <title>팜스토리::장바구니</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
+    <style>
+        #sub > .market > .cart > form> table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+            margin-top: 10px;
+        }
+
+        #sub > .market > .cart > form > table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+            margin-top: 10px;
+        }
+
+        #sub > .market > .cart > form > table th {
+            padding: 10px;
+            background-color: #e5ecef;
+            border-bottom: 1px solid #d1dee2;
+        }
+
+        #sub > .market > .cart > form > table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+
+        #sub > .market > .cart > form > table tr > td {
+            padding: 10px;
+            box-sizing: border-box;
+            color: #777;
+            text-align: center;
+        }
+
+
+        #cartList .thumb{
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+    </style>
 </head>
 <script>
 
     window.onload = function (){
+        // 선택삭제 버튼 클릭
+        document.querySelector("input[name='delCart']").addEventListener("click", function (){
+            // 선택된 상품들
+            var selectedProducts = document.querySelectorAll("input[name='checkCart']:checked");
+
+            // 선택된 상품 삭제
+            selectedProducts.forEach(function (product){
+                var productRow = product.closest("tr"); // 상품의 행
+                productRow.parentNode.removeChild(productRow); // 상품 행 삭제
+            });
+
+        })
 
     }
 
@@ -41,6 +95,7 @@
             <p class="sort">
                 <a th:href="@{#}" class="on">장바구니 전체(10)</a>
             </p>
+                <form id="cartList" name="cartList" th:action="@{/market/cart}" method="post">
                 <table border="0">
                     <thead>
                     <tr>
@@ -79,8 +134,9 @@
                     </tr>
                     </tbody>
                 </table>
+                </form>
 
-            <input type="button" name="del" value="선택삭제">
+            <input type="button" name="delCart" value="선택삭제">
 
             <div class="info">
                     <table border="0">
