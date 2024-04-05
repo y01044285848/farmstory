@@ -4,14 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import kr.co.farmstory.dto.ArticleDTO;
 import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.Product;
-import kr.co.farmstory.service.AdminService;
-import kr.co.farmstory.service.ImgService;
-import kr.co.farmstory.service.ProductService;
-import kr.co.farmstory.service.UserService;
+import kr.co.farmstory.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -133,8 +131,8 @@ public class AdminController {
         return "/admin/user/list";
     }
 
-    @GetMapping("/admin/product/list")
 
+    @GetMapping("/admin/product/list")
     public String adminProductlist(Model model, Integer pageNum, Integer pageSize){
 
 
