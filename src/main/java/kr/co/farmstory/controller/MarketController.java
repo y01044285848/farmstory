@@ -114,7 +114,8 @@ public class MarketController {
 
     @PostMapping("/market/order")
     public String order(CartDTO cartDTO, Model model){
-        
+
+
         UserDTO userDTO = userService.selectUser(cartDTO.getUid());
         log.info(userDTO.toString());
         model.addAttribute(userDTO);
