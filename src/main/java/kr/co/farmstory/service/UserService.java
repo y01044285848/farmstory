@@ -46,6 +46,10 @@ public class UserService {
         return adminMapper.selectUsers();
     }
 
+    // 선택 사용자 조회
+    public UserDTO selectUser(String uid){
+        return userMapper.selectUser(uid);
+    }
 
     public int selectCountUser(String type, String value) {
         return userMapper.selectCountUser(type, value);

@@ -10,6 +10,7 @@ import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.mapper.CartMapper;
 import kr.co.farmstory.service.CartService;
 import kr.co.farmstory.service.ProductService;
+import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +33,7 @@ public class MarketController {
 
     private final ProductService productService;
     private final CartService cartService;
+    private final UserService userService;
 
     @GetMapping("/market/list")
     public String list(Model model, Integer pageNum, Integer pageSize, String cate){
@@ -102,9 +104,12 @@ public class MarketController {
         return "/market/cart";
     }
 
-    @GetMapping("/market/order")
-    public String order(Principal principal, int pno, int count){
+    @PostMapping("/market/order")
+    public String order(CartDTO cartDTO, Model model){
 
+        UserDTO userDTO = userService.selectUser(cartDTO.getUid());
+        log.info(userDTO.toString());
+        model.addAttribute(userDTO);
         return "/market/order";
     }
 

@@ -12,4 +12,6 @@ public interface UserMapper {
     public void insertUser(UserDTO userDTO);
     public int selectCountUser(@Param("type") String type, @Param("value") String value);
 
+    public UserDTO selectUser(String uid);
+
 }

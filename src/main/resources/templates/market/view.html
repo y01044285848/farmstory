@@ -66,10 +66,25 @@
                 return false;
             }
         }
-        btnOrder.onclick = function (){
+        btnOrder.onclick = async function (e){
+            e.preventDefault();
+            const jsonData = {
+                "pno": sendForm.pno.value,
+                "uid": sendForm.uid.value,
+                "pcount": sendForm.pcount.value
+            }
+            console.log(jsonData);
 
-            btnOrder.href += "&count="+document.getElementById('count').value;
-            return true;
+            const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
+            console.log(data);
+            if(data != null){
+                sendForm.action = "/farmstory/market/order";
+                sendForm.submit();
+
+            }else{
+                alert("등록에 실패했습니다.");
+            }
+            return false;
         }
 
 
