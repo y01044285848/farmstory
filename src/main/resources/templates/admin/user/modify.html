@@ -1,55 +1,35 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<!-- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{/layout/userLayout}"> -->
-<head>
-    <meta charset="UTF-8">
-    <title>팜스토리</title>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" th:href="@{/css/admin/css/style.css}">
-</head>
-<body>
-<div id="container">
-    <header>
-        <a th:href="@{/admin}" class="logo"><img th:src="@{/images/admin/images/admin_logo.jpg}" alt="로고"/></a>
-        <p>
-            <a th:href="@{/}">HOME |</a>
-            <a th:href="@{/user/logout}">로그아웃 |</a>
-            <a href="#">고객센터</a>
-        </p>
-    </header>
-    <main>
-        <aside>
-            <h3>주요기능</h3>
-            <ul>
-                <li>
-                    <span>회원관리</span>
-                    <ol>
-                        <li><a th:href="@{/admin/user/list}">회원목록</a></li>
-                        <li><a th:href="@{/admin/user/register}">관리자등록</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <span>상품관리</span>
-                    <ol>
-                        <li><a th:href="@{/admin/product/list}">상품목록</a></li>
-                        <li><a th:href="@{/admin/product/register}">상품등록</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <span>주문관리</span>
-                    <ol>
-                        <li><a th:href="@{/admin/order/list}">주문목록</a></li>
-                        <li><a th:href="@{/admin/order/delivery}">배송관리</a></li>
-                    </ol>
-                </li>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layouts/adminLayout}">
 
-            </ul>
-        </aside>
+<main layout:fragment="content">
+    <aside>
+        <h3>주요기능</h3>
+        <ul>
+            <li>
+                <span>회원관리</span>
+                <ol>
+                    <li><a th:href="@{/admin/user/list}">회원목록</a></li>
+                    <li><a th:href="@{/admin/user/register}">관리자등록</a></li>
+                </ol>
+            </li>
+            <li>
+                <span>상품관리</span>
+                <ol>
+                    <li><a th:href="@{/admin/product/list}">상품목록</a></li>
+                    <li><a th:href="@{/admin/product/register}">상품등록</a></li>
+                </ol>
+            </li>
+            <li>
+                <span>주문관리</span>
+                <ol>
+                    <li><a th:href="@{/admin/order/list}">주문목록</a></li>
+                    <li><a th:href="@{/admin/order/delivery}">배송관리</a></li>
+                </ol>
+            </li>
+        </ul>
+    </aside>
         <section>
             <nav>
                 <h3>회원 정보 조회 및 수정</h3>
@@ -59,9 +39,7 @@ layout:decorate="~{/layout/userLayout}"> -->
                 <table class="table table-bordered">
                     <tr>
                         <th>User ID</th>
-                        <td >
-                            <input type="text" th:value="${user.uid}" name="uid" style="text-align: center;">
-                        </td>
+                        <td th:text="${user.uid}" style="text-align: center"></td>
                     </tr>
                     <tr>
                         <th>Name</th>
@@ -121,12 +99,6 @@ layout:decorate="~{/layout/userLayout}"> -->
                         <th>Provider</th>
                         <td>
                         <input type="text" th:value="${user.provider}" name="provider" style="text-align: center;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>RegIP</th>
-                        <td>
-                        <input type="text" th:value="${user.regip}" name="regip" style="text-align: center;">
                         </td>
                     </tr>
                     <tr>
