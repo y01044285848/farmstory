@@ -113,6 +113,8 @@ public class AdminController {
 
     }
 
+
+
     // admin.user.list 출력
     @GetMapping("/admin/user/list")
     public String adminUserlist(Model model, Integer pageNum, Integer pageSize){
@@ -131,6 +133,15 @@ public class AdminController {
         model.addAttribute("adminUserPage", adminUserPage);
 
         return "/admin/user/list";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String adminUserDelete(@RequestParam List<String> checkbox){
+        for(String uid : checkbox){
+            adminService.adminUserDelete(uid);
+        }
+        log.info(checkbox.toString());
+        return "redirect:/admin/user/list";
     }
 
     // admin.user.modify
