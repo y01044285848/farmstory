@@ -28,7 +28,7 @@ public interface AdminMapper {
     // adminProduct 상품 목록
     public List<ProductDTO> adminSelectProducts();
 
-
+    public void adminUserDelete(String uid);
 
 
 }

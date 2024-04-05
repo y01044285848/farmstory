@@ -2,7 +2,6 @@ package kr.co.farmstory.service;
 
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
-import kr.co.farmstory.entity.User;
 import kr.co.farmstory.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,12 +47,14 @@ public class AdminService {
     }
 
 
-
-
     public void insertAdmin(UserDTO userDTO){
         String encoded = passwordEncoder.encode(userDTO.getPass());
         userDTO.setPass(encoded);
         adminMapper.insertAdmin(userDTO);
+    }
+
+    public void adminUserDelete(String uid){
+        adminMapper.adminUserDelete(uid);
     }
 
 
