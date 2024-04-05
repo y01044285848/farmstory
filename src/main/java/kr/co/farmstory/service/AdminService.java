@@ -2,6 +2,7 @@ package kr.co.farmstory.service;
 
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.entity.User;
 import kr.co.farmstory.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,19 @@ public class AdminService {
         return adminMapper.adminIdxUsers();
     }
 
+    // admin.user.list 출력
+    public List<UserDTO> adminSelectUsers() {
+        return adminMapper.adminSelectUsers();
+    }
+
+    // admin.user 정보 조회 및 수정
+   public UserDTO adminSelectUser(String uid){
+        return adminMapper.adminSelectUserByUid(uid);
+   }
+
+    // admin.user.modify
+
+
     // adminIndex 상품 목록 출력
     public List<ProductDTO> adminIdxProducts() {
         return adminMapper.adminIdxProducts();
@@ -33,10 +47,7 @@ public class AdminService {
         return adminMapper.adminSelectProducts();
     }
 
-    // admin.user.list 출력
-    public List<UserDTO> adminSelectUsers() {
-        return adminMapper.adminSelectUsers();
-    }
+
 
 
     public void insertAdmin(UserDTO userDTO){

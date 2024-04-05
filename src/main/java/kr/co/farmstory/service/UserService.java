@@ -41,12 +41,6 @@ public class UserService {
         userMapper.insertUser(userDTO);
     }
 
-    // adminIndex 회원목록 표시
-    public List<UserDTO> selectUsers(){
-        return adminMapper.selectUsers();
-    }
-
-
     public int selectCountUser(String type, String value) {
         return userMapper.selectCountUser(type, value);
     }
