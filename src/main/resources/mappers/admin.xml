@@ -56,6 +56,13 @@
         ORDER BY a.rdate DESC, a.pno ASC
     </select>
 
+    <delete id="adminArticleDelete" parameterType="kr.co.farmstory.dto.ProductDTO">
+        DELETE FROM `article` WHERE uid = #{uid}
+    </delete>
+
+    <delete id="adminUserDelete" parameterType="kr.co.farmstory.dto.UserDTO">
+        DELETE FROM `user` WHERE uid = #{uid}
+    </delete>
 
 
 </mapper>
