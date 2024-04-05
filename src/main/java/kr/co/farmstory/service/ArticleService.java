@@ -30,8 +30,8 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
     private final CropTalkMapper cropTalkMapper;
 
-    public List<ArticleDTO> selectArticles(String group, String cate){
-        return articleMapper.selectArticles(group, cate);
+    public List<ArticleDTO> selectArticles(String grp, String cate){
+        return articleMapper.selectArticles(grp, cate);
     }
 
     public List<ArticleDTO>selectArticlesMain(String cate){
@@ -44,8 +44,10 @@ public class ArticleService {
 
     public void insertArticle(ArticleDTO articleDTO){
 
+        log.info("insertArticle...1");
         List<FileDTO> files = fileService.fileUpload(articleDTO);
 
+        log.info("insertArticle...2");
         // 파일 갯수
         articleDTO.setFile(files.size());
 
@@ -53,7 +55,7 @@ public class ArticleService {
         log.info(article.toString());
 
         Article savedArticle = articleRepository.save(article);
-        log.info("insertArticle : " + savedArticle.toString());
+        log.info("insertArticle : " + savedArticle);
 
         // 파일 넣기
         for (FileDTO fileDTO : files){

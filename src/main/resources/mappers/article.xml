@@ -8,9 +8,9 @@
     <select id="selectArticles" resultType="kr.co.farmstory.dto.ArticleDTO">
         select a.*, b.nick from `article` AS a JOIN `user` AS b on a.uid = b.uid
         <where>
-            <if test="group == 'croptalk'">a.group=#{param1}</if>
-            <if test="group == 'event'">a.group=#{param1}</if>
-            <if test="group == 'community'">a.group=#{param1}</if>
+            <if test="grp == 'croptalk'">a.grp=#{param1}</if>
+            <if test="grp == 'event'">a.grp=#{param1}</if>
+            <if test="grp == 'community'">a.grp=#{param1}</if>
 
             <if test="cate == 'notice'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>
             <if test="cate == 'menu'">AND a.cate=#{param2} and a.parent=0 ORDER BY a.ano DESC</if>

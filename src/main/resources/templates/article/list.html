@@ -16,14 +16,14 @@
 </head>
 
 <div id="sub">
-    <div><img th:src="@{|/images/sub_top_${group}.png|}" alt="배너탑"></div>
-    <section th:class="${group}">
-        <aside th:replace="~{|/common/fragments/${group}AsideLayout|}"></aside>
+    <div><img th:src="@{|/images/sub_top_${grp}.png|}" alt="배너탑"></div>
+    <section th:class="${grp}">
+        <aside th:replace="~{|/common/fragments/${grp}AsideLayout|}"></aside>
 
 
         <article>
             <nav>
-                <img th:src="@{|/images/sub_nav_tit_${group}_${cate}.png|}" alt="글배너"/>
+                <img th:src="@{|/images/sub_nav_tit_${grp}_${cate}.png|}" alt="글배너"/>
                 <p>
                     HOME > 커뮤니티 > <em>공지사항</em>
                 </p>
@@ -58,7 +58,7 @@
                 <ul class="pagination justify-content-center">
 
                     <li th:if="${!articlePage.isIsFirstPage()}" class="page-item">
-                        <a class="page-link" th:href="@{/article/list(group=${group},cate=${cate},pageNum=${articlePage.pageNum} -1)}">이전</a>
+                        <a class="page-link" th:href="@{/article/list(grp=${grp},cate=${cate},pageNum=${articlePage.pageNum} -1)}">이전</a>
                     </li>
                     <!--
                     <li th:each="num : ${#numbers.sequence(1, (articlePage.pages/10)*10)}" class="page-item">
@@ -66,17 +66,17 @@
                     </li>
                     -->
                     <li th:each="num : ${#numbers.sequence(articlePage.navigateFirstPage,articlePage.navigateLastPage)}" class="page-item">
-                        <a class="page-link" th:href="@{/article/list(group=${group},cate=${cate},pageNum=${num})}">[[${num}]]</a>
+                        <a class="page-link" th:href="@{/article/list(grp=${grp},cate=${cate},pageNum=${num})}">[[${num}]]</a>
                     </li>
 
                     <li th:if="${articlePage.hasNextPage}" class="page-item">
-                        <a class="page-link" th:href="@{/article/list(group=${group},cate=${cate},pageNum=${articlePage.pageNum} +1)}">다음</a>
+                        <a class="page-link" th:href="@{/article/list(grp=${grp},cate=${cate},pageNum=${articlePage.pageNum} +1)}">다음</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="text-end">
-                <a th:href="@{#}" class="btn btn-primary m-3"> 글쓰기</a>
+                <a th:href="@{/article/write(grp=${grp},cate=${cate})}" class="btn btn-primary m-3"> 글쓰기</a>
             </div>
             <!-- 내용 끝 -->
 

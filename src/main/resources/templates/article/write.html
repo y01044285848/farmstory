@@ -34,9 +34,10 @@
                 글쓰기
             </div>
             <div class="card-body">
-                <form name="formWrite" th:action="@{/article/write/${cate}}" method="post" enctype="multipart/form-data">
+                <form name="formWrite" th:action="@{/article/write}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
-                    <input type="hidden" name="cate" th:value="${cate}">
+                    <input type="text" name="cate" th:value="${cate}">
+                    <input type="text" name="grp" th:value="${grp}">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">글 제목</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="제목 입력">
@@ -53,7 +54,7 @@
             </div>
         </div>
         <div class="text-end">
-            <a th:href="@{/community/notice}" class="btn btn-primary m-3">취소</a>
+            <a th:href="@{/article/list/(grp=${grp},cate=${cate})}" class="btn btn-primary m-3">취소</a>
             <a th:href="@{#}" class="btn btn-primary m-3" id="btnSubmit">글등록</a>
         </div>
             <!-- 내용 끝 -->
