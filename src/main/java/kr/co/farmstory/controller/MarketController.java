@@ -104,10 +104,11 @@ public class MarketController {
     
     
     // 장바구니 목록 삭제
-    @DeleteMapping("/market/cart")
-    public String deleteCartProducts(@RequestBody int[] pnos){
-        cartService.deleteCartProducts(pnos);
-        log.info("deleteCart..2: " + pnos);
+    @PostMapping("/market/cart/delete")
+    public String deleteCartProducts(@RequestParam List<String> checkBox){
+       log.info(checkBox.toString());
+
+        //cartService.deleteCartProducts();
         return "redirect:/market/cart";
     }
 
