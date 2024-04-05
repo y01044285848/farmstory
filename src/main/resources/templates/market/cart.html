@@ -11,9 +11,22 @@
     <title>팜스토리::장바구니</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
 </head>
+<script th:src="@{/js/util.js}"></script>
 <script>
 
-    window.onload = function (){
+    window.onload = function () {
+        // 선택삭제 버튼 클릭
+        document.querySelector("input[name='delCart']").addEventListener("click", function (){
+            // 선택된 상품들
+            var selectedProducts = document.querySelectorAll("input[name='checkCart']:checked");
+
+            // 선택된 상품 삭제
+            selectedProducts.forEach(function (product){
+                var productRow = product.closest("tr"); // 상품의 행
+                productRow.parentNode.removeChild(productRow); // 상품 행 삭제
+            });
+
+        })
 
     }
 
@@ -80,7 +93,7 @@
                     </tbody>
                 </table>
 
-            <input type="button" name="del" value="선택삭제">
+            <input type="button" name="delCart" value="선택삭제">
 
             <div class="info">
                     <table border="0">

@@ -16,10 +16,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -53,6 +50,7 @@ public class MarketController {
         return "/market/list";
     }
 
+    // 상품 상세보기
     @GetMapping("/market/view")
 
     public String view(Model model, Integer pno, CartDTO cartDTO){
@@ -101,7 +99,19 @@ public class MarketController {
 
         return "/market/cart";
     }
+    
+    
+    // 장바구니 목록 삭제
+    @DeleteMapping("/market/cart")
+    public String deleteCartProducts(@RequestBody int[] pnos){
+        cartService.deleteCartProducts(pnos);
+        log.info("deleteCart..2: " + pnos);
+        return "redirect:/market/cart";
+    }
 
+    
+    
+    // 주문정보
     @GetMapping("/market/order")
     public String order(Principal principal, int pno, int count){
 

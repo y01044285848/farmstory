@@ -53,6 +53,30 @@ async function fetchPost(url, jsonData){
     }
 }
 
+// fetch DELETE 용
+async function fetchDelete(url){
+
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE'
+        });
+
+        if(!response.ok){
+            throw new Error('response not ok');
+        }
+
+        const data = await response.json();
+        console.log("data1 : " + data);
+
+        return data;
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+
 
 
 <!--🎈회원가입 모달창-->
