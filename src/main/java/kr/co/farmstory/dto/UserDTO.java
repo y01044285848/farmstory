@@ -25,6 +25,7 @@ public class UserDTO {
     private String sms;
     private String provider;
     private String regip;
+    private int userpoint;
 
     @CreationTimestamp
     private LocalDateTime rdate;

@@ -10,6 +10,10 @@
         select * from terms
     </select>
 
+    <!-- 사용자 조회 -->
+    <select id="selectUser" resultType="kr.co.farmstory.dto.UserDTO">
+        select * from user where uid=#{value}
+    </select>
 
     <!--회원가입 중복체크-->
     <select id="selectCountUser" resultType="int">
