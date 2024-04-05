@@ -89,7 +89,7 @@ public class MarketController {
 
         model.addAttribute(cartDTO);
 
-        cartService.insertCart(cartDTO);
+        //cartService.insertCart(cartDTO);
         log.info("insertCart: " + cartDTO);
 
         List<CartDTO> cartDTOList = cartService.selectCartList(cartDTO.getPno(), uid);

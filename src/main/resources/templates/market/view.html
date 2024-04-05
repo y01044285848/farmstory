@@ -39,20 +39,73 @@
 
         const sendForm = document.getElementById('sendForm');
 
-        btnCart.onclick = function (e){
+
+
+        btnCart.onclick = async function (e){
             e.preventDefault();
             if(confirm("장바구니에 담으시겠습니까?")) {
-                sendForm.submit();
+                const jsonData = {
+                    "pno": sendForm.pno.value,
+                    "uid": sendForm.uid.value,
+                    "pcount": sendForm.pcount.value
+                }
+                console.log(jsonData);
+
+                const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
+                console.log(data);
+                if(data != null){
+                    if(confirm("장바구니로 이동하시겠습니까?")){
+                        sendForm.submit();
+                    }
+                }else{
+                    alert("등록에 실패했습니다.");
+                }
+                return false;
             }else{
 
                 return false;
             }
         }
         btnOrder.onclick = function (){
-            alert("dd");
+
             btnOrder.href += "&count="+document.getElementById('count').value;
             return true;
         }
+
+
+
+
+
+        // fetch POST용
+        async function fetchPost(url, jsonData){
+
+            console.log("fetchData2...1");
+
+            try{
+                console.log("fetchData2...2");
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {"Content-type":"application/json"},
+                    body: JSON.stringify(jsonData)
+                });
+                console.log("fetchData2...3");
+
+                if(!response.ok){
+                    console.log("fetchData2...4");
+                    throw new Error('response not ok');
+                }
+
+                const data = await response.json();
+                console.log("fetchData2...5 : " + data);
+
+                return data;
+
+            }catch (err) {
+                console.log(err);
+                return null;
+            }
+        }
+
     }
 </script>
 <head>
@@ -98,6 +151,7 @@
                             <td>[[${productDTO.pno}]]</td>
                             <td>
                                 <input type="hidden" name="pno" th:value="${productDTO.pno}">
+                                <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
                             </td>
                         </tr>
                         <tr>
