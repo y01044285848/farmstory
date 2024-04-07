@@ -18,6 +18,19 @@
         loadData.onclick = function (e){
             e.preventDefault();
         }
+
+        const usePointBtn = document.getElementById('usePointBtn');
+        const point = document.getElementsByClassName('point')[0];
+        const usePoint = document.getElementsByName('pointUse')[0];
+        point.childNodes[0];
+        usePointBtn.onclick = function(e){
+            e.preventDefault();
+
+            if(point.childNodes[1].innerText < usePoint.value){
+                alert("보유하신 포인트보다 많이 입력");
+            }
+        }
+
     }
 </script>
 <div id="sub">
@@ -146,7 +159,7 @@
                         <td>포인트사용</td>
                         <td>
                             <input type="text" name="pointUse" value="">
-                            <button>사용하기</button>
+                            <button id="usePointBtn">사용하기</button>
                             <p class="point">
                                 사용가능 <span>[[${userDTO.userpoint}]]</span>원
                             </p>

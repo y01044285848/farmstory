@@ -40,6 +40,25 @@
 
     </select>
 
+    <select id="selectCartList2" resultType="kr.co.farmstory.dto.CartDTO">
+        SELECT
+        SUM(cart.pcount) as pcount,
+        product.cate,
+        product.pname,
+        product.discount,
+        product.point,
+        product.price,
+        product.pno,
+        user.uid,
+        ANY_VALUE(img.img1)
+        FROM cart
+        JOIN product ON cart.pno = product.pno
+        JOIN user ON user.uid = cart.uid
+        JOIN img ON img.pno = cart.pno
+        WHERE cart.uid = #{uid}
+        GROUP BY product.pno
+    </select>
+
     <!--장바구니 상품 삭제-->
     <delete id="deleteCartProducts" parameterType="int">
         DELETE FROM cart WHERE pno = #{pno}

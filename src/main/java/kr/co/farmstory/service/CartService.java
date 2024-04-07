@@ -29,6 +29,9 @@ public class CartService {
     public List<CartDTO> selectCartList (int pno, String uid){
         return  cartMapper.selectCartList(pno, uid);
     }
+    public List<CartDTO> selectCartList2 (String uid){
+        return  cartMapper.selectCartList2(uid);
+    }
 
 }
 

@@ -119,6 +119,10 @@ public class MarketController {
 
         UserDTO userDTO = userService.selectUser(cartDTO.getUid());
         log.info(userDTO.toString());
+        List<CartDTO> cartDTOList = cartService.selectCartList2(cartDTO.getUid());
+        for(CartDTO cartDTO1 : cartDTOList){
+            log.info(cartDTO1.toString());
+        }
         model.addAttribute(userDTO);
         return "/market/order";
     }
