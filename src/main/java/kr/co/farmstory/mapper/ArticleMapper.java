@@ -11,4 +11,6 @@ public interface ArticleMapper {
     Page<ArticleDTO> selectAll();
     public List<ArticleDTO> selectArticles(String grp, String cate);
     public List<ArticleDTO> selectArticlesMain(String cate);
+    public ArticleDTO selectArticle (int ano);
+    public void deleteArticle(int ano);
 }

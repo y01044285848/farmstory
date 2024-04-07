@@ -6,9 +6,15 @@
 <aside>
     <img th:src="@{/images/sub_aside_cate3_tit.png}" alt="농작물이야기"/>
     <ul class="lnb">
-        <li><a th:href="@{/article/list(grp='croptalk',cate='story')}">농작물이야기</a></li>
-        <li class="on"><a th:href="@{/article/list(grp='croptalk',cate='grow')}">텃밭가꾸기</a></li>
-        <li><a th:href="@{/article/list(grp='croptalk',cate='school')}">귀농학교</a></li>
+        <li th:class="${cate == 'story'} ? 'on'">
+            <a th:href="@{/article/list(grp='croptalk',cate='story')}">농작물이야기</a>
+        </li>
+        <li th:class="${cate == 'grow'} ? 'on'">
+            <a th:href="@{/article/list(grp='croptalk',cate='grow')}">텃밭가꾸기</a>
+        </li>
+        <li th:class="${cate == 'school'} ? 'on'">
+            <a th:href="@{/article/list(grp='croptalk',cate='school')}">귀농학교</a>
+        </li>
     </ul>
 
 </aside>
