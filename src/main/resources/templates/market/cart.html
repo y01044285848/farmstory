@@ -47,11 +47,70 @@
             text-align: center;
         }
 
+        #sub > .market > .cart > form > table tr > td:last-child {
+            font-weight: bold;
+            color: #222;
+        }
 
-        #cartList .thumb{
+        #sub > .market > .cart > form > table tr > td > a > img.thumb{
             max-width: 100px;
             max-height: 100px;
         }
+
+
+
+
+        #sub > .market > .cart > form > input[name=delCart] {
+            margin-top: 10px;
+            padding: 6px;
+            border: none;
+            background-color: #960d1a;
+            color: white;
+            cursor: pointer;
+        }
+
+        #sub > .market > .cart > .info > form {
+            float: right;
+            width: 100%;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        #sub > .market > .cart > .info > form > table {
+            float: right;
+            width: 100%;
+            margin-left: 16px;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+        }
+
+        #sub > .market > .cart > .info > form > table caption {
+            padding: 6px;
+        }
+
+        #sub > .market > .cart > .info > form > table th {
+            text-align: left;
+            padding-left: 10px;
+            line-height: 26px;
+            box-sizing: border-box;
+        }
+
+        #sub > .market > .cart > .info > form > .btnOrder {
+            clear: both;
+            float: right;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #960d1a;
+            color: white;
+            cursor: pointer;
+        }
+
+
 
     </style>
 </head>
@@ -60,6 +119,60 @@
 
 
     window.onload = function (){
+
+        const delCart = document.getElementById('delCart');
+        const sendForm1 = document.getElementById('sendForm1');
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        const checkboxes = document.querySelectorAll("input[name='pno']:checked");
+
+
+        // 전체 선택 체크박스의 변경 이벤트 리스너 추가
+        selectAllCheckbox.addEventListener("change", function (){
+            // 전체 선택 체크박스의 상태 가져오기
+            const isChecked = selectAllCheckbox.checked;
+            // 각 상품 체크박스들의 상태를 전체 선택 체크박스의 상태와 동일하게 설정
+            checkboxes.forEach(function (checkbox){
+                checkbox.checked = isChecked;
+            });
+        });
+
+        delCart.onclick = async function (e) {
+            e.preventDefault();
+            if(checkboxes.length === 0) {
+                alert('삭제할 상품을 선택해주세요.')
+                return false;
+            }
+
+            if (confirm("정말 삭제 하시겠습니까?")) {
+                const formData = new FormData(); // FormData 객체 생성
+
+
+                checkboxes.forEach(function (checkbox) {
+                    formData.append("pno", checkbox.value); // 선택된 체크박스의 값을 FormData에 추가
+                });
+
+                console.log([...formData]); // FormData 내용 확인
+
+                const response = await fetch('/farmstory/market/cart/delete', {
+                    method: 'POST',
+                    body: formData // FormData를 전송 데이터로 사용
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data != null) {
+                    if (confirm("삭제 완료되었습니다!")) {
+                        sendForm1.submit();
+                    }
+                } else {
+                    alert("삭제에 실패했습니다.");
+                }
+                return false;
+            } else {
+                return false;
+            }
+        }
 
         // 선택삭제 버튼 클릭
         document.querySelector("input[name='delCart']").addEventListener("click", function (){
@@ -73,6 +186,31 @@
             });
 
         })
+
+        /*🎈top 버튼*/
+
+        let Top = document.getElementById('top');
+
+        Top.style.display = 'none'
+
+        if (Top) {
+            window.addEventListener('scroll', function (){
+                if(window.scrollY > 300) {
+                    Top.style.display = 'block';
+                    console.log(Top);
+                } else {
+                    Top.style.display = 'none';
+                }
+            });
+
+            Top.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.scrollTo({top:0, behavior:'smooth'});
+                console.log(Top);
+            });
+        } else {
+            console.error("#top 요소를 찾을 수 없습니다.");
+        }
 
 
     }
@@ -101,12 +239,12 @@
             <p class="sort">
                 <a th:href="@{#}" class="on">장바구니 전체(10)</a>
             </p>
-                <form id="cartList"  th:action="@{/market/cart/delete}" method="post">
+                <form id="sendForm1"  th:action="@{/market/cart/delete}" method="post">
                 <table border="0">
                     <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" name="all">
+                            <input type="checkbox" id="selectAllCheckbox" name="selectAllCheckbox">
                         </th>
                         <th>이미지</th>
                         <th>종류</th>
@@ -120,12 +258,12 @@
                     </thead>
                     <tbody>
                     <tr class="empty">
-                        <td colspan="9">장바구니에 상품이 없습니다.</td>
+                        <td colspan="9"  th:if="${cartDTOList.isEmpty()}">장바구니에 상품이 없습니다.</td>
                     </tr>
 
                     <tr th:each="cartDTO:${cartDTOList}">
                         <td>
-                            <input type="checkbox" name="checkBox"  th:value="${cartDTO.pno}">
+                            <input type="checkbox" id="selectedPnos" name="pno"  th:value="${cartDTO.pno}">
                         </td>
                         <td>
                             <a th:href="@{#}"><img th:src="@{|/product/${cartDTO.cate}/${cartDTO.img1}|}" class="thumb" alt="사과 500g"></a>
@@ -136,50 +274,52 @@
                         <td th:text="${cartDTO.discount} + '%'"></td>
                         <td th:text="${cartDTO.point} + 'p'"></td>
                         <td th:text="${cartDTO.price} + '원'"></td>
-                        <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'"></td>
+                        <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'" class="sumPrice"></td>
                     </tr>
                     </tbody>
                 </table>
-                <input type="submit" name="delCart" value="선택삭제">
+                <input type="submit" id="delCart" name="delCart" value="선택삭제">
                 </form>
 
 
 
             <div class="info">
-                    <table border="0">
-                        <caption>전체합계</caption>
-                        <tr>
-                            <th>상품수</th>
-                            <td th:text="${cartDTO.pcount}"></td>
-                        </tr>
-                        <tr>
-                            <th>상품금액</th>
-                            <td th:text="${productDTO.price * cartDTO.pcount} + '원'"></td>
-                        </tr>
-                        <tr>
-                            <th>할인금액</th>
-                            <td th:text="${((productDTO.price * cartDTO.pcount) * productDTO.discount / 100)} + '원'"></td>
-                        </tr>
-                        <tr>
-                            <th>배송비</th>
-                            <td th:text="${productDTO.delprice} + '원'" class="delivery"></td>
-                        </tr>
-                        <tr>
-                            <th>적립 포인트</th>
-                            <td th:text="${productDTO.point} + 'p'"></td>
-                        </tr>
-                        <tr>
-                            <th>전체주문금액</th>
-                            <td th:text="${(productDTO.price * cartDTO.pcount) - ((productDTO.price * cartDTO.pcount) * productDTO.discount / 100) + productDTO.delprice} + '원'" class="total"></td>
-                        </tr>
-                        </tr>
-                    </table>
+                <form id="sendForm2" th:action="@{/market/cart/}" method="post">
+                        <table border="0">
+                            <caption>전체합계</caption>
+                            <tr>
+                                <th>상품수</th>
+                                <td th:text="${cartDTO.pcount}"></td>
+                            </tr>
+                            <tr>
+                                <th>상품금액</th>
+                                <td th:text="${productDTO.price * cartDTO.pcount} + '원'"></td>
+                            </tr>
+                            <tr>
+                                <th>할인금액</th>
+                                <td th:text="${((productDTO.price * cartDTO.pcount) * productDTO.discount / 100)} + '원'"></td>
+                            </tr>
+                            <tr>
+                                <th>배송비</th>
+                                <td th:text="${productDTO.delprice} + '원'" class="delivery"></td>
+                            </tr>
+                            <tr>
+                                <th>적립 포인트</th>
+                                <td th:text="${productDTO.point} + 'p'"></td>
+                            </tr>
+                            <tr>
+                                <th>전체주문금액</th>
+                                <td th:text="${(productDTO.price * cartDTO.pcount) - ((productDTO.price * cartDTO.pcount) * productDTO.discount / 100) + productDTO.delprice} + '원'" class="total"></td>
+                            </tr>
+                        </table>
 
-                <input type="submit" class="btnOrder" value="주문하기">
-
+                    <input type="submit" class="btnOrder" value="주문하기">
+                </form>
             </div>
             <!-- 내용 끝 -->
-
+            <a href="#" id="top">
+                <img th:src="@{/images/green-top-60.png}"  alt="topBtn">
+            </a>
         </article>
     </section>
 

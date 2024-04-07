@@ -463,6 +463,7 @@ main > .info > div > .account {
     box-sizing: border-box;
     color: #111;
     text-align: center;
+    vertical-align: middle;
 }
 #sub > .market > .list > table tr > td:nth-child(1) {width: 10%;}
 #sub > .market > .list > table tr > td:nth-child(2) {width: 10%; color: #777;}
@@ -1093,4 +1094,10 @@ input {
     outline: none;
 }
 
-
+/* 🎈top 버튼 */
+#top {
+    position: fixed;
+    right: 50px;
+    bottom: 70px;
+    cursor: pointer;
+}

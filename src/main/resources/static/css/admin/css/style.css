@@ -9,7 +9,7 @@ a {text-decoration: none; color: #111;}
 
 #container {
     position: relative;
-    width: 980px;
+    width: 1200px;
     height: auto;
     margin: 0 auto;
 }
@@ -87,11 +87,34 @@ main > aside ol > li > a:hover {
 /* 메인 컨텐츠 */
 main > section {
     float: right;
-    width: 804px;
+    width: 1000px;
     min-height: 400px;
     padding: 10px;
     box-sizing: border-box;
 }
+
+/* 🎈회원 정보 수정 폼*/
+main > #modifyUser {
+    float: none;
+    width: 600px;
+    min-height: 400px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 30px 0px 30px 380px;
+}
+
+main > #modifyUser > nav > h3 {
+    text-align: center;
+}
+
+/* 🎈관리자 회원가입 폼 */
+#userRegister > .register {
+    width: 600px;
+    height: auto;
+    margin: 35px auto;
+    box-sizing: border-box;
+}
+
 
 main > section > nav > h3 {
     font-size: 17px;
@@ -118,6 +141,7 @@ main > section > article table {
 }
 main > section > article table tr {
     border-bottom: 1px dotted #999;
+    text-align: center;
 }
 main > section > article table tr > th {
     padding: 12px;

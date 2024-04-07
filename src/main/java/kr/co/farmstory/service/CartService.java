@@ -29,6 +29,11 @@ public class CartService {
     public List<CartDTO> selectCartList (int pno, String uid){
         return  cartMapper.selectCartList(pno, uid);
     }
+    
+    // 장바구니 삭제
+    public void deleteCartList(int pno) {
+         cartMapper.deleteCartList(pno);
+    }
 
 }
 
