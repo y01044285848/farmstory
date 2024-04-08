@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!-- Default Layout Import-->
 <html lang="en"
@@ -11,26 +10,93 @@
     <title>팜스토리::장보기</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     window.onload = function(){
 
         const loadData = document.getElementById('loadData');
-        loadData.onclick = function (e){
-            e.preventDefault();
-        }
+        const prodList = document.getElementById('prodList');
+        const finalBody = document.getElementsByClassName('final')[0].childNodes[1].childNodes[3].childNodes;
 
         const usePointBtn = document.getElementById('usePointBtn');
         const point = document.getElementsByClassName('point')[0];
         const usePoint = document.getElementsByName('pointUse')[0];
-        point.childNodes[0];
+
+
+
+
+
+
+
+        const checkboxs = document.getElementsByName('pno');
+
+        const selectAllCheckbox = checkboxs[0];
+
+        selectAllCheckbox.addEventListener('change', function () {
+            for (let i = 1; i < checkboxs.length; i++) {
+                checkboxs[i].checked = selectAllCheckbox.checked;
+
+            }
+        });
+
+        console.log(checkboxs);
+        for (let i = 0; i < checkboxs.length; i++){
+            checkboxs[i].addEventListener('change',function (e){
+
+                setting();
+            });
+        }
+
         usePointBtn.onclick = function(e){
             e.preventDefault();
 
             if(point.childNodes[1].innerText < usePoint.value){
-                alert("보유하신 포인트보다 많이 입력");
+                alert("보유하신 포인트는 " + point.childNodes[1].innerText + "P 입니다.");
+            }else {
+                finalBody[6].childNodes[3].innerText = usePoint.value + "P";
+                finalBody[12].childNodes[3].innerText = parseInt(finalBody[12].childNodes[3].innerText) - usePoint.value + "원";
             }
-        }
 
+        }
+        function setting (){
+            let allPcount = 0;
+            let allDiscount = 0;
+            let allPoint = 0;
+            let allPrice = 0;
+            let allRPrice = 0;
+            let allDelPrice = 0;
+            console.log(prodList.childNodes[3].childNodes[1].childNodes[1].checked);
+            console.log(prodList.childNodes[3].childNodes[17].innerText);
+            for(let i = 2;i < prodList.childNodes.length; i++){
+                if(i % 2 != 0){
+                    if(prodList.childNodes[i].childNodes[1].childNodes[1].checked){
+                        allPcount += parseInt(prodList.childNodes[i].childNodes[9].innerText);
+                        allDiscount += parseInt(prodList.childNodes[i].childNodes[11].innerText);
+                        allPoint += parseInt(prodList.childNodes[i].childNodes[13].innerText) * parseInt(prodList.childNodes[i].childNodes[9].innerText);
+                        allPrice += parseInt(prodList.childNodes[i].childNodes[15].innerText) * parseInt(prodList.childNodes[i].childNodes[9].innerText);
+                        allRPrice += parseInt(prodList.childNodes[i].childNodes[17].innerText) * parseInt(prodList.childNodes[i].childNodes[9].innerText);
+                        allDelPrice += parseInt(prodList.childNodes[i].childNodes[19].innerText);
+                    }
+                }
+            }
+            let comment
+            if(allPrice >= 30000){
+                allDelPrice = 0;
+                comment = "3만원 이상 무료배송";
+            }else{
+                comment = allDelPrice + "원";
+            }
+
+            finalBody[0].childNodes[3].innerText = allPcount + "개";
+            finalBody[2].childNodes[3].innerText = allPrice + "원";
+            finalBody[4].childNodes[3].innerText = allPrice-allRPrice + "원";
+
+            finalBody[8].childNodes[3].innerText = comment;
+            finalBody[10].childNodes[3].innerText = allPoint + "P";
+            finalBody[12].childNodes[3].innerText = allRPrice + allDelPrice - usePoint.value + "원";
+
+        }
+        setting();
     }
 </script>
 <div id="sub">
@@ -58,6 +124,9 @@
             <table border="0">
                 <thead>
                 <tr>
+                    <th>
+                        <input type="checkbox" name="pno" checked th:value="${cartDTO.pno}">
+                    </th>
                     <th>이미지</th>
                     <th>종류</th>
                     <th>상품명</th>
@@ -68,44 +137,27 @@
                     <th>소계</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a th:href="@{#}">사과 500g</a></td>
-                    <td>1</td>
-                    <td>10%</td>
-                    <td>40P</td>
-                    <td>4,000</td>
-                    <td><strong>3,600</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a th:href="@{#}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a th:href="@{#}">사과 500g</a></td>
-                    <td>1</td>
-                    <td>10%</td>
-                    <td>40P</td>
-                    <td>4,000</td>
-                    <td><strong>3,600</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a th:href="@{/productDetail}"><img th:src="@{../images/market_item1.jpg}" class="thumb" alt="사과 500g"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a th:href="@{#}">사과 500g</a></td>
-                    <td>1</td>
-                    <td>10%</td>
-                    <td>40P</td>
-                    <td>4,000</td>
-                    <td><strong>3,600</strong>원</td>
+                <tbody id="prodList">
+                <tr class="empty">
+                    <td colspan="9"  th:if="${cartDTOList.isEmpty()}">장바구니에 상품이 없습니다.</td>
                 </tr>
 
+                <tr th:each="cartDTO:${cartDTOList}">
+                    <td>
+                        <input type="checkbox" name="pno" checked th:value="${cartDTO.pno}">
+                    </td>
+                    <td>
+                        <a th:href="@{#}"><img th:src="@{|/product/${cartDTO.cate}/${cartDTO.img1}|}" class="thumb"></a>
+                    </td>
+                    <td th:text="${cartDTO.cate}"></td>
+                    <td th:text="${cartDTO.pname}"><a th:href="@{#}"></a></td>
+                    <td th:text="${cartDTO.pcount}"></td>
+                    <td th:text="${cartDTO.discount} + '%'"></td>
+                    <td th:text="${cartDTO.point} + 'p'"></td>
+                    <td th:text="${cartDTO.price} + '원'"></td>
+                    <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'"></td>
+                    <td style="display: none;" th:text="${cartDTO.delprice}"></td>
+                </tr>
                 </tbody>
             </table>
             <div class="final">
@@ -113,7 +165,7 @@
                     <caption>최종결제정보</caption>
                     <tr>
                         <th>상품수</th>
-                        <td>1</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th>상품금액</th>
@@ -125,11 +177,11 @@
                     </tr>
                     <tr>
                         <th>포인트사용</th>
-                        <td>2000P</td>
+                        <td>0P</td>
                     </tr>
                     <tr>
                         <th>배송비</th>
-                        <td class="delivery">5,0000원</td>
+                        <td class="delivery"></td>
                     </tr>
                     <tr>
                         <th>포인트적립</th>
@@ -166,7 +218,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <a href="#" id="loadData">불러오기</a>
                         <td>받는분</td>
                         <td><input type="text" name="receiver"></td>
                     </tr>
@@ -177,9 +228,9 @@
                     <tr>
                         <td>배송주소</td>
                         <td>
-                            <input type="text" name="zip" readonly><button id="btnZip">우편번호 검색</button>
-                            <input type="text" name="addr1" placeholder="기본주소 검색">
-                            <input type="text" name="addr2" placeholder="상세주소 입력">
+                            <input type="text" name="zip" id="inputZip" readonly><button onclick="postcode()" id="btnZip">우편번호 검색</button>
+                            <input type="text" name="addr1" id="inputAddr1" placeholder="기본주소 검색">
+                            <input type="text" name="addr2" id="inputAddr2" placeholder="상세주소 입력">
                         </td>
                     </tr>
                     <tr>

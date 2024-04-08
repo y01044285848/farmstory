@@ -189,6 +189,8 @@ public class AdminController {
 
         log.info(""+productDTO);
 
+
+
         List<MultipartFile> files = new ArrayList<>();
         files.add(fileA);
         files.add(fileB);
@@ -202,7 +204,6 @@ public class AdminController {
 
         imgService.imgUpload(imgDTO, productDTO.getCate());
         imgService.insertImg(imgDTO);
-
         return "redirect:/admin/product/register?success=200";
     }
 

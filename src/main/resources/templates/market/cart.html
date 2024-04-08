@@ -131,9 +131,11 @@
             // 전체 선택 체크박스의 상태 가져오기
             const isChecked = selectAllCheckbox.checked;
             // 각 상품 체크박스들의 상태를 전체 선택 체크박스의 상태와 동일하게 설정
+
             checkboxes.forEach(function (checkbox){
                 checkbox.checked = isChecked;
             });
+
         });
 
         delCart.onclick = async function (e) {

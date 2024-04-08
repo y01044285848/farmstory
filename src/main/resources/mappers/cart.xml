@@ -49,8 +49,9 @@
         product.point,
         product.price,
         product.pno,
+        product.delprice,
         user.uid,
-        ANY_VALUE(img.img1)
+        ANY_VALUE(img.img1) as img1
         FROM cart
         JOIN product ON cart.pno = product.pno
         JOIN user ON user.uid = cart.uid

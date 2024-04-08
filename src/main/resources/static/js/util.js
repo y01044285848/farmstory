@@ -168,9 +168,10 @@ function postcode() {
 window.onload = function () {
     let Top = document.getElementById('top');
 
-    Top.style.display = 'none'
+
 
     if (Top) {
+        Top.style.display = 'none'
         window.addEventListener('scroll', function (){
             if(window.scrollY > 300) {
                 Top.style.display = 'block';

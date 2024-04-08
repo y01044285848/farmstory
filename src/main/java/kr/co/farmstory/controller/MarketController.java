@@ -169,6 +169,7 @@ public class MarketController {
             log.info(cartDTO1.toString());
         }
         model.addAttribute(userDTO);
+        model.addAttribute(cartDTOList);
         return "/market/order";
     }
 
