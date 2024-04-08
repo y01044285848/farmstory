@@ -7,6 +7,7 @@ import kr.co.farmstory.dto.ArticleDTO;
 import kr.co.farmstory.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.Banner;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+
     @GetMapping("/article/write")
     public String write(String cate, String grp, Model model){
         model.addAttribute("cate", cate);
@@ -78,4 +80,21 @@ public class ArticleController {
         return "/article/list";
     }
 
+    @GetMapping("/article/view")
+    public String viewArticle(int ano, Model model){
+
+        ArticleDTO articleDTO = articleService.selectArticle(ano);
+        model.addAttribute(articleDTO);
+        log.info(articleDTO.toString());
+        return "/article/view";
+    }
+
+    @GetMapping("/article/delete")
+    public String deleteArticle(int ano){
+
+        ArticleDTO articleDTO = articleService.selectArticle(ano);
+        articleService.deleteArticle(ano);
+
+        return "redirect:/article/list?grp="+articleDTO.getGrp()+"&cate="+articleDTO.getCate();
+    }
 }

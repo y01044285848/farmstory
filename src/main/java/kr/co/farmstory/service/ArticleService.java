@@ -67,4 +67,11 @@ public class ArticleService {
         }
     }
 
+    public ArticleDTO selectArticle(int ano){
+        return articleMapper.selectArticle(ano);
+    }
+
+    public void deleteArticle(int ano){
+        articleMapper.deleteArticle(ano);
+    }
 }

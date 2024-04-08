@@ -27,7 +27,7 @@
             <nav>
                 <img th:src="@{|/images/sub_nav_tit_${grp}_${cate}.png|}" alt="글배너"/>
                 <p>
-                    HOME > 커뮤니티 > <em>공지사항</em>
+                    HOME > 커뮤니티 > <em> 공지사항 </em>
                 </p>
             </nav>
 
@@ -46,7 +46,7 @@
                 <tbody>
                 <tr th:each="article, index:${articles}">
                     <td th:text="${(articlePage.total)-(articlePage.pageNum - 1)*10 - index.index}" ></td>
-                    <td><a th:href="@{#}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/view(ano=${article.ano})}">[[${article.title}]]</a></td>
                     <td>[[${article.nick}]]</td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     <td>[[${article.hit}]]</td>

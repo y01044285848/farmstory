@@ -32,4 +32,11 @@
         LIMIT 3
     </select>
 
+    <select id="selectArticle" resultType="kr.co.farmstory.dto.ArticleDTO">
+        SELECT * FROM `article` WHERE ano=#{ano}
+    </select>
+
+    <delete id="deleteArticle">
+        DELETE FROM `article` WHERE ano=#{ano}
+    </delete>
 </mapper>
