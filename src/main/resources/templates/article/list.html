@@ -46,7 +46,7 @@
                 <tbody>
                 <tr th:each="article, index:${articles}">
                     <td th:text="${(articlePage.total)-(articlePage.pageNum - 1)*10 - index.index}" ></td>
-                    <td><a th:href="@{/article/view(ano=${article.ano})}">[[${article.title}]]</a></td>
+                    <td><a th:href="@{/article/view(grp=${article.grp},cate=${article.cate},ano=${article.ano})}">[[${article.title}]]</a></td>
                     <td>[[${article.nick}]]</td>
                     <td th:text="${#temporals.format(article.rdate, 'yy-MM-dd')}"></td>
                     <td>[[${article.hit}]]</td>
@@ -58,7 +58,6 @@
             <!-- 페이지네이션 -->
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
-
                     <li th:if="${!articlePage.isIsFirstPage()}" class="page-item">
                         <a class="page-link" th:href="@{/article/list(grp=${grp},cate=${cate},pageNum=${articlePage.pageNum} -1)}">이전</a>
                     </li>

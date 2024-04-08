@@ -75,10 +75,6 @@ async function fetchDelete(url){
     }
 }
 
-
-
-
-
 <!--🎈회원가입 모달창-->
 function showModal(message){
     const modal = document.getElementById('resultModal');

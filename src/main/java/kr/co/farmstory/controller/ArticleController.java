@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,6 +51,7 @@ public class ArticleController {
         log.info("cate : " + cate);
         model.addAttribute("grp", grp);
         model.addAttribute("cate", cate);
+
         // 페이지 값을 기본으로 1, 사이즈를 10으로 설정
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 10 : pageSize;
@@ -89,12 +90,38 @@ public class ArticleController {
         return "/article/view";
     }
 
+    @GetMapping("/article/modify")
+    public String articleModify(String grp, String cate, String ano, Model model){
+        model.addAttribute("ano", ano);
+        model.addAttribute("grp", grp);
+        model.addAttribute("cate", cate);
+        return "/article/modify";
+    }
+
+    @ResponseBody
+    @GetMapping("/article/{ano}")
+    public ArticleDTO getModifyValue(@PathVariable("ano") int ano){
+        ArticleDTO articleDTO = articleService.selectArticle(ano);
+        log.info("modify : "+articleDTO);
+
+        return articleDTO;
+    }
+
+    @ResponseBody
+    @PutMapping("/article")
+    public ResponseEntity<?> modify(@RequestBody ArticleDTO articleDTO){
+
+        return articleService.updateArticle(articleDTO);
+    }
+
     @GetMapping("/article/delete")
-    public String deleteArticle(int ano){
+    public String ArticleDelete(int ano){
 
         ArticleDTO articleDTO = articleService.selectArticle(ano);
         articleService.deleteArticle(ano);
 
         return "redirect:/article/list?grp="+articleDTO.getGrp()+"&cate="+articleDTO.getCate();
     }
+
+
 }

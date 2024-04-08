@@ -33,7 +33,7 @@
     </select>
 
     <select id="selectArticle" resultType="kr.co.farmstory.dto.ArticleDTO">
-        SELECT * FROM `article` WHERE ano=#{ano}
+        select a.*, b.nick from `article` AS a JOIN `user` AS b on a.uid = b.uid WHERE ano=#{ano}
     </select>
 
     <delete id="deleteArticle">

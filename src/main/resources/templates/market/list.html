@@ -48,10 +48,11 @@
 
             <!-- 내용 시작 -->
             <p class="sort">
-                <a th:href="@{/market/list}" class="on">전체(20) |</a>
-                <a th:href="@{/market/list(cate=fruit)}">과일 |</a>
-                <a th:href="@{/market/list(cate=vegetable)}">야채 |</a>
-                <a th:href="@{/market/list(cate=grains)}">곡류</a>
+                <a th:href="@{/market/list}" th:class="${cate == null} ? 'on' ">전체(20) |</a>
+                <a th:href="@{/market/list(cate=fruit)}" th:class="${cate == 'fruit'} ? 'on' ">과일 |</a>
+                <a th:href="@{/market/list(cate=vegetable)}" th:class="${cate == 'vegetable'} ? 'on' ">야채 |</a>
+                <a th:href="@{/market/list(cate=grains)}" th:class="${cate == 'grains'} ? 'on' ">곡류 |</a>
+                <a th:href="@{/market/list(cate=nuts)}" th:class="${cate == 'nuts'} ? 'on' ">견과류</a>
             </p>
             <table border="0" id="listTable" class="table">
                 <thead>
@@ -89,9 +90,9 @@
                 <ul class="pagination justify-content-center">
                     <li th:if="${!productPage.isIsFirstPage()}" class="page-item">
                         <a th:if="${cate == null}" class="page-link" th:href="@{/market/list(pageNum=${productPage.pageNum} -1)}">이전</a>
-                        <a th:if="${cate != null}"class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${productPage.pageNum} -1)}">이전</a>
+                        <a th:if="${cate != null}" class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${productPage.pageNum} -1)}">이전</a>
                     </li>
-                    <li th:each="num : ${#numbers.sequence(1, (productPage.total)/20)}" class="page-item">
+                    <li th:each="num : ${#numbers.sequence(productPage.navigateFirstPage,productPage.navigateLastPage)}" class="page-item">
                         <a th:if="${cate == null}" class="page-link" th:href="@{/market/list(pageNum=${num})}">[[${num}]]</a>
                         <a th:if="${cate != null}" class="page-link" th:href="@{/market/list(cate=${cate},pageNum=${num})}">[[${num}]]</a>
                     </li>

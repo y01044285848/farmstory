@@ -50,10 +50,22 @@ public class MarketController {
         List<ProductDTO> products = productService.selectProducts(cate);
 
         PageInfo<ProductDTO> productPage = new PageInfo<>(products);
-        log.info("productPage : "+productPage);
-        model.addAttribute("productPage", productPage);
 
+        log.info(productPage.getPages()+"");
+
+        int lastPage = (pageNum/11)*10+10;
+
+        if(lastPage > productPage.getPages()){
+            lastPage = productPage.getPages();
+        }
+        productPage.setNavigateFirstPage((pageNum/11)*10+1);
+        productPage.setNavigateLastPage(lastPage);
+
+        log.info("selectProductPage" + productPage);
+
+        model.addAttribute("productPage", productPage);
         model.addAttribute("products",products);
+
         return "/market/list";
     }
 

@@ -14,9 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 import kr.co.farmstory.mapper.CropTalkMapper;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j @RequiredArgsConstructor @Service
 public class ArticleService {
@@ -70,6 +73,27 @@ public class ArticleService {
     public ArticleDTO selectArticle(int ano){
         return articleMapper.selectArticle(ano);
     }
+
+    public ResponseEntity<?> updateArticle (ArticleDTO articleDTO){
+        Optional<Article> optArticle = articleRepository.findById(articleDTO.getAno());
+
+        if(optArticle.isPresent()){
+            Article article = optArticle.get();
+            log.info("article:" + article);
+
+            article.setTitle(articleDTO.getTitle());
+            article.setContent(articleDTO.getContent());
+
+            Article modifiedArticle = articleRepository.save(article);
+
+            return ResponseEntity.status(HttpStatus.OK).body(modifiedArticle);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
+        }
+
+
+    }
+
 
     public void deleteArticle(int ano){
         articleMapper.deleteArticle(ano);
