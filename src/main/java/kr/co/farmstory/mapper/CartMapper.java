@@ -9,12 +9,15 @@ import java.util.List;
 public interface CartMapper {
 
     public void insertCart(CartDTO cartDTO);
+
+    public List<CartDTO> getCartByPno(String uid);
+    public int updateCart(int pcount);
     
     // 장바구니 리스트
-    public List<CartDTO> selectCartList(int pno, String uid);
+    public List<CartDTO> selectCartList(String uid);
     public List<CartDTO> selectCartList2(String uid);
 
     // 장바구니 리스트 삭제
-    public void deleteCartList(int pno);
+    public void deleteCartList(int pno, String uid);
 
 }

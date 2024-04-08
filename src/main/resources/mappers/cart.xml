@@ -60,9 +60,19 @@
         GROUP BY product.pno
     </select>
 
+    <select id="getCartByPno" resultType="kr.co.farmstory.dto.CartDTO">
+        SELECT pno FROM  cart WHERE uid = #{uid}
+    </select>
+
+    <update id="updateCart">
+        UPDATE cart
+        SET pcount = pcount + #{pcount}
+        WHERE pno = #{pno}
+    </update>
+
     <!--장바구니 상품 삭제-->
-    <delete id="deleteCartList" parameterType="int">
-        DELETE FROM cart WHERE pno = #{pno}
+    <delete id="deleteCartList">
+        DELETE FROM cart WHERE pno = #{pno} AND uid = #{uid}
     </delete>
 
 
