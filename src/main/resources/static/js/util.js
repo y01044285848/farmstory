@@ -190,4 +190,3 @@ window.onload = function () {
         console.error("#top 요소를 찾을 수 없습니다.");
     }
 }
-

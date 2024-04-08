@@ -8,8 +8,10 @@ import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
 
+import kr.co.farmstory.entity.Product;
 import kr.co.farmstory.service.AdminService;
 import kr.co.farmstory.service.ImgService;
+import kr.co.farmstory.service.ProductService;
 import kr.co.farmstory.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class AdminController {
     private final AdminService adminService;
     private final ImgService imgService;
     private final UserService userService;
+    private final ProductService productService;
 
     @GetMapping(value = {"/admin","/admin/index"})
     public String admin(Model model){
@@ -67,6 +70,7 @@ public class AdminController {
         return "redirect:/user/login?success=200";
 
     }
+
 
     @ResponseBody
     @GetMapping("/admin/user/{type}/{value}")
@@ -135,6 +139,7 @@ public class AdminController {
         return "/admin/user/list";
     }
 
+    //관리자 회원삭제
     @PostMapping("/admin/user/delete")
     public String adminUserDelete(@RequestParam List<String> checkbox){
         for(String uid : checkbox){
@@ -143,6 +148,20 @@ public class AdminController {
         log.info(checkbox.toString());
         return "redirect:/admin/user/list";
     }
+
+    
+    //관리자 상품삭제
+    @PostMapping("/admin/product/delete")
+    public String adminProductDelete(@RequestParam List<String> checkbox){
+        log.info("productDelete....1");
+        for(String pno : checkbox){
+            int productId = Integer.parseInt(pno);
+            adminService.adminProductDelete(productId);
+        }
+        log.info(checkbox.toString());
+        return "redirect:/admin/product/list";
+    }
+
 
     // admin.user.modify
     @GetMapping("/admin/user/{uid}")
@@ -182,14 +201,31 @@ public class AdminController {
 
     @GetMapping("/admin/product/register")
     public String productRegister(){
+
         return "/admin/product/register";
     }
+/*
+    @PostMapping("/admin/product/register")
+    public String productregister(HttpServletRequest req, ProductDTO productDTO) {
 
+
+        log.info("" + productDTO);
+
+
+        productService.insertProduct(productDTO);
+
+        return "redirect:/admin/product/register?success=200";
+    }
+*/
     @PostMapping("/admin/product/register")
     public String productRegister(ProductDTO productDTO,
                                   @RequestParam("imgMain") MultipartFile fileA,
                                   @RequestParam("imgSub1") MultipartFile fileB,
                                   @RequestParam("imgSub2") MultipartFile fileC){
+        log.info("productRegister");
+        log.info(""+productDTO);
+
+
 
         log.info(""+productDTO);
 
@@ -207,6 +243,8 @@ public class AdminController {
 
 
         imgService.imgUpload(imgDTO, productDTO.getCate());
+        Product product = productService.insertProduct(productDTO);
+        imgDTO.setPno(product.getPno());
         imgService.insertImg(imgDTO);
         return "redirect:/admin/product/register?success=200";
     }

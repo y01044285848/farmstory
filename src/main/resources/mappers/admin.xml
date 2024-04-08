@@ -74,5 +74,9 @@
         DELETE FROM `user` WHERE uid = #{uid}
     </delete>
 
+    <delete id="adminProductDelete" parameterType="kr.co.farmstory.dto.ProductDTO">
+        DELETE FROM `product` WHERE pno = #{pno}
+    </delete>
+
 
 </mapper>

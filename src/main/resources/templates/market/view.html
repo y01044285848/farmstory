@@ -10,9 +10,24 @@
     window.onload = function (){
 
         const totalElement = document.getElementById('total');
-        const totalValue = parseInt(totalElement.innerText)
-        totalElement.innerText = totalValue;
+        const totalValue = parseInt(totalElement.innerText);
 
+        const discountPrice = document.getElementById('discountPrice');
+        const discountPricevalue = parseInt(discountPrice.innerText);
+
+        const price = document.getElementById('ProductPrice');
+        const PriceValue = parseInt(price.innerText);
+
+        totalElement.innerText = totalValue;
+        discountPrice.innerText = discountPricevalue;
+        PriceValue.innerText = PriceValue;
+
+        totalElement.innerText = totalValue.toLocaleString() + ' 원'; // 결과값에 원(₩) 추가
+        discountPrice.innerText = '-' + discountPricevalue.toLocaleString() + ' 원'; // 결과값에 원(₩) 추가
+        PriceValue.innerText = totalValue.toLocaleString() + ' 원';
+
+        discountPrice.style.color = 'red';
+        totalElement.style.color = 'blue';
 
         const btnCart = document.getElementById('btnCart');
         const btnOrder = document.getElementById('btnOrder');
@@ -170,13 +185,22 @@
                         </tr>
                         <tr>
                             <td>판매가격</td>
-                            <td>[[${productDTO.price}]]</td>
+                            <td class="ProductPrice" id="ProductPrice" th:text="${productDTO.price}"></td>
                         </tr>
                         <tr>
                             <td>구매수량</td>
                             <td>
                                 <input type="number" name="pcount" id="count" min="1" value="1">
                             </td>
+                        </tr>
+                        <tr>
+                            <td>할인율</td>
+                            <td>[[${productDTO.discount}]]%</td>
+                        </tr>
+                        <tr>
+                            <td>할인금액</td>
+                            <td class="discountPrice" id="discountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))"></td>
+                            <td class="hiddeDiscountPrice" id="hiddeDiscountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
                         </tr>
                         <tr>
                             <td>합계</td>

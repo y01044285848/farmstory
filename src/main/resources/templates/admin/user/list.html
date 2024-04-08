@@ -32,7 +32,25 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/admin/css/style.css}">
 </head>
+
         <main layout:fragment="content">
+
+            <script>
+                window.onload = function () {
+                    const selectAllCheckbox = document.getElementsByName('allcheckbox')[0];
+                    const checkBoxes = document.getElementsByName('checkbox');
+                    const selectedUIDs = [];
+
+                    selectAllCheckbox.addEventListener('change', function () {
+                        for (let i = 0; i < checkBoxes.length; i++) {
+                            checkBoxes[i].checked = selectAllCheckbox.checked;
+
+                        }
+                    });
+                }
+
+            </script>
+
             <!-- 내용 시작 -->
             <aside class="center-align">
                 <h3>주요기능</h3>
