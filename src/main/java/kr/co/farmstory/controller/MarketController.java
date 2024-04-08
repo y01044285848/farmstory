@@ -25,10 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Slf4j
 @Controller @RequiredArgsConstructor
 public class MarketController {
@@ -94,10 +92,7 @@ public class MarketController {
 
         model.addAttribute(cartDTO);
 
-        //cartService.insertCart(cartDTO);
-        log.info("insertCart: " + cartDTO);
-
-        List<CartDTO> cartDTOList = cartService.selectCartList(cartDTO.getPno(), uid);
+        List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
         for(CartDTO cartDTO1 : cartDTOList){
             log.info(cartDTO1.toString());
         }
@@ -108,13 +103,14 @@ public class MarketController {
     }
 
 
+    @ResponseBody
     @PostMapping(value = "/market/cart/delete")
     public String deleteCartList(Principal principal, @RequestParam("pno") List<Integer> pnos, CartDTO cartDTO, Model model) {
 
         String uid = principal.getName();
         log.info("uid :" + uid);
 
-        List<CartDTO> cartDTOList = cartService.selectCartList(cartDTO.getPno(), uid);
+        List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
         for(CartDTO cartDTO1 : cartDTOList){
             log.info("selectCartList : " + cartDTO1);
         }
@@ -122,45 +118,59 @@ public class MarketController {
         model.addAttribute(cartDTOList);
         log.info("cartList : " + cartDTOList);
 
-
         // 선택한 상품 삭제
-        for (Integer pno : pnos) {
-            cartService.deleteCartList(pno);
+        for (int pno : pnos) {
+            cartService.deleteCartList(pno, uid);
         }
         log.info("deletePnos : " + pnos);
+
+        // JSON 출력(장바구니 )
+        return "redirect://";
+    }
+
+    @GetMapping("/market/cart")
+    public String showCart(Model model, Principal principal) {
+        String uid = principal.getName();
+        log.info("uid : " + uid);
+
+        List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
+        log.info("cartDTOList..1 : " + cartDTOList);
+
+
+        if (cartDTOList == null || cartDTOList.isEmpty()) {
+            // 장바구니가 비어있을 때 처리하는 코드
+            log.info("emptyCart..1");
+            return "redirect:/market/cartEmpty"; // 비어있는 장바구니 페이지로 이동
+        }
+
+        for(CartDTO cartDTO1 : cartDTOList){
+            log.info("cartDTO1 : " + cartDTO1);
+        }
+
+        model.addAttribute(cartDTOList);
+        log.info("cartDTOList..2: " + cartDTOList);
 
 
         return "redirect:/market/cart";
     }
 
-    @GetMapping("/market/cart")
-    public String showCart(Model model, Principal principal, CartDTO cartDTO) {
-        String uid = principal.getName();
-        log.info("uid : " + uid);
 
-        List<CartDTO> cartDTOList = cartService.selectCartList(cartDTO.getPno(), uid);
-        for(CartDTO cartDTO1 : cartDTOList){
-            log.info("cartDTO1 : " + cartDTO1);
-        }
 
-        ProductDTO productDTO = productService.findById(cartDTO.getPno());
-        model.addAttribute("price", productDTO.getPrice());
-        log.info("price:" + productDTO.getPrice());
+    @GetMapping("/market/cartEmpty")
+    public String showEmptyCart(Model model, CartDTO cartDTO){
+        log.info("emptyCart..2");
 
-        model.addAttribute("productDTO", productDTO);
-        log.info(productDTO.toString());
+        int defaultPcount = 0;
+        model.addAttribute("pcount", defaultPcount);
+        cartDTO.setPcount(defaultPcount);
+        log.info("defaultPcount: " + defaultPcount);
 
-        model.addAttribute(cartDTOList);
-        log.info("cartDTOList: " + cartDTOList);
-
-        return "/market/cart";
+        return "redirect:/market/cartEmpty";
     }
-
 
 
     @PostMapping("/market/order")
     public String order(CartDTO cartDTO, Model model){
-
 
         UserDTO userDTO = userService.selectUser(cartDTO.getUid());
         log.info(userDTO.toString());

@@ -26,6 +26,7 @@ public class CartDTO {
     private int discount;
     private int point;
     private int price;
+    private int delprice;
 
     private String name;
     private String hp;

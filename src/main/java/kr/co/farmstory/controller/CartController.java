@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -21,7 +23,18 @@ public class CartController {
     public ResponseEntity<CartDTO> insertCart(@RequestBody CartDTO cartDTO){
         log.info("받음");
         log.info(cartDTO.toString());
-        return cartService.insertCart(cartDTO);
+
+        int pno = cartDTO.getPno();
+        List<CartDTO> existingCart = cartService.getCartByPno(cartDTO.getUid());
+        for (CartDTO cartDTO1 : existingCart) {
+            if(cartDTO1.getPno() == pno){
+                cartService.updateCart(cartDTO.getPcount());
+                log.info("존재하는 pno: ");
+                return  ResponseEntity.ok().body(cartDTO1);
+            }
+        }
+        cartService.insertCart(cartDTO);
+        return  ResponseEntity.ok().body(cartDTO);
     }
 
 }
