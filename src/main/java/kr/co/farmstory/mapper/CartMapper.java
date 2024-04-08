@@ -12,6 +12,7 @@ public interface CartMapper {
     
     // 장바구니 리스트
     public List<CartDTO> selectCartList(int pno, String uid);
+    public List<CartDTO> selectCartList2(String uid);
 
     // 장바구니 리스트 삭제
     public void deleteCartList(int pno);
