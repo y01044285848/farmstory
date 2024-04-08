@@ -24,6 +24,10 @@ public class ProductDTO {
 
     private String uid;
     private String cate;
+
+    private String categoryName;
+
+
     private String pname;
 
     private int img;

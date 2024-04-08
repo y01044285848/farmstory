@@ -30,5 +30,7 @@ public interface AdminMapper {
 
     public void adminUserDelete(String uid);
 
+    public void adminProductDelete(int pno);
+
 
 }

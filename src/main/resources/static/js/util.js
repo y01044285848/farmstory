@@ -164,28 +164,3 @@ function postcode() {
 
 }
 
-<!--🎈top버튼-->
-window.onload = function () {
-    let Top = document.getElementById('top');
-
-    Top.style.display = 'none'
-
-    if (Top) {
-        window.addEventListener('scroll', function (){
-            if(window.scrollY > 300) {
-                Top.style.display = 'block';
-                console.log(Top);
-            } else {
-                Top.style.display = 'none';
-            }
-        });
-
-        Top.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.scrollTo({top:0, behavior:'smooth'});
-            console.log(Top);
-        });
-    } else {
-        console.error("#top 요소를 찾을 수 없습니다.");
-    }
-}

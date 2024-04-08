@@ -57,5 +57,9 @@ public class AdminService {
         adminMapper.adminUserDelete(uid);
     }
 
+    public void adminProductDelete(int pno){
+        adminMapper.adminProductDelete(pno);
+    }
+
 
 }

@@ -3,8 +3,25 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layouts/adminLayout}">
 
-
 <main layout:fragment="content">
+
+    <script>
+        window.onload = function () {
+            const selectAllCheckbox = document.getElementsByName('allcheckbox')[0];
+            const checkBoxes = document.getElementsByName('checkbox');
+            const selectedUIDs = [];
+
+            selectAllCheckbox.addEventListener('change', function () {
+                for (let i = 0; i < checkBoxes.length; i++) {
+                    checkBoxes[i].checked = selectAllCheckbox.checked;
+
+                }
+            });
+        }
+
+    </script>
+
+
     <!-- 내용 시작 -->
     <aside>
         <h3>주요기능</h3>
@@ -33,12 +50,14 @@
         </ul>
     </aside>
             <section id="productList">
+
                 <nav>
                     <h3>상품목록</h3>
                 </nav>
 
                 <article>
 
+                    <form th:action="@{/admin/product/delete}" method="post">
                     <table id="adminProdList" border="0">
                         <tr>
                             <th><input type="checkbox" name="allcheckbox"/></th>
@@ -52,9 +71,8 @@
                         </tr>
 
                         <tr th:each="product: ${adminProducts}">
-                            <td><input type="checkbox" name=""/></td>
+                            <td><input type="checkbox" name="checkbox" th:value="${product.pno}"/></td>
                             <td><img class="admProdImg1" th:src="@{|/product/${product.cate}/${product.img1}|}" alt="썸네일"></td>
-
                             <td>[[${product.pno}]]</td>
                             <td>[[${product.pname}]]</td>
                             <td>[[${product.cate}]]</td>
@@ -66,10 +84,11 @@
                     </table>
 
                     <p>
-                        <a href="#" class="productDelete">선택삭제</a>
+                        <input type="submit" class="productDelete" id="productDelete" value="선택삭제">
                         <a th:href="@{/admin/product/register}" class="productRegister">상품등록</a>
 
                     </p>
+                </form>
 
                     <!-- 페이지네이션 -->
                     <nav aria-label="...">
