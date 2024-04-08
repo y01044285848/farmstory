@@ -573,14 +573,17 @@ main > .info > div > .account {
     color: #fff;
     text-align: center;
     line-height: 40px;
+    font-weight: bold;
 }
 
 #sub > .market > .view .btnCart {
-    background-color: #7ea600;
+    background-color: #9ed201;
+    cursor: pointer;
 }
 
 #sub > .market > .view .btnOrder {
-    background-color: #960d1a;
+    background-color: #fd5900;
+    cursor: pointer;
 }
 
 
@@ -609,6 +612,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #sub > .market > .cart > table tr {
     border-bottom: 1px solid #eee;
+    text-align: center;
 }
 
 #sub > .market > .cart > table th {
@@ -958,6 +962,8 @@ input[type=number]::-webkit-outer-spin-button {
     box-sizing: border-box;
     margin: 100px auto;
 }
+
+
 .login > form {
 }
 .login > form > table {
@@ -992,21 +998,31 @@ input[type=number]::-webkit-outer-spin-button {
 .login > div {
     width: 100%;
     height: 100px;
-    background-color: #f5f6fa;
+    background-color: #aec42f;
+    color: #fff;
     border-top: 1px solid #cfded8;
     margin-top: 20px;
     padding: 20px;
     box-sizing: border-box;
+    border-radius: 0 0 5px 5px;
 }
+
 .login > div > h3 {
+    font-weight: bold;
 }
 .login > div > p {
     margin: 10px 0;
+    font-weight: bold;
 }
 .login > div > a {
     float: right;
+    font-weight: bold;
+    color: #fff;
 }
 
+.login > div > a:hover {
+    text-decoration: underline;
+}
 
 /* 🎈register */
 .register {
@@ -1093,6 +1109,8 @@ button {
 input {
     outline: none;
 }
+
+
 
 /* 🎈top 버튼 */
 #top {

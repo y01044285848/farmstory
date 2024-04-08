@@ -21,6 +21,28 @@
     <title>팜스토리::커뮤니티</title>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="stylesheet" href="../css/style2.css"/>
+    <style>
+        .btn-primary {
+            width: inherit;
+            height: inherit;
+            background-color: #87b000;
+            --bs-btn-color: #fff;
+            --bs-btn-border-color: inherit;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #088d00;
+            --bs-btn-hover-border-color: #097900;
+            --bs-btn-active-bg: #088d00;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #fff;
+        }
+        .btn-cancel {
+            background-color: tomato;
+            color: #ffffff;
+            --bs-btn-hover-bg: #fd3b2e;
+            --bs-btn-hover-border-color: #ff2d1f;
+            --bs-btn-hover-color: #fff;
+        }
+    </style>
 </head>
 
 <div id="sub">
@@ -55,8 +77,8 @@
             </div>
         </div>
         <div class="text-end">
-            <a th:href="@{/article/list(grp=${grp},cate=${cate})}" class="btn btn-primary m-3">취소</a>
-            <a th:href="@{#}" class="btn btn-primary m-3" id="btnSubmit">글등록</a>
+            <a th:href="@{/article/list(grp=${grp},cate=${cate})}" class="btn btn-cancel m-2">취소</a>
+            <a th:href="@{#}" class="btn btn-primary m-2" id="btnSubmit">글등록</a>
         </div>
             <!-- 내용 끝 -->
 

@@ -7,6 +7,13 @@
     <main layout:fragment="content">
         <!-- 내용 시작  -->
         <style>
+            .register > form > table td:nth-child(1) {
+                width: 110px;
+                background: #5b5b5b;
+                color: white;
+                font-weight: bold;
+            }
+
             .regInput {display: flex;}
 
             .regBtn {
@@ -68,22 +75,27 @@
             }
 
             .btnCancel {
-                background-color: #ddd;
-                color: #333;
-                padding: 10px 20px;
+                background-color: #8f8d8d;
+                color: #fff;
                 text-decoration: none;
-                border-radius: 5px;
-                margin-right: 10px;
+
             }
 
             .valid-feedback {
                 display: block;
             }
 
-            .invalid-feedback {
-                color: #ff2d43;
-                font-size: 11px;
+
+
+            .btnSubmit {
+                display: inline-block;
+                padding: 8px;
+                border: #ff7d00;
+                background: #ff9c47;
+                color: #fff;
+                font-weight: bold;
             }
+
 
         </style>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

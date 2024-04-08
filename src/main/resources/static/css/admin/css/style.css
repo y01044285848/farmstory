@@ -169,6 +169,8 @@ main > section > article table tr > td {
     text-align: center;
 }
 
+
+
 /* 푸터영역 */
 footer {
     width: 100%;
@@ -371,3 +373,21 @@ input {
     outline: none;
 }
 
+#btnModify {
+    background-color: #ffa900;
+    width: 10%;
+    height: 30px;
+    color: #fff;
+    border-radius: 5px;
+    border: inherit;
+}
+
+/* 🎈페이지 번호 */
+.active>.page-link, .page-link.active {
+    background-color: #006913a3;
+    border: none;
+}
+
+.page-link {
+    color: #569f42;
+}

@@ -169,6 +169,21 @@
     <title>팜스토리::커뮤니티</title>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="stylesheet" href="../css/style2.css"/>
+    <style>
+        .btn-list {
+            width: 35px;
+            height: 20px;
+            line-height: 20px;
+            background-color: #87b000;
+            --bs-btn-color: #fff;
+            --bs-btn-border-color: inherit;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #088d00;
+            --bs-btn-hover-border-color: #097900;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-color: #fff;
+        }
+    </style>
 </head>
 
 <div id="sub">
@@ -246,7 +261,7 @@
         </form>
 
         <div class="text-end">
-            <a th:href="@{/article/list(grp=${articleDTO.grp},cate=${articleDTO.cate})}" class="btn btn-primary m-3">목록</a>
+            <a th:href="@{/article/list(grp=${articleDTO.grp},cate=${articleDTO.cate})}" class="btn btn-list">목록</a>
         </div>
 
     </section>

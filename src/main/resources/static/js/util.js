@@ -164,8 +164,6 @@ function postcode() {
 window.onload = function () {
     let Top = document.getElementById('top');
 
-
-
     if (Top) {
         Top.style.display = 'none'
         window.addEventListener('scroll', function (){
@@ -183,6 +181,6 @@ window.onload = function () {
             console.log(Top);
         });
     } else {
-        console.error("#top 요소를 찾을 수 없습니다.");
+        console.log("#top 요소를 찾을 수 없습니다.");
     }
 }

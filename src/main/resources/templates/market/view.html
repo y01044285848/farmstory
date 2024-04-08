@@ -104,28 +104,6 @@
         }
 
 
-        let Top = document.getElementById('top');
-
-        Top.style.display = 'none'
-
-        if (Top) {
-            window.addEventListener('scroll', function (){
-                if(window.scrollY > 300) {
-                    Top.style.display = 'block';
-                    console.log(Top);
-                } else {
-                    Top.style.display = 'none';
-                }
-            });
-
-            Top.addEventListener('click', function (e) {
-                e.preventDefault();
-                window.scrollTo({top:0, behavior:'smooth'});
-                console.log(Top);
-            });
-        } else {
-            console.error("#top 요소를 찾을 수 없습니다.");
-        }
 
     }
 </script>
@@ -135,6 +113,11 @@
     <title>팜스토리::장보기</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/style2.css}"/>
+    <style>
+        tbody, td, tfoot, th, thead, tr {
+            text-align: left;
+        }
+    </style>
 </head>
 
 <div id="sub">

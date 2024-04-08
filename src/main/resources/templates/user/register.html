@@ -18,6 +18,16 @@
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="stylesheet" href="../css/style2.css"/>
     <style>
+        tbody, td, tfoot, th, thead, tr {text-align: left;}
+
+        .register > form > table td:nth-child(1) {
+            width: 110px;
+            background: #5b5b5b;
+            color: white;
+            font-weight: bold;
+        }
+
+
         .regInput {display: flex;}
 
         .regBtn {
@@ -71,6 +81,17 @@
         }
 
         .emailChkBtn span {font-size: 11px;}
+
+
+        .btnSubmit {
+            display: inline-block;
+            padding: 8px;
+            border: #ff7d00;
+            background: #ff9c47;
+            color: #fff;
+            font-weight: bold;
+        }
+
 
     </style>
 
@@ -384,10 +405,6 @@
             const inputZip = document.getElementById('inputZip');
             const zipBtn = document.getElementById('zipBtn');
 
-            zipBtn.onclick = function (e) {
-                e.preventDefault();
-            }
-
             inputZip.onclick = function (){
                 postcode();
             }
@@ -537,10 +554,10 @@
                                     name="zip"
                                     placeholder="우편번호 검색"
                                     readonly
-                                    id="inputZip"
                                     required
+                                    id="inputZip"
                             />
-                            <button id="zipBtn">
+                            <button id="zipBtn" onclick="postcode()">
                                 <img th:src="@{../images/user/chk_post.gif}" alt="우편번호 검색" />
                             </button>
                         </div>
@@ -557,6 +574,7 @@
                             <input
                                     type="text"
                                     name="addr2"
+                                    id="inputAddr2"
                                     placeholder="상세주소를 입력하세요."
                             />
                         </div>
@@ -570,6 +588,9 @@
                 <input type="submit" class="btnSubmit" value="회원가입"/>
             </div>
         </form>
+        <a href="#" id="top">
+            <img th:src="@{/images/green-top-60.png}"  alt="topBtn">
+        </a>
     </section>
 </div>
 
