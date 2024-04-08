@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.farmstory.dto.ArticleDTO;
 import kr.co.farmstory.dto.ImgDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
@@ -21,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -152,7 +152,11 @@ public class AdminController {
         return "/admin/user/modify";
     }
 
-
+    @PostMapping("/admin/user")
+    public String updateUser(UserDTO userDTO){
+        adminService.adminUpdateUser(userDTO);
+        return "redirect:/admin/user/list";
+    }
 
     // admin.product.list 출력
     @GetMapping("/admin/product/list")

@@ -24,6 +24,16 @@
         WHERE `uid` = #{uid}
     </select>
 
+    <update id="adminUpdateUser" parameterType="kr.co.farmstory.dto.UserDTO">
+        UPDATE `user` SET
+        name=#{name}, nick=#{nick},
+        email=#{email}, hp=#{hp},
+        zip=#{zip}, addr1=#{addr1},
+        addr2=#{addr2}, role=#{role},
+        sms=#{sms}, provider=#{provider}
+        WHERE uid=#{uid}
+    </update>
+
     <!--admin.user.register 등록-->
     <insert id="insertAdmin">
         insert into user set

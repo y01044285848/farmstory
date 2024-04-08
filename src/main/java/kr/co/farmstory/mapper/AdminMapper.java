@@ -21,6 +21,8 @@ public interface AdminMapper {
 
     // admin.user.modify 출력
     public UserDTO adminSelectUserByUid(String uid);
+    public void adminUpdateUser(UserDTO userDTO);
+
 
     // adminIndex 상품 목록 표시
     public List<ProductDTO> adminIdxProducts();

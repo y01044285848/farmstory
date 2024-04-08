@@ -2,8 +2,9 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layouts/adminLayout}">
+
 <main layout:fragment="content">
-    <aside>
+    <aside class="center-align">
         <h3>주요기능</h3>
         <ul>
             <li>
@@ -36,7 +37,7 @@
                 <article>
                     <h3>
                         <a th:href="@{/admin/user/list}">회원현황</a>
-                        <a href="#" class="more">+ 더보기</a>
+                        <a th:href="@{/admin/user/list}" target="_blank" class="more">+새창으로 더보기</a>
                     </h3>
                     <table border="0" >
                         <tr>
@@ -62,8 +63,8 @@
 
                 <article>
                     <h3>
-                        <a href="#">상품현황</a>
-                        <a href="#" class="more">+ 더보기</a>
+                        <a th:href="@{/admin/product/list}">상품현황</a>
+                        <a th:href="@{/admin/product/list}" target="_blank" class="more">+ 새창으로  더보기</a>
                     </h3>
                     <table border="0">
                         <tr>

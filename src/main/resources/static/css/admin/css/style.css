@@ -14,6 +14,23 @@ a {text-decoration: none; color: #111;}
     margin: 0 auto;
 }
 
+/* aside 영역 */
+.center-align {
+    text-align: center;
+}
+.center-align ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: inline-block;
+    text-align: left; /* 리스트 항목들을 왼쪽 정렬합니다. */
+}
+.center-align ol {
+    list-style-position: inside; /* ol 요소 내부에 목록 마커를 표시합니다. */
+}
+.center-align ol li {
+    margin-left: -10px; /* li 요소를 들여쓰기합니다. */
+}
+
 /* 헤더영역 */
 header {
     position: relative;
