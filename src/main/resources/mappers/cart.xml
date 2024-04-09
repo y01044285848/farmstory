@@ -5,6 +5,21 @@
 
 <mapper namespace="kr.co.farmstory.mapper.CartMapper">
 
+    <insert id="insertOrder">
+        insert into `order` set
+        uid = #{uid},
+        odate = now(),
+        usepoint = #{usepoint},
+        receiver = #{receiver},
+        hp = #{hp},
+        zip = #{zip},
+        addr1 = #{addr1},
+        addr2 = #{addr2},
+        payment = #{payment},
+        etc = #{etc},
+        total = #{total}
+    </insert>
+
     <!--장바구니 담기-->
     <insert id="insertCart">
 

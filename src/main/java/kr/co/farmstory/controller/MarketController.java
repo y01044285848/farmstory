@@ -5,11 +5,13 @@ import com.github.pagehelper.PageInfo;
 
 import kr.co.farmstory.dto.CartDTO;
 
+import kr.co.farmstory.dto.OrderDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.Cart;
 import kr.co.farmstory.mapper.CartMapper;
 import kr.co.farmstory.service.CartService;
+import kr.co.farmstory.service.OrderService;
 import kr.co.farmstory.service.ProductService;
 import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class MarketController {
     private final ProductService productService;
     private final CartService cartService;
     private final UserService userService;
+    private final OrderService orderService;
 
     @GetMapping("/market/list")
     public String list(Model model, Integer pageNum, Integer pageSize, String cate){
@@ -195,4 +198,39 @@ public class MarketController {
         return "/market/order";
     }
 
+
+    @PostMapping("/market/order/save")
+    public String orderSave(@RequestParam List<String> checkbox,
+                            Principal principal,
+                            OrderDTO orderDTO){
+
+        log.info("ordersave...1 : "+principal.getName());
+
+        orderDTO.setUid(principal.getName());
+
+        log.info("ordersave...2 : "+orderDTO);
+
+        checkbox.remove(0);
+
+        for(String index : checkbox){
+            String[] values = index.split(",");
+
+            if(values.length == 2){
+                String pno = values[0];
+                String pcount = values[1];
+
+                log.info("pno : "+pno);
+                log.info("pcount : "+pcount);
+            }
+
+            //String pcount = index.substring(index.lastIndexOf(","));
+
+        }
+
+        orderService.insertOrder(orderDTO);
+        log.info("ordersave...6"+orderDTO);
+
+        return "redirect:/market/list";
+
+    }
 }

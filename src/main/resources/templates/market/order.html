@@ -20,15 +20,14 @@
 
         const usePointBtn = document.getElementById('usePointBtn');
         const point = document.getElementsByClassName('point')[0];
-        const usePoint = document.getElementsByName('pointUse')[0];
+        const usePoint = document.getElementsByName('usepoint')[0];
 
+        document.getElementById('btnZip').onclick = function (e){
+            e.preventDefault();
+            postcode();
+        }
 
-
-
-
-
-
-        const checkboxs = document.getElementsByName('pno');
+        const checkboxs = document.getElementsByName('checkbox');
 
         const selectAllCheckbox = checkboxs[0];
 
@@ -95,6 +94,8 @@
             finalBody[10].childNodes[3].innerText = allPoint + "P";
             finalBody[12].childNodes[3].innerText = allRPrice + allDelPrice - usePoint.value + "원";
 
+            document.getElementById('finalPrice').value = allRPrice + allDelPrice - usePoint.value;
+
         }
         setting();
     }
@@ -122,10 +123,11 @@
                 <a th:href="@{#}" class="on">주문상춤 전체(10)</a>
             </p>
             <table border="0">
+                <form th:action="@{/market/order/save}" method="post">
                 <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" name="pno" checked th:value="${cartDTO.pno}">
+                        <input type="checkbox" name="checkbox" checked>
                     </th>
                     <th>이미지</th>
                     <th>종류</th>
@@ -144,7 +146,7 @@
 
                 <tr th:each="cartDTO:${cartDTOList}">
                     <td>
-                        <input type="checkbox" name="pno" checked th:value="${cartDTO.pno}">
+                        <input type="checkbox" name="checkbox" checked th:value="${cartDTO.pno} + ',' + ${cartDTO.pcount}">
                     </td>
                     <td>
                         <a th:href="@{#}"><img th:src="@{|/product/${cartDTO.cate}/${cartDTO.img1}|}" class="thumb"></a>
@@ -157,6 +159,7 @@
                     <td th:text="${cartDTO.price} + '원'"></td>
                     <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'"></td>
                     <td style="display: none;" th:text="${cartDTO.delprice}"></td>
+
                 </tr>
                 </tbody>
             </table>
@@ -205,12 +208,12 @@
                     </tr>
                     <tr>
                         <td>휴대폰</td>
-                        <td><input type="text" name="orderer" th:value="${userDTO.hp}" readonly></td>
+                        <td><input type="text" name="userhp" th:value="${userDTO.hp}" readonly></td>
                     </tr>
                     <tr>
                         <td>포인트사용</td>
                         <td>
-                            <input type="text" name="pointUse" value="">
+                            <input type="text" name="usepoint" th:value="${userDTO.userpoint}">
                             <button id="usePointBtn">사용하기</button>
                             <p class="point">
                                 사용가능 <span>[[${userDTO.userpoint}]]</span>원
@@ -228,7 +231,7 @@
                     <tr>
                         <td>배송주소</td>
                         <td>
-                            <input type="text" name="zip" id="inputZip" readonly><button onclick="postcode()" id="btnZip">우편번호 검색</button>
+                            <input type="text" name="zip" id="inputZip" readonly><button id="btnZip">우편번호 검색</button>
                             <input type="text" name="addr1" id="inputAddr1" placeholder="기본주소 검색">
                             <input type="text" name="addr2" id="inputAddr2" placeholder="상세주소 입력">
                         </td>
@@ -236,10 +239,10 @@
                     <tr>
                         <td>결제방법</td>
                         <td>
-                            <label><input type="radio" name="payment">계좌이체</label>
-                            <label><input type="radio" name="payment">신용카드</label>
-                            <label><input type="radio" name="payment">체크카드</label>
-                            <label><input type="radio" name="payment">휴대폰</label>
+                            <label><input type="radio" name="payment" value="transfer">계좌이체</label>
+                            <label><input type="radio" name="payment" value="credit">신용카드</label>
+                            <label><input type="radio" name="payment" value="check">체크카드</label>
+                            <label><input type="radio" name="payment" value="phone">휴대폰</label>
                         </td>
                     </tr>
                     <tr>
@@ -248,6 +251,9 @@
                             <textarea name="etc"></textarea>
                         </td>
                     </tr>
+                    <input id="finalPrice" type="hidden" name="total">
+                    <input type="hidden" name="uid" th:value="${userDTO.uid}">
+                    </form>
                 </table>
             </div>
 

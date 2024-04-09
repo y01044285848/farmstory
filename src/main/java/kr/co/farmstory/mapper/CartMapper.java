@@ -1,6 +1,7 @@
 package kr.co.farmstory.mapper;
 
 import kr.co.farmstory.dto.CartDTO;
+import kr.co.farmstory.dto.OrderDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public interface CartMapper {
 
     public void insertCart(CartDTO cartDTO);
+    public void insertOrder(OrderDTO orderDTO);
 
     public List<CartDTO> getCartByPno(String uid);
     public int updateCart(int pcount);
