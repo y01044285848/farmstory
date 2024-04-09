@@ -17,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.springframework.boot.Banner;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.URI;
 import java.security.Principal;
 import java.util.*;
 
@@ -92,7 +96,7 @@ public class MarketController {
 
         ProductDTO productDTO = productService.findById(cartDTO.getPno());
         model.addAttribute("count", cartDTO.getPcount());
-        log.info("count:" + cartDTO.getPcount());
+        log.info("addCount:" + cartDTO.getPcount());
 
         model.addAttribute(productDTO);
         log.info(productDTO.toString());
@@ -117,55 +121,53 @@ public class MarketController {
 
     @ResponseBody
     @PostMapping(value = "/market/cart/delete")
-    public String deleteCartList(Principal principal, @RequestParam("pno") List<Integer> pnos, CartDTO cartDTO, Model model) {
+    public ResponseEntity<List<CartDTO>> deleteCartList(Principal principal, @RequestParam("pno") List<Integer> pnos) {
 
         String uid = principal.getName();
         log.info("uid :" + uid);
-
-        List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
-        for(CartDTO cartDTO1 : cartDTOList){
-            log.info("selectCartList : " + cartDTO1);
-        }
-
-        model.addAttribute(cartDTOList);
-        log.info("cartList : " + cartDTOList);
-
+        
         // 선택한 상품 삭제
         for (int pno : pnos) {
             cartService.deleteCartList(pno, uid);
         }
         log.info("deletePnos : " + pnos);
 
-        // JSON 출력(장바구니 )
-        return "redirect://";
-    }
-
-    @GetMapping("/market/cart")
-    public String showCart(Model model, Principal principal) {
-        String uid = principal.getName();
-        log.info("uid : " + uid);
-
+        // 삭제후 장바구니 리스트 조회
         List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
-        log.info("cartDTOList..1 : " + cartDTOList);
+        for(CartDTO cartDTO1 : cartDTOList){
+            log.info("selectCartList : " + cartDTO1);
+        }
+
+        log.info("cartList : " + cartDTOList);
 
 
         if (cartDTOList == null || cartDTOList.isEmpty()) {
             // 장바구니가 비어있을 때 처리하는 코드
             log.info("emptyCart..1");
-            return "redirect:/market/cartEmpty"; // 비어있는 장바구니 페이지로 이동
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create("/market/cartEmpty"));
+            return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build(); // 비어있는 장바구니 페이지로 이동
         }
 
-        for(CartDTO cartDTO1 : cartDTOList){
-            log.info("cartDTO1 : " + cartDTO1);
-        }
-
-        model.addAttribute(cartDTOList);
-        log.info("cartDTOList..2: " + cartDTOList);
-
-
-        return "redirect:/market/cart";
+        return ResponseEntity.ok(cartDTOList);
     }
 
+
+    @GetMapping("/market/cart")
+    public String goToCart(Principal principal, Model model){
+
+        String uid = principal.getName();
+        List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
+        for(CartDTO cartDTO1 : cartDTOList){
+            log.info("selectCartList..1 : " + cartDTO1);
+        }
+
+        model.addAttribute("cartDTOList", cartDTOList);
+        log.info("selectCartList..2 : " + cartDTOList);
+
+
+        return "/market/cart";
+    }
 
 
     @GetMapping("/market/cartEmpty")

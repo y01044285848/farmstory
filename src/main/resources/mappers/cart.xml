@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.farmstory.mapper.CartMapper">
 
-    <!--장바구니 담기-->
+    <!--장바구니 담기
     <insert id="insertCart">
 
         insert into cart set
@@ -13,6 +13,7 @@
             pno = #{pno},
             pcount = #{pcount}
     </insert>
+    -->
 
     <select id="selectCartList" resultType="kr.co.farmstory.dto.CartDTO">
 
@@ -64,11 +65,13 @@
         SELECT pno FROM  cart WHERE uid = #{uid}
     </select>
 
+    <!--
     <update id="updateCart">
         UPDATE cart
         SET pcount = pcount + #{pcount}
         WHERE pno = #{pno}
     </update>
+    -->
 
     <!--장바구니 상품 삭제-->
     <delete id="deleteCartList">
