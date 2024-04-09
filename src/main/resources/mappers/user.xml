@@ -15,6 +15,22 @@
         select * from user where uid=#{value}
     </select>
 
+    <!-- 마이페이지 출력-->
+    <select id="selectUserByUid" resultType="kr.co.farmstory.dto.UserDTO">
+        SELECT * FROM `user`
+        WHERE `uid` = #{uid}
+    </select>
+
+    <update id="updateUser" parameterType="kr.co.farmstory.dto.UserDTO">
+        UPDATE `user` SET
+        name=#{name}, nick=#{nick},
+        email=#{email}, hp=#{hp},
+        zip=#{zip}, addr1=#{addr1},
+        addr2=#{addr2}, role=#{role},
+        sms=#{sms}
+        WHERE uid=#{uid}
+    </update>
+
     <!--회원가입 중복체크-->
     <select id="selectCountUser" resultType="int">
         select count(*) from user

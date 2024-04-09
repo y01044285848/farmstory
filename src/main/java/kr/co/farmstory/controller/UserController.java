@@ -29,6 +29,20 @@ public class UserController {
         return "/user/login";
     }
 
+    @GetMapping("/user/modify/{uid}")
+    public String modify(String uid, Model model){
+        UserDTO user = userService.selectUserByUid(uid);
+        model.addAttribute("user", user);
+        return "/user/modify";
+    }
+
+    // 사용자 정보 수정
+    @PostMapping("/user")
+    public String updateUser(UserDTO userDTO){
+        userService.updateUser(userDTO);
+        return "redirect:/user/modify?uid=" + userDTO.getUid();
+    }
+
     @GetMapping("/user/register")
     public String register(String sms, Model model) {
         model.addAttribute("sms", sms);
@@ -49,7 +63,6 @@ public class UserController {
         return "redirect:/user/login?success=200";
 
     }
-
 
     @ResponseBody
     @GetMapping("/user/{type}/{value}")
@@ -105,4 +118,7 @@ public class UserController {
 
         return "/user/terms";
     }
+
+
+
 }

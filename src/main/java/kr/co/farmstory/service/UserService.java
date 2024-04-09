@@ -6,12 +6,15 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.TermsDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.entity.User;
 import kr.co.farmstory.mapper.AdminMapper;
 import kr.co.farmstory.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +40,28 @@ public class UserService {
     public void insertUser(UserDTO userDTO){
         String encoded = passwordEncoder.encode(userDTO.getPass());
         userDTO.setPass(encoded);
-
         userMapper.insertUser(userDTO);
     }
 
     // 선택 사용자 조회
     public UserDTO selectUser(String uid){
         return userMapper.selectUser(uid);
+    }
+
+    // 사용자 정보 수정
+    public UserDTO selectUserByUid(String uid){
+        return userMapper.selectUserByUid(uid);
+    }
+    public void updateUser(UserDTO userDTO){
+        userMapper.updateUser(userDTO);
+    }
+
+    public String getUid(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null && authentication.isAuthenticated()){
+            return authentication.getName();
+        }
+        return null;
     }
 
     public int selectCountUser(String type, String value) {

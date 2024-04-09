@@ -13,5 +13,9 @@ public interface UserMapper {
     public int selectCountUser(@Param("type") String type, @Param("value") String value);
 
     public UserDTO selectUser(String uid);
+    
+    // 사용자 정보 수정
+    public UserDTO selectUserByUid(String uid);
+    public void updateUser(UserDTO userDTO);
 
 }
