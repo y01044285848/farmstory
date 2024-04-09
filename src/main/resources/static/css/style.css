@@ -409,7 +409,7 @@ main > .info > div > .account {
 }
 #sub > section > article > nav > p > em {
     font-weight: bold;
-    color: #91BA15;
+    color: #A8D031;
 }
 
 /* 팜스토리 소개 */
@@ -428,7 +428,7 @@ main > .info > div > .account {
 
 #sub > .introduction > article > p > strong {
     font-weight: bold;
-    color: #91BA15;
+    color: #A8D031;
 }
 
 /* 장보기 */
@@ -578,7 +578,7 @@ main > .info > div > .account {
 }
 
 #sub > .market > .view .btnCart {
-    background-color: #9ed201;
+    background-color: #A8D031;
     cursor: pointer;
 }
 
@@ -999,7 +999,7 @@ input[type=number]::-webkit-outer-spin-button {
 .login > div {
     width: 100%;
     height: 100px;
-    background-color: #aec42f;
+    background-color: #A8D031;
     color: #fff;
     border-top: 1px solid #cfded8;
     margin-top: 20px;
