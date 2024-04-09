@@ -83,6 +83,36 @@ function showModal(message){
     resultModal.show();
 }
 
+function alertModal(message){
+    const modal = document.getElementById('alertModal');
+    modal.getElementsByClassName('modal-body')[0].innerText = message;
+    const resultModal = new bootstrap.Modal(modal);
+    resultModal.show();
+}
+
+function confirmModal(message) {
+
+    const modal = document.getElementById('confirmModal');
+    modal.getElementsByClassName('modal-body')[0].innerText = message;
+    const resultModal = new bootstrap.Modal(modal);
+    resultModal.show(); // 모달 열기
+
+    // 결과값 반환
+    return new Promise(resolve => {
+        // 확인 버튼 클릭 시
+        document.getElementById('btnOk').onclick = function () {
+            resultModal.hide(); // 모달 닫기
+            resolve(true); // 확인 결과값 반환
+        };
+
+        // 취소 버튼 클릭 시
+        document.getElementById('btnCancel').onclick = function () {
+            resultModal.hide(); // 모달 닫기
+            resolve(false); // 취소 결과값 반환
+        };
+    });
+}
+
 function showInputValid(inputs){
     for(const input of inputs){
         input.classList.remove('is-invalid');

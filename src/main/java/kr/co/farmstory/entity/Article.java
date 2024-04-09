@@ -2,6 +2,7 @@ package kr.co.farmstory.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -23,15 +24,15 @@ public class Article {
     private String uid;
     private int parent;
 
-    @Builder.Default
-    private int comment = 0;
+    @ColumnDefault("0")
+    private int comment;
 
     private String cate;
     private String title;
     private String content;
 
-    @Builder.Default
-    private int hit = 0;
+    @ColumnDefault("0")
+    private int hit;
 
     private String regip;
     private String grp;
@@ -39,7 +40,11 @@ public class Article {
     @CreationTimestamp
     private LocalDateTime rdate;
 
-    @Builder.Default
-    private int file = 0;
+    @ColumnDefault("0")
+    private int file;
 
+    @ColumnDefault("0")
+    private Integer good;
+    @ColumnDefault("0")
+    private Integer hate;
 }

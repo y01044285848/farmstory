@@ -85,6 +85,7 @@ public class ArticleController {
     public String viewArticle(int ano, Model model){
 
         ArticleDTO articleDTO = articleService.selectArticle(ano);
+        articleService.updateHit(ano);
         model.addAttribute(articleDTO);
         log.info(articleDTO.toString());
         return "/article/view";

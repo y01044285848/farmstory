@@ -47,10 +47,14 @@ public class ArticleService {
 
     public void insertArticle(ArticleDTO articleDTO){
 
+        articleDTO.setGood(0);
+        articleDTO.setHate(0);
+
         log.info("insertArticle...1");
         List<FileDTO> files = fileService.fileUpload(articleDTO);
 
-        log.info("insertArticle...2");
+        log.info("insertArticle...2" + files);
+
         // 파일 갯수
         articleDTO.setFile(files.size());
 
@@ -94,8 +98,11 @@ public class ArticleService {
 
     }
 
-
     public void deleteArticle(int ano){
         articleMapper.deleteArticle(ano);
+    }
+
+    public void updateHit(int ano){
+        articleMapper.updateHit(ano);
     }
 }

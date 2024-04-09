@@ -13,4 +13,6 @@ public interface ArticleMapper {
     public List<ArticleDTO> selectArticlesMain(String cate);
     public ArticleDTO selectArticle (int ano);
     public void deleteArticle(int ano);
+    public void updateHit(int ano);
+    public void updateGood(int ano);
 }

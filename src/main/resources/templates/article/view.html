@@ -6,9 +6,10 @@
       layout:fragment="Content">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+<script th:src="@{/js/util.js}"></script>
 <script>
     window.onload = function (){
+
         const btnDelete = document.getElementById('btnDelete');
         const btnModify = document.getElementById('btnModify');
         const modal = document.getElementById('staticBackdrop');
@@ -29,37 +30,31 @@
         const ano =paramValues[2];
         const no =paramValues[2];
 
-        btnDelete.onclick = function (e){
+        btnDelete.onclick = async function (e){
             e.preventDefault();
             console.log('ano : ' + ano);
-
-            modal.getElementsByClassName('modal-body')[0].innerText = '삭제하시겠습니까?';
-            modal.getElementsByClassName('modal-title')[0].innerText = '원글 삭제';
-            const resultModal = new bootstrap.Modal(modal);
-            resultModal.show();
-
-            document.getElementById('btnOk').addEventListener('click', function() {
-                // 삭제
+            const result = await confirmModal('삭제하시겠습니까?');
+            console.log(result);
+            if(result){
                 location.href=`/farmstory/article/delete?ano=${ano}`;
-            });
+            }
 
         }
 
-        btnModify.onclick = function (e){
+        btnModify.onclick = async function (e){
             e.preventDefault();
             console.log('grp : ' + grp);
             console.log('cate : ' + cate);
             console.log('ano : ' + ano);
 
-            modal.getElementsByClassName('modal-body')[0].innerText = '수정 하시겠습니까?';
-            modal.getElementsByClassName('modal-title')[0].innerText = '원글 수정';
-            const resultModal = new bootstrap.Modal(modal);
-            resultModal.show();
-
-            document.getElementById('btnOk').addEventListener('click', function() {
-                // 삭제가 진행되는 로직
+            const result = await confirmModal('수정하시겠습니까?');
+            console.log(result);
+            if(result){
                 location.href=`/farmstory/article/modify?grp=${grp}&cate=${cate}&ano=${ano}`;
-            });
+
+            }
+
+
 
         }
 
@@ -82,63 +77,25 @@
 
             console.log(jsonData);
 
-            // fetch('/farmstory/comment', {
-            //     method:'POST',
-            //     headers:{"Content-Type": "application/json"},
-            //     body: JSON.stringify(jsonData)
-            // })
-            //     .then(response => response.json())
-            //     .then(data=>{
-            //         console.log(data);
-            //         if(data != null){
-            //             alert('댓글이 등록되었습니다!');
-            //         }
-            //
-            //         const commentArticle = `<div class="mb-3">
-            //                                 <ol class="breadcrumb mb-1">
-            //                                     <li class="breadcrumb-item">${data.uid}</li>
-            //                                     <li class="breadcrumb-item">${data.rdate.substring(0,10)}</li>
-            //                                 </ol>
-            //
-            //                                 <textarea class="form-control" rows="3" readonly>${data.content}</textarea>
-            //                                 <div class="text-end mt-1">
-            //                                     <button type="button" class="btn btn-warning btn-sm">
-            //                                         <i class="bi bi-pencil-square">수정</i>
-            //                                     </button>
-            //                                     <button type="button" class="btn btn-danger btn-sm">
-            //                                         <i class="bi bi-trash2-fill">삭제</i>
-            //                                     </button>
-            //                                 </div>
-            //                             </div>`
-            //
-            //         const commentList = document.getElementById('commentList');
-            //         commentList.insertAdjacentHTML('beforeend', commentArticle);
-            //     })
-            //     .catch((err)=>{
-            //     console.log(err)})
-        }
-
-
-        // 댓글 불러오기
-        setTimeout(async function(){
-
-            const commentList = document.getElementById('commentList');
-
-            await fetch(`/farmstory/comment/${no}`)
-                .then(response=> response.json())
+            fetch('/farmstory/comment', {
+                method:'POST',
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify(jsonData)
+            })
+                .then(response => response.json())
                 .then(data=>{
-
                     console.log(data);
+                    if(data != null){
+                        alert('댓글이 등록되었습니다!');
+                    }
 
-                    for(const datas of data){
-
-                        const comments = `<div class="mb-3">
+                    const commentArticle = `<div class="mb-3">
                                             <ol class="breadcrumb mb-1">
-                                                <li class="breadcrumb-item">${datas.uid}</li>
-                                                <li class="breadcrumb-item">${datas.rdate.substring(0,10)}</li>
+                                                <li class="breadcrumb-item">${data.uid}</li>
+                                                <li class="breadcrumb-item">${data.rdate.substring(0,10)}</li>
                                             </ol>
 
-                                            <textarea class="form-control" rows="3" readonly>${datas.content}</textarea>
+                                            <textarea class="form-control" rows="3" readonly>${data.content}</textarea>
                                             <div class="text-end mt-1">
                                                 <button type="button" class="btn btn-warning btn-sm">
                                                     <i class="bi bi-pencil-square">수정</i>
@@ -149,15 +106,107 @@
                                             </div>
                                         </div>`
 
+                    const commentList = document.getElementById('commentList');
+                    commentList.insertAdjacentHTML('beforeend', commentArticle);
+                })
+                .catch((err)=>{
+                console.log(err)})
+        }
+
+
+        // 댓글 불러오기
+        setTimeout(async function(){
+
+            const commentList = document.getElementById('commentList');
+            const loading = document.getElementsByClassName('loading')[0];
+
+            await fetch(`/farmstory/comment/${no}`)
+                .then(response=> response.json())
+                .then(data=> {
+
+                    console.log(data);
+
+                    for (const datas of data) {
+
+                        const comments = `<div class="mb-3 comment" data-ano ="${datas.ano}">
+                                            <ol class="breadcrumb mb-1">
+                                                <li class="breadcrumb-item">${datas.uid}</li>
+                                                <li class="breadcrumb-item">${datas.rdate.substring(0, 10)}</li>
+                                            </ol>
+
+                                            <textarea class="form-control" rows="3" readonly>${datas.content}</textarea>
+                                            <div class="text-end mt-1">
+                                                <button type="button" class="btn btn-warning btn-sm" data-mode="modify" data-ano ="${datas.ano}">
+                                                    <i class="bi bi-pencil-square">수정</i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-mode="remove" data-ano ="${datas.ano}">
+                                                    <i class="bi bi-trash2-fill">삭제</i>
+                                                </button>
+                                            </div>
+                                        </div>`;
+
+                        loading.remove();
                         commentList.insertAdjacentHTML('beforeend', comments);
+
                     }
+
                 })
                 .catch((err=>{
                 console.log(err);
             }))
         },2000);
 
+        const btnGood = document.getElementsByClassName('btnGood')[0];
+        const btnHate = document.getElementsByClassName('btnHate')[0];
 
+
+        btnGood.onclick = function (e){
+            alert('추천했습니다!');
+
+            fetch(`/farmstory/good/${ano}?grp=${grp},cate=${cate},ano=${ano}`)
+                .then(response => response)
+                .then(data =>{ })
+                .catch((err)=>{
+                    console.log(err)})
+
+        }
+
+        btnHate.onclick = function (e){
+            alert('추천했습니다!');
+
+            fetch(`/farmstory/hate/${ano}?grp=${grp},cate=${cate},ano=${ano}`)
+                .then(response => response)
+                .then(data =>{ })
+                .catch((err)=>{
+                    console.log(err)})
+        }
+
+        document.addEventListener('click', function (e){
+            if(e.target.dataset.mode == 'remove'){
+                e.preventDefault();
+                const comment = e.target.closest('.comment');
+
+                const ano = e.target.dataset.ano;
+                console.log(ano);
+
+                fetch(`/farmstory/comment/${ano}`,{
+                    method:'DELETE'
+                })
+                    .then(response => response)
+                    .then(data=> {
+                        console.log(data);
+                        if(data){
+                            alertModal('아아아')
+                        }
+                    })
+                    .catch((err)=>{
+                    console.log(err);})
+
+
+            }
+            // 삭제
+
+        });
 
     }
 </script>
@@ -195,7 +244,16 @@
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 [[${articleDTO.ano}]]번 글
+                    <button type="button" class="btn position-relative btnGood">
+                        좋아요👍
+                        <span class=" good position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">[[${articleDTO.good}]] </span>
+                    </button>
+                    <button type="button" class="btn position-relative btnHate">
+                        싫어요👎
+                        <span class=" hate position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">[[${articleDTO.hate}]]</span>
+                    </button>
             </div>
+
             <div class="card-body">
 
                 <form>
@@ -206,20 +264,19 @@
 
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">글내용</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" readonly name="content">[[${articleDTO.content}]]</textarea>
+                        <textarea class="form-control content" id="exampleFormControlTextarea1" rows="10" readonly name="content">[[${articleDTO.content}]]</textarea>
                     </div>
-
+                    <!--  -->
                     <div th:if="${articleDTO.file>0}" class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">첨부파일</label>
                         <ul class="list-group">
-
                             <li th:each="file:${articleDTO.filelist}" class="list-group-item d-flex justify-content-between align-items-center">
                                 <a th:href="@{/file/download/{fno}(fno=${file.fno})}" class="fileLink" th:data-fno="${file.fno}">$[[${file.oName}]]</a>
                                 <span class="badge text-bg-primary rounded-pill">[[${file.download}]]</span>
                             </li>
-
                         </ul>
                     </div>
+
                     <div class="text-end" th:if="${#authentication.principal.user.uid == articleDTO.uid}">
                         <button type="button" class="btn btn-success btnModify" id="btnModify">
                             <i class="bi bi-pencil-square"></i>
@@ -232,21 +289,24 @@
                     </div>
                 </form>
             </div>
-        </div>
 
+        </div>
         <!-- 내용 끝 -->
 
 
         <!-- 댓글목록 시작 -->
         <div id="commentList">
             <label for="exampleFormControlTextarea1" class="form-label fw-bold">댓글목록</label>
+        </div>
 
+        <div class="spinner-border m-5 justify-content-center loading" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
 
         <form name="commentForm">
-            <input type="text" name="parent" th:value="${articleDTO.ano}">
+            <input type="hidden" name="parent" th:value="${articleDTO.ano}">
             <div >
-                <input type="text" name="writer" th:value="${#authentication.principal.user.uid}">
+                <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}">
             </div>
 
             <div class="input-group">

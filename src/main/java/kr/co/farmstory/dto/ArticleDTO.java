@@ -26,6 +26,8 @@ public class ArticleDTO {
     private String grp;
     private LocalDateTime rdate;
     private int file;
+    private Integer good;
+    private Integer hate;
 
     private List<MultipartFile> files;
 

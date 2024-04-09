@@ -39,4 +39,17 @@
     <delete id="deleteArticle">
         DELETE FROM `article` WHERE ano=#{ano}
     </delete>
+
+    <update id="updateHit">
+        UPDATE `article` SET `hit` = `hit`+1 WHERE `ano`=#{ano}
+    </update>
+
+    <update id="updateGood">
+        UPDATE `article` SET `good` = `good`+1 WHERE `ano`=#{ano}
+    </update>
+
+    <update id="updateHate">
+        UPDATE `article` SET `hate` = `hate`+1 WHERE `ano`=#{ano}
+    </update>
+
 </mapper>
