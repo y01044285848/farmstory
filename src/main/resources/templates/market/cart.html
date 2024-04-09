@@ -121,28 +121,14 @@
     window.onload = function (){
 
         const delCart = document.getElementById('delCart');
-        const sendForm1 = document.getElementById('sendForm1');
+        const sumAll = document.getElementsByClassName('sumAll');
 
-        /*
-
-        // 전체 선택 체크박스의 변경 이벤트 리스너 추가
-        selectAllCheckbox.addEventListener("change", function (){
-            // 전체 선택 체크박스의 상태 가져오기
-            const isChecked = selectAllCheckbox.checked;
-            // 각 상품 체크박스들의 상태를 전체 선택 체크박스의 상태와 동일하게 설정
-
-            checkboxes.forEach(function (checkbox){
-                checkbox.checked = isChecked;
-            });
-
-        });
-         */
-
-
-        const selectAllCheckbox = document.getElementsByName('selectAllCheckbox')[0];
         console.log('alert1');
 
+        const checkboxs = document.getElementsByName('pno');
+        const selectAllCheckbox = document.getElementsByName('selectAllCheckbox')[0];
 
+        // 🎈상품 전체 선택
         selectAllCheckbox.addEventListener('change', function () {
             console.log('alert2');
             const cartPno = document.querySelectorAll("input[name='pno']");
@@ -155,9 +141,70 @@
             }
         });
 
+        console.log(checkboxs);
+        for (let i = 0; i < checkboxs.length; i++){
+            checkboxs[i].addEventListener('change',function (e){
+                sumAllList();
+            });
+        }
+
+        // 🎈전체합계 계산
+        function sumAllList (){
+
+            const selectedItems = document.querySelectorAll("input[name='pno']:checked");
+            let totalItems = 0;
+            let totalAmount = 0;
+            let totalDiscount = 0;
+            let totalDeliveryFee = 0;
+            let totalPoint = 0;
+
+            selectedItems.forEach(item => {
+                const row = item.closest("tr");
+                console.log(row.querySelector(".count"));
+                const count = parseInt(row.querySelector(".count").textContent); // 상품 수량
+                console.log(count);
+
+                const price = parseFloat(row.querySelector(".price").textContent.replace('원', '')); // 상품 가격
+                const discount = parseFloat(row.querySelector(".discount").textContent.replace('%', '')); // 할인율
+                const deliveryFee = parseInt(row.querySelector(".delivery").textContent.replace('원', '')) // 배송비
+
+                totalItems += count; // 상품 수량 누적
+                totalAmount += price * count; // 상품 금액 누적
+                totalDiscount += price * discount * count; // 할인 금액 누적
+                totalDeliveryFee += deliveryFee * count // 배송비 누적
+                totalPoint += parseInt(row.querySelector(".point").textContent.replace('p', '')) * count // 적립 포인트 누적
+                console.log("selectItems..1");
+            });
+
+            // 배송비 계산
+            if(totalAmount >= 30000) {
+                totalDeliveryFee = 0;
+            } else {
+                totalDeliveryFee = totalDeliveryFee;
+            }
+
+            // 전체 주문 금액 계산
+            const totalOrderAmount = totalAmount - totalDiscount + totalDeliveryFee;
+            console.log("sumAll..1 : " + totalOrderAmount);
+
+            // 전체 합계 출력
+            sumAll[0].textContent = totalItems; // 상품수
+            sumAll[1].textContent = totalAmount.toLocaleString() + '원'; // 상품금액
+            sumAll[2].textContent = totalDiscount.toLocaleString() + '원';  // 할인금액
+            sumAll[3].textContent = totalDeliveryFee.toLocaleString() + '원';  // 배송비
+            sumAll[4].textContent = totalPoint.toLocaleString() + 'p';  // 적립 포인트
+            sumAll[5].textContent = totalOrderAmount.toLocaleString() + '원';  // 전체 주문금액
+
+            console.log('sumALl : ' + sumAll);
+
+        }
+
+         sumAllList();
+
+      //  selectAllCheckbox.addEventListener('change', sumAllList);
 
 
-
+        /* 🎈상품 삭제 */
         delCart.onclick = async function (e) {
             const checkBoxes = document.querySelectorAll("input[name='pno']:checked");
             e.preventDefault();
@@ -194,47 +241,8 @@
             } else {
                 return false;
             }
+
         }
-
-        // 선택삭제 버튼 클릭
-        document.querySelector("input[name='delCart']").addEventListener("click", function (){
-            // 선택된 상품들
-            let selectedProducts = document.querySelectorAll("input[name='checkCart']:checked");
-
-            // 선택된 상품 삭제
-            selectedProducts.forEach(function (product){
-                let productRow = product.closest("tr"); // 상품의 행
-                productRow.parentNode.removeChild(productRow); // 상품 행 삭제
-            });
-
-        })
-
-        /*🎈top 버튼*/
-
-        let Top = document.getElementById('top');
-
-        Top.style.display = 'none'
-
-        if (Top) {
-            window.addEventListener('scroll', function (){
-                if(window.scrollY > 300) {
-                    Top.style.display = 'block';
-                    console.log(Top);
-                } else {
-                    Top.style.display = 'none';
-                }
-            });
-
-            Top.addEventListener('click', function (e) {
-                e.preventDefault();
-                window.scrollTo({top:0, behavior:'smooth'});
-                console.log(Top);
-            });
-        } else {
-            console.error("#top 요소를 찾을 수 없습니다.");
-        }
-
-
     }
 
 </script>
@@ -279,24 +287,25 @@
                         <th>소계</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="prodList">
                     <tr class="empty">
                         <td colspan="9"  th:if="${cartDTOList == null or cartDTOList.isEmpty()}" class="emptyCart">장바구니에 상품이 없습니다.</td>
                     </tr>
 
                     <tr th:each="cartDTO:${cartDTOList}">
                         <td>
-                            <input type="checkbox" id="selectedPnos" name="pno"  th:value="${cartDTO.pno}">
+                            <input type="checkbox" checked id="selectedPnos" name="pno"  th:value="${cartDTO.pno}">
                         </td>
                         <td>
                             <a th:href="@{#}"><img th:src="@{|/product/${cartDTO.cate}/${cartDTO.img1}|}" class="thumb" alt="사과 500g"></a>
                         </td>
                         <td th:text="${cartDTO.cate}"></td>
                         <td th:text="${cartDTO.pname}"><a th:href="@{#}"></a></td>
-                        <td th:text="${cartDTO.pcount}"></td>
-                        <td th:text="${cartDTO.discount} + '%'"></td>
-                        <td th:text="${cartDTO.point} + 'p'"></td>
-                        <td th:text="${cartDTO.price} + '원'"></td>
+                        <td class="count" th:text="${cartDTO.pcount}"></td>
+                        <td class="discount" th:text="${cartDTO.discount} + '%'"></td>
+                        <td class="point" th:text="${cartDTO.point} + 'p'"></td>
+                        <td class="price" th:text="${cartDTO.price} + '원'"></td>
+                        <td hidden class="delivery" th:text="${cartDTO.delprice} + '원'"></td>
                         <td th:text="${cartDTO.price - (cartDTO.price * cartDTO.discount / 100)} + '원'" class="sumPrice"></td>
                     </tr>
                     </tbody>
@@ -306,33 +315,33 @@
 
 
 
-            <div class="info">
+            <div class="info sumALl">
                 <form id="sendForm2" th:action="@{/market/cart/}" method="post">
                         <table border="0">
                             <caption>전체합계</caption>
                             <tr>
                                 <th>상품수</th>
-                                <td th:text="${cartDTO.pcount != null ? cartDTO.pcount : '0'}"></td>
+                                <td class="sumAll count">1</td>
                             </tr>
                             <tr>
                                 <th>상품금액</th>
-                                <td th:text="${cartDTO.price != null and cartDTO.pcount != null ? (cartDTO.price * cartDTO.pcount) : '0'} + '원'"></td>
+                                <td class="sumAll price">100원</td>
                             </tr>
                             <tr>
                                 <th>할인금액</th>
-                                <td th:text="${cartDTO.price != null and cartDTO.pcount != null and cartDTO.discount != null ? ((cartDTO.price * cartDTO.pcount) * cartDTO.discount / 100) : '0'} + '원'"></td>
+                                <td class="sumAll discount">100원</td>
                             </tr>
                             <tr>
                                 <th>배송비</th>
-                                <td th:text="${cartDTO.delprice != null ? cartDTO.delprice : '0'} + '원'" class="delivery"></td>
+                                <td class="sumAll delivery">100원</td>
                             </tr>
                             <tr>
                                 <th>적립 포인트</th>
-                                <td th:text="${cartDTO.point != null ? cartDTO.point : '0p'} + 'p'"></td>
+                                <td class="sumAll point">100p</td>
                             </tr>
                             <tr>
                                 <th>전체주문금액</th>
-                                <td th:text="${cartDTO.price != null and cartDTO.pcount != null and cartDTO.discount != null and cartDTO.delprice != null ? ((cartDTO.price * cartDTO.pcount) - ((cartDTO.price * cartDTO.pcount) * cartDTO.discount / 100) + cartDTO.delprice) : '0'} + '원'" class="total"></td>
+                                <td class="sumAll total">200원</td>
                             </tr>
                         </table>
 

@@ -7,6 +7,7 @@ import kr.co.farmstory.service.CartService;
 import kr.co.farmstory.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ public class CartController {
     private final CartService cartService;
     private final OrderService orderService;
 
+    /*
     @PostMapping("cart/insert")
     public ResponseEntity<CartDTO> insertCart(@RequestBody CartDTO cartDTO){
         log.info("받음");
@@ -40,6 +42,19 @@ public class CartController {
         }
         cartService.insertCart(cartDTO);
         return  ResponseEntity.ok().body(cartDTO);
+    }
+    */
+
+    @PostMapping("/cart/insert")
+    public ResponseEntity<CartDTO> insertCartItem(Principal principal, @RequestBody CartDTO cartDTO) {
+        String uid = principal.getName();
+        log.info("uid : " + uid);
+        int pno = cartDTO.getPno();
+        int pcount = cartDTO.getPcount();
+        log.info("insertCartPno : " + pno);
+        cartService.insertCart(uid, pno, pcount);
+
+        return ResponseEntity.ok(cartDTO);
     }
 
 }

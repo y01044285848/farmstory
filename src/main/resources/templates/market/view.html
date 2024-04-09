@@ -56,7 +56,6 @@
         const sendForm = document.getElementById('sendForm');
 
 
-
         btnCart.onclick = async function (e){
             e.preventDefault();
             if(confirm("장바구니에 담으시겠습니까?")) {
@@ -92,7 +91,7 @@
             console.log(jsonData);
 
             const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
-            console.log(data);
+            console.log("data : " + data);
             if(data != null){
                 sendForm.action = "/farmstory/market/order";
                 sendForm.submit();
