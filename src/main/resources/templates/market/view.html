@@ -26,8 +26,8 @@
         discountPrice.innerText = '-' + discountPricevalue.toLocaleString() + ' 원'; // 결과값에 원(₩) 추가
         PriceValue.innerText = totalValue.toLocaleString() + ' 원';
 
-        discountPrice.style.color = 'red';
-        totalElement.style.color = 'blue';
+        //discountPrice.style.color = 'red';
+        //totalElement.style.color = 'blue';
 
         const btnCart = document.getElementById('btnCart');
         const btnOrder = document.getElementById('btnOrder');
@@ -110,13 +110,9 @@
 <head>
     <meta charset="UTF-8">
     <title>팜스토리::장보기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/style2.css}"/>
-    <style>
-        tbody, td, tfoot, th, thead, tr {
-            text-align: left;
-        }
-    </style>
 </head>
 
 <div id="sub">
@@ -148,11 +144,11 @@
 
                         <tr>
                             <td>상품명</td>
-                            <td>[[${productDTO.pname}]]</td>
+                            <td class="prodName">[[${productDTO.pname}]]</td>
                         </tr>
                         <tr>
-                            <td>상품코드</td>
-                            <td>[[${productDTO.pno}]]</td>
+                            <td hidden="">상품코드</td>
+                            <td hidden="">[[${productDTO.pno}]]</td>
                             <td>
                                 <input type="hidden" name="pno" th:value="${productDTO.pno}">
                                 <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
@@ -177,23 +173,22 @@
                         </tr>
                         <tr>
                             <td>할인율</td>
-                            <td>[[${productDTO.discount}]]%</td>
+                            <td class="discount1">[[${productDTO.discount}]]%</td>
                         </tr>
                         <tr>
                             <td>할인금액</td>
-                            <td class="discountPrice" id="discountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))"></td>
+                            <td class="discountPrice discount2" id="discountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))"></td>
                             <td class="hiddeDiscountPrice" id="hiddeDiscountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
                         </tr>
                         <tr>
                             <td>합계</td>
-                            <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100)))"></td>
+                            <td class="total" id="total" th:text="${productDTO.delprice} + (${productDTO.price} - (${productDTO.price} * (${productDTO.discount} / 100))) + '원'"></td>
                             <td class="hiddetotal" id="hiddetotal" th:text="(${productDTO.price} - ${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
                         </tr>
-                        <style>
-                        </style>
                     </table>
                 </form>
-                <div style="float: right; margin-top: 10px;">
+
+                <div class="viewBtn" style="float: right; margin-top: 10px;">
                     <a th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
                     <a th:href="@{/market/order(pno=${productDTO.pno})}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>

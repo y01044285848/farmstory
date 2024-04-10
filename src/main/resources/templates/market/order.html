@@ -176,7 +176,7 @@
                     </tr>
                     <tr>
                         <th>할인금액</th>
-                        <td>5,0000원</td>
+                        <td style="color:#fd5900; font-weight: bold">5,0000원</td>
                     </tr>
                     <tr>
                         <th>포인트사용</th>
@@ -213,7 +213,7 @@
                     <tr>
                         <td>포인트사용</td>
                         <td>
-                            <input type="text" name="usepoint" th:value="${userDTO.userpoint}">
+                            <input type="text" class="usepoint" name="usepoint" th:value="${userDTO.userpoint}">
                             <button id="usePointBtn">사용하기</button>
                             <p class="point">
                                 사용가능 <span>[[${userDTO.userpoint}]]</span>원

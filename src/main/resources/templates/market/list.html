@@ -57,10 +57,10 @@
 
             <!-- 내용 시작 -->
             <p class="sort">
-                <a th:href="@{/market/list}" th:class="${cate == null} ? 'on' ">전체(20) |</a>
-                <a th:href="@{/market/list(cate=fruit)}" th:class="${cate == 'fruit'} ? 'on' ">과일 |</a>
-                <a th:href="@{/market/list(cate=vegetable)}" th:class="${cate == 'vegetable'} ? 'on' ">야채 |</a>
-                <a th:href="@{/market/list(cate=grains)}" th:class="${cate == 'grains'} ? 'on' ">곡류 |</a>
+                <a th:href="@{/market/list}" th:class="${cate == null} ? 'on' ">전체(20)</a>
+                <a th:href="@{/market/list(cate=fruit)}" th:class="${cate == 'fruit'} ? 'on' ">과일</a>
+                <a th:href="@{/market/list(cate=vegetable)}" th:class="${cate == 'vegetable'} ? 'on' ">야채</a>
+                <a th:href="@{/market/list(cate=grains)}" th:class="${cate == 'grains'} ? 'on' ">곡류</a>
                 <a th:href="@{/market/list(cate=nuts)}" th:class="${cate == 'nuts'} ? 'on' ">견과류</a>
             </p>
             <table border="0" id="listTable" class="table">

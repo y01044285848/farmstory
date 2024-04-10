@@ -57,7 +57,7 @@
                 글쓰기
             </div>
             <div class="card-body">
-                <form name="formWrite" th:action="@{/article/write}" method="post" enctype="multipart/form-data">
+                <form class="formWrite" name="formWrite" th:action="@{/article/write}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
                     <input type="hidden" name="cate" th:value="${cate}">
                     <input type="hidden" name="grp" th:value="${grp}">

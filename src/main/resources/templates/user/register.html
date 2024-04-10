@@ -404,15 +404,10 @@
             // 다음 우편번호 API 스크립트 상단 추가
             const inputZip = document.getElementById('inputZip');
 
-<<<<<<< HEAD
-            inputZip.onclick = function (){
-=======
             inputZip.onclick = function (e){
                 e.preventDefault();
->>>>>>> origin/feature/cart0409
                 postcode();
             }
-
 
         }
     </script>
@@ -559,13 +554,9 @@
                                     placeholder="우편번호 검색"
                                     readonly
                                     required
-                                    id="inputZip"
                             />
-<<<<<<< HEAD
-                            <button id="zipBtn" onclick="postcode()">
-=======
+
                             <button id="inputZip">
->>>>>>> origin/feature/cart0409
                                 <img th:src="@{../images/user/chk_post.gif}" alt="우편번호 검색" />
                             </button>
                         </div>
@@ -584,7 +575,6 @@
                                     name="addr2"
                                     id="inputAddr2"
                                     placeholder="상세주소를 입력하세요."
-                                    id="inputAddr2"
                             />
                         </div>
                     </td>

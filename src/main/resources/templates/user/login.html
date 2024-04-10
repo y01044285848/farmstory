@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <!-- Default Layout Import-->
 <html lang="en"
@@ -11,40 +10,37 @@
     <meta charset="UTF-8">
     <title>팜스토리::로그인</title>
     <link rel="stylesheet" href="../css/style.css"/>
-    <style>
-        #user > img {
-            display: block;
-            margin: 20px auto;
-        }
-    </style>
 </head>
 
 <div id="user">
     <section class="login">
+        <h2>로그인</h2>
         <form method="post">
-            <table border="0"> <!-- tbody - tr -->
-                <tr>
-                    <td><img th:src="@{../images/user/login_ico_id.png}" alt="아이디"></td>
-                    <td>
-                        <input type="text" name="uid" placeholder="아이디 입력">
-                    </td>
-                </tr>
-                <tr>
-                    <td><img th:src="@{../images/user/login_ico_pw.png}" alt="비밀번호"></td>
-                    <td>
-                        <input type="password" name="pass" placeholder="비밀번호 입력">
-                    </td>
-                </tr>
-                <input type="submit" value="로그인">
-            </table>
+            <div class="loginForm">
+                <input type="text" class="id" name="uid" placeholder="아이디를 입력하세요."><br>
+                <input type="password" class="pw" name="pass" placeholder="8~15자리 영문+숫자+특수문자 조합"><br>
+                <input type="submit" class="loginBtn" value="로그인하기">
+            </div>
+            <div class="autoLogin">
+                <div class="checkboxSet">
+                    <input type="checkbox" id="checkbox1" checked>
+                    <label for="checkbox1">아이디 저장</label>
+                </div>
+                <div class="findIdPw">
+                    <a href="#" class="findId">아이디 찾기 | </a>
+                    <a href="#" class="findPw">비밀번호 찾기</a>
+                </div>
+            </div>
         </form><!-- form end -->
-        <a th:href="@{/oauth2/authorization/google}" class="oauth2">
-            <img th:src="@{/assets/img/web_light_sq_ctn.svg}" alt="로그인">
-        </a>
-        <div>
-            <h3>회원 로그인 안내</h3>
-            <p>아직 회원이 아니시면 회원으로 가입하세요.</p>
-            <a th:href="@{/user/terms}">회원가입</a>
+        <a class="register" th:href="@{/user/terms}">회원가입</a>
+        <div class="snsLogin">
+            <h4>간편 로그인</h4>
+            <a th:href="@{/oauth2/authorization/google}" class="oauth2">
+                <img th:src="@{/assets/img/google_1.png}" alt="로그인">
+            </a>
+            <a href="#" class="kakao">
+                <img th:src="@{/assets/img/kakao_2.png}" alt="로그인">
+            </a>
         </div>
     </section><!-- login end -->
 </div>
