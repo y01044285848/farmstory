@@ -75,7 +75,20 @@ public class ArticleService {
     }
 
     public ArticleDTO selectArticle(int ano){
-        return articleMapper.selectArticle(ano);
+        Optional<Article> optArticle = articleRepository.findById(ano);
+        log.info("findById 1");
+
+        ArticleDTO articleDTO = null;
+        if(optArticle.isPresent()){
+            log.info("findById 2");
+            Article article = optArticle.get();
+
+            articleDTO = modelMapper.map(article, ArticleDTO.class);
+            log.info("findById 3");
+        }
+        log.info("articleDTO : " + articleDTO);
+
+        return articleDTO;
     }
 
     public ResponseEntity<?> updateArticle (ArticleDTO articleDTO){
