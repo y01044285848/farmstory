@@ -46,8 +46,8 @@ public class OrderService {
     }
 
     // 사용자 주문 조회
-    public List<OrderDTO> selectOrderlist(){
-        return orderMapper.selectOrderlist();
+    public List<OrderDTO> selectOrderlist(String uid){
+        return orderMapper.selectOrderlist(uid);
     }
 
 

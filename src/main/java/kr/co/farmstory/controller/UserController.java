@@ -1,5 +1,7 @@
 package kr.co.farmstory.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.co.farmstory.dto.OrderDTO;
@@ -61,10 +63,37 @@ public class UserController {
 
    // 사용자 주문 조회
     @GetMapping("/user/orderlist")
-   public String orderList(Model model){
-        List<OrderDTO> orderDTOList = orderService.selectOrderlist();
-        log.info("orderlist : "+orderDTOList.toString());
+   public String orderList(Model model, String uid , Integer pageNum, Integer pageSize){
+
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 5 : pageSize;
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        List<OrderDTO> orderDTOList = orderService.selectOrderlist(uid);
+
+        PageInfo<OrderDTO> orderPage = new PageInfo<>(orderDTOList);
+
+        log.info(" " + orderPage.getPages());
+
+        int lastPage = (pageNum / 11) * 10 + 10;
+
+        if (lastPage > orderPage.getPages()) {
+            lastPage = orderPage.getPages();
+        }
+
+        orderPage.setNavigateFirstPage((pageNum / 11) * 10 +1);
+        orderPage.setNavigateLastPage(lastPage);
+
+        log.info("selectOrderListPage" + orderPage);
+
+        model.addAttribute("orderPage", orderPage);
+        model.addAttribute("orderDTOList", orderDTOList);
+
+        log.info("orderDTOList : "+ orderDTOList.toString());
+
         model.addAttribute(orderDTOList);
+
         return "/user/orderlist";
    }
 

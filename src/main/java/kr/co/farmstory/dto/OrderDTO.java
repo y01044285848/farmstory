@@ -46,6 +46,7 @@ public class OrderDTO {
     private int delprice;
     private int discount;
     private int point;
+    private String info;
     private String img1;
 
 }

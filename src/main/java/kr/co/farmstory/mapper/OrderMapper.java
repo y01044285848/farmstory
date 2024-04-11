@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    public List<OrderDTO> selectOrderlist();
+    public List<OrderDTO> selectOrderlist(String uid);
 
 }
