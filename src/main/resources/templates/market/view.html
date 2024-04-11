@@ -2,6 +2,7 @@
 <!-- Default Layout Import-->
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{/common/layouts/defaultLayout}"
       layout:fragment="Content"
 >
@@ -58,10 +59,10 @@
 
         btnCart.onclick = async function (e){
             e.preventDefault();
+
             if(confirm("장바구니에 담으시겠습니까?")) {
                 const jsonData = {
                     "pno": sendForm.pno.value,
-                    "uid": sendForm.uid.value,
                     "pcount": sendForm.pcount.value
                 }
                 console.log(jsonData);
@@ -85,7 +86,6 @@
             e.preventDefault();
             const jsonData = {
                 "pno": sendForm.pno.value,
-                "uid": sendForm.uid.value,
                 "pcount": sendForm.pcount.value
             }
             console.log(jsonData);
@@ -151,7 +151,7 @@
                             <td hidden="">[[${productDTO.pno}]]</td>
                             <td>
                                 <input type="hidden" name="pno" th:value="${productDTO.pno}">
-                                <input type="hidden" name="uid" th:value="${#authentication.principal.user.uid}">
+
                             </td>
                         </tr>
                         <tr>
@@ -189,8 +189,8 @@
                 </form>
 
                 <div class="viewBtn" style="float: right; margin-top: 10px;">
-                    <a th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
-                    <a th:href="@{/market/order(pno=${productDTO.pno})}" id="btnOrder" class="btn btnOrder">바로구매</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/market/cart(pno=${productDTO.pno})}" id="btnCart" class="btn btnCart">장바구니</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/market/order(pno=${productDTO.pno})}" id="btnOrder" class="btn btnOrder">바로구매</a>
                 </div>
 
             </div>

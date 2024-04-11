@@ -53,7 +53,16 @@
                 alert("보유하신 포인트는 " + point.childNodes[1].innerText + "P 입니다.");
             }else {
                 finalBody[6].childNodes[3].innerText = usePoint.value + "P";
-                finalBody[12].childNodes[3].innerText = parseInt(finalBody[12].childNodes[3].innerText) - usePoint.value + "원";
+                let delP = parseInt(finalBody[8].childNodes[3].innerText);
+                if(delP < 10){
+                    delP = 0;
+                }
+                if (parseInt(finalBody[12].childNodes[3].innerText) - delP - parseInt(finalBody[2].childNodes[3].innerText) + parseInt(finalBody[4].childNodes[3].innerText) == 0){
+                    finalBody[12].childNodes[3].innerText = parseInt(finalBody[12].childNodes[3].innerText) - usePoint.value + "원";
+                    setting();
+                }
+
+
             }
 
         }
@@ -92,9 +101,9 @@
 
             finalBody[8].childNodes[3].innerText = comment;
             finalBody[10].childNodes[3].innerText = allPoint + "P";
-            finalBody[12].childNodes[3].innerText = allRPrice + allDelPrice - usePoint.value + "원";
+            finalBody[12].childNodes[3].innerText = allRPrice + allDelPrice - parseInt(finalBody[6].childNodes[3].innerText) + "원";
 
-            document.getElementById('finalPrice').value = allRPrice + allDelPrice - usePoint.value;
+            document.getElementById('finalPrice').value = allRPrice + allDelPrice - parseInt(finalBody[6].childNodes[3].innerText);
 
         }
         setting();

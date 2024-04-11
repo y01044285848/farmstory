@@ -187,11 +187,11 @@ public class MarketController {
 
 
     @PostMapping("/market/order")
-    public String order(CartDTO cartDTO, Model model){
+    public String order(Principal principal, CartDTO cartDTO, Model model){
 
-        UserDTO userDTO = userService.selectUser(cartDTO.getUid());
+        UserDTO userDTO = userService.selectUser(principal.getName());
         log.info(userDTO.toString());
-        List<CartDTO> cartDTOList = cartService.selectCartList2(cartDTO.getUid());
+        List<CartDTO> cartDTOList = cartService.selectCartList2(principal.getName());
         for(CartDTO cartDTO1 : cartDTOList){
             log.info(cartDTO1.toString());
         }

@@ -41,10 +41,12 @@ public class SecurityConfig {
          */
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/").permitAll()
-                .requestMatchers("/article/**").permitAll()
-                .requestMatchers("/admin/**").permitAll()
+                .requestMatchers("/market/cart").authenticated()
+                .requestMatchers("/market/order").authenticated()
+                .requestMatchers("/article/**").authenticated()
+                //.requestMatchers("/admin/**").permitAll()
                 //.hasAuthority("ADMIN")
-                .requestMatchers("/manager/**").hasAnyAuthority("ADMIN", "MANAGER")
+                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER")
                 .anyRequest().permitAll());
 
         // 사이트 위변조 방지 설정
