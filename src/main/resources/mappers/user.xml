@@ -21,6 +21,7 @@
         WHERE `uid` = #{uid}
     </select>
 
+    <!-- 마이페이지 수정-->
     <update id="updateUser" parameterType="kr.co.farmstory.dto.UserDTO">
         UPDATE `user` SET
         name=#{name}, nick=#{nick},

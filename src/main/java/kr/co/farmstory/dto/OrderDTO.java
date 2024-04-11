@@ -1,7 +1,6 @@
 package kr.co.farmstory.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,5 +30,18 @@ public class OrderDTO {
     private String payment;
     private String etc;
     private int total;
-    
+
+    // orderlistDTO
+    private int Ino;
+    private int Ono;
+    private int price;
+
+    // productDTO
+    private String pname;
+    private String cate;
+    private int delprice;
+    private int discount;
+    private int point;
+    private String img1;
+
 }
