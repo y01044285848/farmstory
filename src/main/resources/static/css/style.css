@@ -518,17 +518,21 @@ main > .info > div > .account {
     background-color: #707070;
 }
 
+
 #sub > .market > .list > #sortBox > form {
+
     position: relative;
     left: 30px;
     top: 20px;
 }
 
-#sub > .market > .list > #sortBox > form > .searchBox input {
+
+#sub > .market > .list > #sortBox > form > .searchBox > input {
     width: 200px;
 }
 
-#sub > .market > .list > #sortBox > form > .searchBox > #select {
+#sub > .market > .list > #sortBox > form >.searchBox > #select {
+
     height: 30px;
     border: 1px solid #5c636a;
     border-radius: 5px;
@@ -542,7 +546,8 @@ main > .info > div > .account {
     padding: 5px;
 }
 
-#sub > .market > .list > #sortBox > form > .searchBox >  .searchBtn {
+#sub > .market > .list > #sortBox > form > .searchBox > .searchBtn {
+
     background-color: transparent;
     border: none;
 }

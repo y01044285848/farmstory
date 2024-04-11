@@ -68,11 +68,11 @@
                     <a th:href="@{/market/list(cate=grains)}" th:class="${cate == 'grains'} ? 'on' ">곡류</a>
                     <a th:href="@{/market/list(cate=nuts)}" th:class="${cate == 'nuts'} ? 'on' ">견과류</a>
                 </p>
-
                 <form th:action="@{/market/list}"  method="GET">
                     <div class="searchBox">
                         <select name="cate" id="select">
                             <option value="" selected disabled> 전체 </option>
+
                             <option value="fruit">과일</option>
                             <option value="vegetable">야채</option>
                             <option value="grain">곡물</option>

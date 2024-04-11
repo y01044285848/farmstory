@@ -17,15 +17,18 @@
         const discountPricevalue = parseInt(discountPrice.innerText);
 
         const price = document.getElementById('ProductPrice');
-        const PriceValue = parseInt(price.innerText);
+        const priceValue = parseInt(price.innerText);
+
+        console.log('price : ' + price);
+        console.log('price : ' + priceValue);
 
         totalElement.innerText = totalValue;
-        discountPrice.innerText = discountPricevalue;
-        PriceValue.innerText = PriceValue;
+        priceValue.innerText = priceValue;
 
         totalElement.innerText = totalValue.toLocaleString() + ' 원'; // 결과값에 원(₩) 추가
         discountPrice.innerText = '-' + discountPricevalue.toLocaleString() + ' 원'; // 결과값에 원(₩) 추가
-        PriceValue.innerText = totalValue.toLocaleString() + ' 원';
+        priceValue.innerText = totalValue.toLocaleString() + ' 원';
+
 
         //discountPrice.style.color = 'red';
         //totalElement.style.color = 'blue';
@@ -38,6 +41,21 @@
         const delprice = document.getElementById('delPrice');
         const totalPrice = document.getElementById('total');
 
+        let countInputObj = count.value;
+        console.log('countInputObj..1 :' + countInputObj);
+
+        // 입력 이벤트를 사용하여 값이 변경될 때마다 JavaScript 객체를 업데이트합니다.
+        count.addEventListener('input', function() {
+            // 변경된 값을 JavaScript 객체에 반영합니다.
+            countInputObj = parseInt(count.value);
+
+            // 변경된 객체를 콘솔에 출력합니다.
+            console.log('countInputObj..2 :' + countInputObj);
+        });
+
+        const countValue = count.value;
+        console.log('countValue : '+countValue);
+
         /*
             구매 수량 수정 시 합계 정보 갱신
          */
@@ -45,22 +63,74 @@
 
             const price = parseInt(hiddenPrice.innerText);
             const quantity = parseInt(count.value);
-            const delprice2 = parseInt(delprice.innerText);
-            const total = price * quantity + delprice2;
-            totalPrice.innerText = total;
+            console.log('quantity : ' + quantity);
+
+            // 배송비
+            let delprice2 = parseInt(delprice.innerText);
+
+            console.log('discountPrice : ' + discountPrice);
+
+            // 총 할인된 가격 = 할인가격 * 물품 수
+            let discountPriceSum = -(discountPricevalue * quantity);
+            console.log('discountPriceSum : ' + discountPriceSum);
+
+            let total = (price * quantity) + delprice2 - discountPriceSum;// 할인 후 총액
+
+            if (total >= 30000) {
+                delprice2 = 0;
+                document.getElementById('freeDel').style.display = 'block';
+                document.getElementById('delPrice').style.display = 'none';
+                document.getElementById('freeDelText').style.display = 'none';
+            }
+
+            // 배송비 포함하여 최종 총액 재계산
+            total = (price * quantity) + delprice2 - discountPriceSum + '원';
+
+            totalPrice.innerText = total.toString();
+
+            discountPrice.innerText = discountPriceSum.toString() + '원';
+
 
         }
+
+
         /*
             장바구니 클릭 시 구매수량 값을 get으로 포함시켜 전송
          */
 
         const sendForm = document.getElementById('sendForm');
 
+        if(btnCart){
+            btnCart.onclick = async function (e){
+                e.preventDefault();
 
-        btnCart.onclick = async function (e){
-            e.preventDefault();
+                if(confirm("장바구니에 담으시겠습니까?")) {
+                    const jsonData = {
+                        "pno": sendForm.pno.value,
+                        "pcount": sendForm.pcount.value
+                    }
+                    console.log(jsonData);
 
-            if(confirm("장바구니에 담으시겠습니까?")) {
+                    const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
+                    console.log(data);
+                    if(data != null){
+                        if(confirm("장바구니로 이동하시겠습니까?")){
+                            sendForm.submit();
+                        }
+                    }else{
+                        alert("등록에 실패했습니다.");
+                    }
+                    return false;
+                }else{
+
+                    return false;
+                }
+            }
+        }
+
+        if(btnOrder){
+            btnOrder.onclick = async function (e){
+                e.preventDefault();
                 const jsonData = {
                     "pno": sendForm.pno.value,
                     "pcount": sendForm.pcount.value
@@ -68,41 +138,17 @@
                 console.log(jsonData);
 
                 const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
-                console.log(data);
+                console.log("data : " + data);
                 if(data != null){
-                    if(confirm("장바구니로 이동하시겠습니까?")){
-                        sendForm.submit();
-                    }
+                    sendForm.action = "/farmstory/market/order";
+                    sendForm.submit();
+
                 }else{
                     alert("등록에 실패했습니다.");
                 }
                 return false;
-            }else{
-
-                return false;
             }
         }
-        btnOrder.onclick = async function (e){
-            e.preventDefault();
-            const jsonData = {
-                "pno": sendForm.pno.value,
-                "pcount": sendForm.pcount.value
-            }
-            console.log(jsonData);
-
-            const data = await fetchPost(`/farmstory/cart/insert`,jsonData);
-            console.log("data : " + data);
-            if(data != null){
-                sendForm.action = "/farmstory/market/order";
-                sendForm.submit();
-
-            }else{
-                alert("등록에 실패했습니다.");
-            }
-            return false;
-        }
-
-
 
     }
 </script>
@@ -157,8 +203,9 @@
                         <tr>
                             <td>배송비</td>
                             <td>
-                                <span id="delPrice">[[${productDTO.delprice}]]</span>원
-                                <em>3만원 이상 무료배송</em>
+                                <span id="delPrice">[[${productDTO.delprice}]]원</span>
+                                <span id="freeDel" style="display: none; color: tomato; font-weight: bold;">😆무료 배송</span>
+                                <em id="freeDelText">3만원 이상 무료배송</em>
                             </td>
                         </tr>
                         <tr>
@@ -168,7 +215,7 @@
                         <tr>
                             <td>구매수량</td>
                             <td>
-                                <input type="number" name="pcount" id="count" min="1" value="1">
+                                <input type="number" name="pcount" id="count"  value="1" min="1">
                             </td>
                         </tr>
                         <tr>
@@ -177,7 +224,7 @@
                         </tr>
                         <tr>
                             <td>할인금액</td>
-                            <td class="discountPrice discount2" id="discountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))"></td>
+                            <td class="discountPrice discount2" id="discountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100)) + '원'"></td>
                             <td class="hiddeDiscountPrice" id="hiddeDiscountPrice" th:text="(${productDTO.price} * (${productDTO.discount} / 100))" hidden></td>
                         </tr>
                         <tr>

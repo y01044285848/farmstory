@@ -5,13 +5,60 @@
       th:fragment="HeaderFragment">
 <div id="container">
     <header>
+        <script>
+            window.onload = function () {
+                checkLoginStatus();
+                const mypageLink = document.getElementById('mypageLink');
+                const cartLink = document.getElementById('cartLink');
+                const deliveryLink = document.getElementById('deliveryLink');
+
+                // 로그인한 경우에만 링크 활성화
+                if (checkLoginStatus) {
+                    mypageLink.onclick = function () {
+                        return true;
+                    };
+                    cartLink.onclick = function () {
+                        return true;
+                    };
+                    deliveryLink.onclick = function () {
+                        return true;
+                    };
+                } else {
+                    // 로그인 하지 않은 경우 링크 비활성화
+                    mypageLink.onclick = function () {
+                        return false
+                    };
+                    cartLink.onclick = function () {
+                        return false
+                    };
+                    deliveryLink.onclick = function () {
+                        return false
+                    };
+                }
+
+                function checkLoginStatus() {
+                    fetch('/checkLogin')
+                        .then(response => {
+                            if (response.ok) {
+                                // 사용자가 로그인되어 있는 경우
+                                console.log('사용자는 로그인되어 있습니다.');
+                            } else {
+                                // 사용자가 로그인되어 있지 않은 경우
+                                console.log('사용자는 로그인되어 있지 않습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('로그인 상태를 확인하는 중 오류가 발생했습니다.', error);
+                        });
+                }
+            };
+        </script>
         <p class="top_nav">
             <a th:href="@{/}">HOME |</a>
             <a sec:authorize="isAnonymous()" th:href="@{/user/terms}">회원가입 |</a>
             <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인 |</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/user/modify(uid=${#authentication.principal.user.uid})}">[[${#authentication.principal.user.nick}]] |</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/admin}">관리자 |</a>
-            <a sec:authorize="isAuthenticated()" th:href="@{/market/cart(uid=${#authentication.principal.user.uid})}">장바구니 |</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃 |</a>
             <a href="#">고객센터</a>
         </p>
@@ -26,13 +73,13 @@
                 </div>
             </form>
             <div class="rightNav">
-                <a href="#">
+                <a id="mypageLink" sec:authorize="isAuthenticated()" th:href="@{/user/modify(uid=${#authentication.principal.user.uid})}">
                     <img th:src="@{/images/header/user_50.png}" alt="마이페이지">
                 </a>
-                <a href="#">
+                <a id="cartLink" sec:authorize="isAuthenticated()" th:href="@{/market/cart(uid=${#authentication.principal.user.uid})}">
                     <img th:src="@{/images/header/head_cart.gif}" alt="장바구니">
                 </a>
-                <a href="#">
+                <a id="deliveryLink" href="#">
                     <img th:src="@{/images/header/delivery.gif}" alt="배송">
                 </a>
             </div>

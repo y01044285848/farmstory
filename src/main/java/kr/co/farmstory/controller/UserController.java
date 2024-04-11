@@ -8,6 +8,8 @@ import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -27,6 +29,16 @@ public class UserController {
     @GetMapping("/user/login")
     public String login(){
         return "/user/login";
+    }
+
+    @GetMapping("/checkLogin")
+    public String checkLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "로그인 상태입니다.";
+        }else {
+            return "로그인 되지 않았습니다.";
+        }
     }
 
     @GetMapping("/user/modify/{uid}")
