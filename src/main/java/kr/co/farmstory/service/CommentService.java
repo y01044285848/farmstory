@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j @RequiredArgsConstructor @Service
@@ -49,6 +50,35 @@ public class CommentService {
         articleRepository.updateHate(ano);
     }
 
+    public ResponseEntity<?> deleteComment(int ano){
+        Optional<Article> optArticle = articleRepository.findById(ano);
+        log.info("commentDelete 1");
+        if(optArticle.isPresent()){
+            articleRepository.deleteById(ano);
+            log.info("commentDelete 2");
+            return ResponseEntity.ok().body(optArticle.get());
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
+        }
+    }
 
+    public ResponseEntity<?> modifyComment(ArticleDTO articleDTO){
+        Optional<Article> optArticle = articleRepository.findById(articleDTO.getAno());
 
+        if(optArticle.isPresent()){
+            Article article = optArticle.get();
+
+            article.setContent(articleDTO.getContent());
+
+            log.info("modifyComment : " + article);
+
+            Article modifyedArticle = articleRepository.save(article);
+
+            return ResponseEntity.ok().body(modifyedArticle);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
+        }
+
+    }
 }

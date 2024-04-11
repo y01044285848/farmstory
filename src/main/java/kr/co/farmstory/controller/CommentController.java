@@ -51,4 +51,15 @@ public class CommentController {
         return "redirect:/article/view?grp="+grp+"&cate="+cate+"&ano="+ano;
     }
 
+    @DeleteMapping("/comment/{ano}")
+    public ResponseEntity<?> deleteComment(@PathVariable("ano") int ano){
+        return commentService.deleteComment(ano);
+    }
+
+    @PutMapping("/comment")
+    public ResponseEntity<?> modifyComment(@RequestBody ArticleDTO articleDTO, HttpServletRequest req){
+
+        return commentService.modifyComment(articleDTO);
+    }
+
 }
