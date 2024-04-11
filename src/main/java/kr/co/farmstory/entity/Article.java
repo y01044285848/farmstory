@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -47,4 +48,8 @@ public class Article {
     private Integer good;
     @ColumnDefault("0")
     private Integer hate;
+
+    @OneToMany(mappedBy = "ano")
+    private List<File> filelist;
+
 }

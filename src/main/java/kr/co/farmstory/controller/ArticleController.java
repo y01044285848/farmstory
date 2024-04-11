@@ -82,12 +82,16 @@ public class ArticleController {
     }
 
     @GetMapping("/article/view")
-    public String viewArticle(int ano, Model model){
+    public String viewArticle(int ano, Model model, ArticleDTO articleDTO){
 
-        ArticleDTO articleDTO = articleService.selectArticle(ano);
-        articleService.updateHit(ano);
+        articleDTO = articleService.selectArticle(ano);
+
+        articleService.updateHit(articleDTO.getAno());
+
         model.addAttribute(articleDTO);
+
         log.info(articleDTO.toString());
+
         return "/article/view";
     }
 
