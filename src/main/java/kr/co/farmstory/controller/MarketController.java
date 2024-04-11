@@ -49,7 +49,7 @@ public class MarketController {
         model.addAttribute("cate", cate);
 
         pageNum = pageNum == null ? 1 : pageNum;
-        pageSize = pageSize == null ? 20 : pageSize;
+        pageSize = pageSize == null ? 10 : pageSize;
 
         PageHelper.startPage(pageNum, pageSize);
         List<ProductDTO> products = productService.selectProducts(cate);
