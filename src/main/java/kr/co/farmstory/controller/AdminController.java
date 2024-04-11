@@ -4,9 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.farmstory.dto.ImgDTO;
-import kr.co.farmstory.dto.ProductDTO;
-import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.dto.*;
 
 import kr.co.farmstory.entity.Product;
 import kr.co.farmstory.service.AdminService;
@@ -197,6 +195,26 @@ public class AdminController {
 
         return "/admin/product/list";
     }
+
+    /*
+    @GetMapping("/admin/order/list")
+    public String adminOrderlist(Model model, Integer pageNum, Integer pageSize){
+
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<OrderlistDTO> adminOrder = adminService.adminselectOrder();
+
+        PageInfo<OrderlistDTO> adminOrderPage = new PageInfo<>(adminOrder);
+        log.info("adminOrder : " +adminOrderPage);
+
+        model.addAttribute("adminOrder", adminOrder);
+        model.addAttribute("adminOrderPage", adminOrderPage);
+
+        return "/admin/order/list";
+    }
+     */
 
 
     @GetMapping("/admin/product/register")

@@ -11,7 +11,7 @@ public interface CartMapper {
 
 
     public void insertCart(CartDTO cartDTO);
-    public void insertOrder(OrderDTO orderDTO);
+    public OrderDTO insertOrder(OrderDTO orderDTO);
 
 
     public List<CartDTO> getCartByPno(String uid);

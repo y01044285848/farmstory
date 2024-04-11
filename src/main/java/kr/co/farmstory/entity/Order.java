@@ -1,33 +1,32 @@
-package kr.co.farmstory.dto;
+package kr.co.farmstory.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class OrderDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "orders")
+
+public class Order {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ono;
     private String uid;
 
-    private int pno;
-    private int pcount;
-
-
-    private String receiver;
+    @CreationTimestamp
     private LocalDateTime odate;
+
     private int usepoint;
+    private String receiver;
     private String hp;
     private String zip;
     private String addr1;
@@ -35,5 +34,5 @@ public class OrderDTO {
     private String payment;
     private String etc;
     private int total;
-    
+
 }

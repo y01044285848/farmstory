@@ -3,12 +3,11 @@ package kr.co.farmstory.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import kr.co.farmstory.dto.CartDTO;
+import kr.co.farmstory.dto.*;
 
-import kr.co.farmstory.dto.OrderDTO;
-import kr.co.farmstory.dto.ProductDTO;
-import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.Cart;
+import kr.co.farmstory.entity.Order;
+import kr.co.farmstory.entity.Orderlist;
 import kr.co.farmstory.mapper.CartMapper;
 import kr.co.farmstory.service.CartService;
 import kr.co.farmstory.service.OrderService;
@@ -42,10 +41,11 @@ public class MarketController {
     private final UserService userService;
     private final OrderService orderService;
 
-    @GetMapping("/market/list")
-    public String list(Model model, Integer pageNum, Integer pageSize, String cate){
 
-        log.info("cate:"+cate);
+    @GetMapping("/market/list")
+    public String list(Model model, Integer pageNum, Integer pageSize, String cate) {
+
+        log.info("cate:" + cate);
         model.addAttribute("cate", cate);
 
         pageNum = pageNum == null ? 1 : pageNum;
@@ -56,20 +56,20 @@ public class MarketController {
 
         PageInfo<ProductDTO> productPage = new PageInfo<>(products);
 
-        log.info(productPage.getPages()+"");
+        log.info(productPage.getPages() + "");
 
-        int lastPage = (pageNum/11)*10+10;
+        int lastPage = (pageNum / 11) * 10 + 10;
 
-        if(lastPage > productPage.getPages()){
+        if (lastPage > productPage.getPages()) {
             lastPage = productPage.getPages();
         }
-        productPage.setNavigateFirstPage((pageNum/11)*10+1);
+        productPage.setNavigateFirstPage((pageNum / 11) * 10 + 1);
         productPage.setNavigateLastPage(lastPage);
 
         log.info("selectProductPage" + productPage);
 
         model.addAttribute("productPage", productPage);
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
 
         return "/market/list";
     }
@@ -77,7 +77,7 @@ public class MarketController {
     // 상품 상세보기
     @GetMapping("/market/view")
 
-    public String view(Model model, Integer pno, CartDTO cartDTO){
+    public String view(Model model, Integer pno, CartDTO cartDTO) {
 
 
         ProductDTO productDTO = productService.findById(pno);
@@ -93,8 +93,8 @@ public class MarketController {
 
     // 장바구니 목록
     @PostMapping("/market/cart")
-    public String cart(Principal principal, CartDTO cartDTO, Model model){
-        log.info(cartDTO.getPno()+"dd");
+    public String cart(Principal principal, CartDTO cartDTO, Model model) {
+        log.info(cartDTO.getPno() + "dd");
         log.info(principal.getName());
 
         ProductDTO productDTO = productService.findById(cartDTO.getPno());
@@ -112,7 +112,7 @@ public class MarketController {
         model.addAttribute(cartDTO);
 
         List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
-        for(CartDTO cartDTO1 : cartDTOList){
+        for (CartDTO cartDTO1 : cartDTOList) {
             log.info(cartDTO1.toString());
         }
 
@@ -128,7 +128,7 @@ public class MarketController {
 
         String uid = principal.getName();
         log.info("uid :" + uid);
-        
+
         // 선택한 상품 삭제
         for (int pno : pnos) {
             cartService.deleteCartList(pno, uid);
@@ -137,7 +137,7 @@ public class MarketController {
 
         // 삭제후 장바구니 리스트 조회
         List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
-        for(CartDTO cartDTO1 : cartDTOList){
+        for (CartDTO cartDTO1 : cartDTOList) {
             log.info("selectCartList : " + cartDTO1);
         }
 
@@ -157,11 +157,11 @@ public class MarketController {
 
 
     @GetMapping("/market/cart")
-    public String goToCart(Principal principal, Model model){
+    public String goToCart(Principal principal, Model model) {
 
         String uid = principal.getName();
         List<CartDTO> cartDTOList = cartService.selectCartList2(uid);
-        for(CartDTO cartDTO1 : cartDTOList){
+        for (CartDTO cartDTO1 : cartDTOList) {
             log.info("selectCartList..1 : " + cartDTO1);
         }
 
@@ -174,7 +174,7 @@ public class MarketController {
 
 
     @GetMapping("/market/cartEmpty")
-    public String showEmptyCart(Model model, CartDTO cartDTO){
+    public String showEmptyCart(Model model, CartDTO cartDTO) {
         log.info("emptyCart..2");
 
         int defaultPcount = 0;
@@ -187,12 +187,12 @@ public class MarketController {
 
 
     @PostMapping("/market/order")
-    public String order(CartDTO cartDTO, Model model){
+    public String order(CartDTO cartDTO, Model model) {
 
         UserDTO userDTO = userService.selectUser(cartDTO.getUid());
         log.info(userDTO.toString());
         List<CartDTO> cartDTOList = cartService.selectCartList2(cartDTO.getUid());
-        for(CartDTO cartDTO1 : cartDTOList){
+        for (CartDTO cartDTO1 : cartDTOList) {
             log.info(cartDTO1.toString());
         }
         model.addAttribute(userDTO);
@@ -201,38 +201,50 @@ public class MarketController {
     }
 
 
+
     @PostMapping("/market/order/save")
     public String orderSave(@RequestParam List<String> checkbox,
                             Principal principal,
                             OrderDTO orderDTO){
 
         log.info("ordersave...1 : "+principal.getName());
-
-        orderDTO.setUid(principal.getName());
+        String uid = principal.getName();
+        orderDTO.setUid(uid);
 
         log.info("ordersave...2 : "+orderDTO);
+        Order orderKey = orderService.insertOrder(orderDTO);
+        log.info("ordersave...6, key"+orderKey.getOno());
 
-        checkbox.remove(0);
 
         for(String index : checkbox){
             String[] values = index.split(",");
-
+            OrderlistDTO orderlistDTO = new OrderlistDTO();
             if(values.length == 2){
-                String pno = values[0];
-                String pcount = values[1];
+                int pno = Integer.parseInt(values[0]);
+                int pcount = Integer.parseInt(values[1]);
 
                 log.info("pno : "+pno);
                 log.info("pcount : "+pcount);
+                orderlistDTO.setUid(uid);
+                orderlistDTO.setPno(pno);
+                orderlistDTO.setPcount(pcount);
+                orderlistDTO.setOno(orderKey.getOno());
+                log.info("반복문 orderlist : "+orderlistDTO);
+                orderService.insertOrderList(orderlistDTO);
+                log.info("insert");
+
+                cartService.deleteCartList(pno, uid);
+                log.info("delete : " +pno);
             }
 
             //String pcount = index.substring(index.lastIndexOf(","));
+            log.info("orderlist : "+orderlistDTO);
+
+
+
 
         }
-
-        orderService.insertOrder(orderDTO);
-        log.info("ordersave...6"+orderDTO);
-
-        return "redirect:/market/list";
-
+       return "redirect:/market/list";
     }
+
 }
