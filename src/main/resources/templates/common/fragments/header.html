@@ -5,56 +5,9 @@
       th:fragment="HeaderFragment">
 <div id="container">
     <header>
-        <script>
-            window.onload = function () {
-                checkLoginStatus();
-                const mypageLink = document.getElementById('mypageLink');
-                const cartLink = document.getElementById('cartLink');
-                const deliveryLink = document.getElementById('deliveryLink');
-
-                // 로그인한 경우에만 링크 활성화
-                if (checkLoginStatus) {
-                    mypageLink.onclick = function () {
-                        return true;
-                    };
-                    cartLink.onclick = function () {
-                        return true;
-                    };
-                    deliveryLink.onclick = function () {
-                        return true;
-                    };
-                } else {
-                    // 로그인 하지 않은 경우 링크 비활성화
-                    mypageLink.onclick = function () {
-                        return false
-                    };
-                    cartLink.onclick = function () {
-                        return false
-                    };
-                    deliveryLink.onclick = function () {
-                        return false
-                    };
-                }
-
-                function checkLoginStatus() {
-                    fetch('/checkLogin')
-                        .then(response => {
-                            if (response.ok) {
-                                // 사용자가 로그인되어 있는 경우
-                                console.log('사용자는 로그인되어 있습니다.');
-                            } else {
-                                // 사용자가 로그인되어 있지 않은 경우
-                                console.log('사용자는 로그인되어 있지 않습니다.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('로그인 상태를 확인하는 중 오류가 발생했습니다.', error);
-                        });
-                }
-            };
-        </script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
         <p class="top_nav">
             <a th:href="@{/}">HOME |</a>
             <a sec:authorize="isAnonymous()" th:href="@{/user/terms}">회원가입 |</a>
@@ -91,16 +44,31 @@
                     </button>
                 </div>
             </form>
-            <div class="rightNav">
-                <a id="mypageLink" sec:authorize="isAuthenticated()" th:href="@{/user/modify(uid=${#authentication.principal.user.uid})}">
+            <div class="rightNav" th:if="${#authorization.expression('isAuthenticated()')}">
+
+                <a sec:authorize="isAuthenticated()" th:href="@{/user/modify(uid=${#authentication.principal.user.uid})}">
                     <img th:src="@{/images/header/user_50.png}" alt="마이페이지">
                 </a>
-                <a id="cartLink" sec:authorize="isAuthenticated()" th:href="@{/market/cart(uid=${#authentication.principal.user.uid})}">
+                <a sec:authorize="isAuthenticated()" th:href="@{/market/cart(uid=${#authentication.principal.user.uid})}">
                     <img th:src="@{/images/header/head_cart.gif}" alt="장바구니">
                 </a>
-                <a id="deliveryLink" href="#">
+                <a href="#">
                     <img th:src="@{/images/header/delivery.gif}" alt="배송">
                 </a>
+
+            </div>
+            <div class="rightNav" th:unless="${#authorization.expression('isAuthenticated()')}">
+
+                <a id="mypage" href="#">
+                    <img th:src="@{/images/header/user_50.png}" alt="마이페이지">
+                </a>
+                <a id="cart" href="#">
+                    <img th:src="@{/images/header/head_cart.gif}" alt="장바구니">
+                </a>
+                <a href="#">
+                    <img th:src="@{/images/header/delivery.gif}" alt="배송">
+                </a>
+
             </div>
         </div>
 
