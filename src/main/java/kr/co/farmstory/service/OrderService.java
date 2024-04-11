@@ -4,14 +4,12 @@ import kr.co.farmstory.dto.OrderDTO;
 import kr.co.farmstory.dto.OrderlistDTO;
 import kr.co.farmstory.entity.Order;
 import kr.co.farmstory.entity.Orderlist;
-import kr.co.farmstory.entity.Product;
-import kr.co.farmstory.mapper.CartMapper;
-<<<<<<< HEAD
+
 import kr.co.farmstory.repository.OrderRepository;
 import kr.co.farmstory.repository.OrderlistRepository;
-=======
+
 import kr.co.farmstory.mapper.OrderMapper;
->>>>>>> origin/feature/userModify
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
