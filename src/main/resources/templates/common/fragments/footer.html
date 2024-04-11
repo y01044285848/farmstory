@@ -19,9 +19,6 @@
 <script>
 
 
-
-
-
     //유효성 검사에 사용할 상태변수
     let isUidOk   = false;
     let isPassOk  = false;
@@ -42,16 +39,17 @@
 
 
     window.onload = function () {
-        const mypage = document.getElementById('mypage');
-        const cart = document.getElementById('cart');
 
-        mypage.onclick = function (e){
+            const mypage = document.getElementById('mypage');
+            const cart = document.getElementById('cart');
+
+            mypage.onclick = function (e){
             e.preventDefault();
-            alertModal("로그인 필요");
+            alertModal("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
         }
-        cart.onclick = function (e){
+            cart.onclick = function (e){
             e.preventDefault();
-            alertModal("로그인 필요");
+            alertModal("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
         }
 
         // 아이디
@@ -284,7 +282,6 @@
             }
 
         }
-
 
 
         // 휴대폰
