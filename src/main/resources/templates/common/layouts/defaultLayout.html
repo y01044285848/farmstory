@@ -7,13 +7,10 @@
 <!--공통 JS / CSS 영역을 관리하는 환경 영역-->
 <head th:replace="~{/common/fragments/config :: ConfigFragment}"></head>
 <style>
-    #staticBackdrop{
+    #alertModal, #confirmModal{
         display: none;
     }
 
-    #alertModal {
-        display: none;
-    }
 </style>
 <body>
 <!--Header 영역을 참조합니다.-->
@@ -24,7 +21,7 @@
 
 
 <!-- 확인 취소 Modal -->
-<div class="modal fade" id="staticBackdrop" tabindex="-1">
+<div class="modal fade" id="confirmModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

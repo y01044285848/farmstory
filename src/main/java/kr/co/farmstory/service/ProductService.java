@@ -23,8 +23,8 @@ public class ProductService {
     private final ModelMapper modelMapper;
 
 
-    public List<ProductDTO> selectProducts(String cate) {
-        return productMapper.selectProducts(cate);
+    public List<ProductDTO> selectProducts(String cate,String keyword) {
+        return productMapper.selectProducts(cate, keyword);
 
     }
 

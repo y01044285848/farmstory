@@ -17,12 +17,14 @@
         </p>
         <div class="middle_nav">
             <a th:href="@{/}" class="logo"><img th:src="@{/images/logo.png}" alt="로고"/></a>
-            <div class="searchBox">
-                <input type="search" id="hd_search" placeholder="검색어를 입력하세요.">
-                <button class="searchBtn">
-                    <img th:src="@{/images/header/search_40.png}" alt="검색">
-                </button>
-            </div>
+            <form th:action="@{/market/list}" method="get">
+                <div class="searchBox">
+                    <input type="search" id="hd_search" name="keyword" placeholder="상품을 검색하세요.">
+                    <button class="searchBtn">
+                        <img th:src="@{/images/header/search_40.png}" alt="검색">
+                    </button>
+                </div>
+            </form>
             <div class="rightNav">
                 <a href="#">
                     <img th:src="@{/images/header/user_50.png}" alt="마이페이지">

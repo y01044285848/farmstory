@@ -43,7 +43,7 @@ public class MarketController {
     private final OrderService orderService;
 
     @GetMapping("/market/list")
-    public String list(Model model, Integer pageNum, Integer pageSize, String cate){
+    public String list(Model model, Integer pageNum, Integer pageSize, String cate, String keyword){
 
         log.info("cate:"+cate);
         model.addAttribute("cate", cate);
@@ -52,7 +52,7 @@ public class MarketController {
         pageSize = pageSize == null ? 10 : pageSize;
 
         PageHelper.startPage(pageNum, pageSize);
-        List<ProductDTO> products = productService.selectProducts(cate);
+        List<ProductDTO> products = productService.selectProducts(cate, keyword);
 
         PageInfo<ProductDTO> productPage = new PageInfo<>(products);
 
