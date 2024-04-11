@@ -143,15 +143,6 @@ public class MarketController {
 
         log.info("cartList : " + cartDTOList);
 
-
-        if (cartDTOList == null || cartDTOList.isEmpty()) {
-            // 장바구니가 비어있을 때 처리하는 코드
-            log.info("emptyCart..1");
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(URI.create("/market/cartEmpty"));
-            return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build(); // 비어있는 장바구니 페이지로 이동
-        }
-
         return ResponseEntity.ok(cartDTOList);
     }
 

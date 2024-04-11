@@ -64,19 +64,22 @@
                     <a th:href="@{/market/list(cate=grains)}" th:class="${cate == 'grains'} ? 'on' ">곡류</a>
                     <a th:href="@{/market/list(cate=nuts)}" th:class="${cate == 'nuts'} ? 'on' ">견과류</a>
                 </p>
-                <div class="searchBox">
-                    <select name="select" id="select">
-                        <option value="all">전체</option>
-                        <option value="fruit">과일</option>
-                        <option value="vegetable">야채</option>
-                        <option value="grain">곡물</option>
-                        <option value="nuts">견과류</option>
-                    </select>
-                    <input type="search" id="prod_search" placeholder="검색어를 입력하세요.">
-                    <button class="searchBtn">
-                        <img th:src="@{/images/header/search_40.png}" alt="검색">
-                    </button>
-                </div>
+                <form>
+                    <div class="searchBox">
+                        <select name="select" id="select">
+                            <option value="all">전체</option>
+                            <option value="fruit">과일</option>
+                            <option value="vegetable">야채</option>
+                            <option value="grain">곡물</option>
+                            <option value="nuts">견과류</option>
+                        </select>
+                        <input type="search" id="prod_search" placeholder="검색어를 입력하세요.">
+                        <button class="searchBtn">
+                            <img th:src="@{/images/header/search_40.png}" alt="검색">
+                        </button>
+                    </div>
+                </form>
+
             </div>
 
             <table border="0" id="listTable" class="table">
