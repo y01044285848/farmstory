@@ -4,6 +4,7 @@ import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
+import kr.co.farmstory.dto.OrderDTO;
 import kr.co.farmstory.dto.TermsDTO;
 import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.User;
@@ -18,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.rmi.server.UID;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -49,11 +51,13 @@ public class UserService {
     }
 
     // 사용자 정보 수정
-    public UserDTO selectUserByUid(String uid){
-        return userMapper.selectUserByUid(uid);
-    }
     public void updateUser(UserDTO userDTO){
         userMapper.updateUser(userDTO);
+    }
+
+    // 사용자 주문 조회
+    public OrderDTO selectOrder(String uid){
+        return userMapper.selectOrder(uid);
     }
 
     public String getUid(){

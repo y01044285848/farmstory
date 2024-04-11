@@ -2,8 +2,10 @@ package kr.co.farmstory.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import kr.co.farmstory.dto.OrderDTO;
 import kr.co.farmstory.dto.TermsDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.service.OrderService;
 import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -24,6 +27,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final OrderService orderService;
 
 
     @GetMapping("/user/login")
@@ -41,9 +45,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/modify/{uid}")
+    @GetMapping("/user/modify")
     public String modify(String uid, Model model){
-        UserDTO user = userService.selectUserByUid(uid);
+        UserDTO user = userService.selectUser(uid);
         model.addAttribute("user", user);
         return "/user/modify";
     }
@@ -54,6 +58,16 @@ public class UserController {
         userService.updateUser(userDTO);
         return "redirect:/user/modify?uid=" + userDTO.getUid();
     }
+
+   // 사용자 주문 조회
+    @GetMapping("/user/orderlist")
+   public String orderList(Model model){
+        List<OrderDTO> orderDTOList = orderService.selectOrderlist();
+        log.info("orderlist : "+orderDTOList.toString());
+        model.addAttribute(orderDTOList);
+        return "/user/orderlist";
+   }
+
 
     @GetMapping("/user/register")
     public String register(String sms, Model model) {
