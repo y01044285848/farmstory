@@ -1,5 +1,6 @@
 package kr.co.farmstory.mapper;
 
+import kr.co.farmstory.dto.OrderlistDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.entity.User;
@@ -18,6 +19,8 @@ public interface AdminMapper {
 
     // admin.user.list 출력
     public List<UserDTO> adminSelectUsers();
+
+    public List<OrderlistDTO> adminSelectOrder();
 
     // admin.user.modify 출력
     public UserDTO adminSelectUserByUid(String uid);

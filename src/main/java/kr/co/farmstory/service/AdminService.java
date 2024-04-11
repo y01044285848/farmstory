@@ -1,7 +1,9 @@
 package kr.co.farmstory.service;
 
+import kr.co.farmstory.dto.OrderlistDTO;
 import kr.co.farmstory.dto.ProductDTO;
 import kr.co.farmstory.dto.UserDTO;
+import kr.co.farmstory.entity.Orderlist;
 import kr.co.farmstory.entity.User;
 import kr.co.farmstory.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,11 @@ public class AdminService {
     // admin.user.list 출력
     public List<UserDTO> adminSelectUsers() {
         return adminMapper.adminSelectUsers();
+    }
+
+    //admin.order.list 출력
+    public List<OrderlistDTO> adminselectOrder(){
+        return adminMapper.adminSelectOrder();
     }
 
     // admin.user 정보 조회 및 수정
