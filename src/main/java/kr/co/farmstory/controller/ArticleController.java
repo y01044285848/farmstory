@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.farmstory.dto.ArticleDTO;
+import kr.co.farmstory.dto.UserDTO;
 import kr.co.farmstory.service.ArticleService;
+import kr.co.farmstory.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
@@ -21,7 +23,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-
+    private final UserService userService;
     @GetMapping("/article/write")
     public String write(String cate, String grp, Model model){
         model.addAttribute("cate", cate);
@@ -85,10 +87,14 @@ public class ArticleController {
     public String viewArticle(int ano, Model model, ArticleDTO articleDTO){
 
         articleDTO = articleService.selectArticle(ano);
-
+        
         articleService.updateHit(articleDTO.getAno());
 
         model.addAttribute(articleDTO);
+
+        // 닉네임 가져오기
+        UserDTO userDTO = userService.selectUser(articleDTO.getUid());
+        model.addAttribute(userDTO);
 
         log.info(articleDTO.toString());
 
@@ -127,6 +133,7 @@ public class ArticleController {
 
         return "redirect:/article/list?grp="+articleDTO.getGrp()+"&cate="+articleDTO.getCate();
     }
+
 
 
 }
