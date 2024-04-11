@@ -51,6 +51,28 @@ header .middle_nav {
     align-items: center;
 }
 
+header .middle_nav .searchBox input{
+    width: 400px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #72c319;
+    position: relative;
+    bottom: 8px;
+}
+
+header .middle_nav .searchBox .searchBtn {
+    position: relative;
+    right: 40px;
+    top: 2px;
+    background-color: transparent;
+    border: none;
+}
+
+header .middle_nav .searchBox .searchBtn img {
+    width: 30px;
+}
+
 header .rightNav a {
     margin-left: 15px;
 }
@@ -468,11 +490,15 @@ main > .info > div > .account {
 #sub > .market .lnb > li:nth-child(1) > a:hover {background-image: url('../images/sub_cate2_lnb1_ov.png');}
 #sub > .market .lnb > li:nth-child(1).on > a {background-image: url('../images/sub_cate2_lnb1_ov.png');}
 
-#sub > .market > .list > .sort {
+#sub > .market > .list > #sortBox {
+    display: flex;
+}
+
+#sub > .market > .list > #sortBox > p.sort {
     display: flex;
     text-align: center;
 }
-#sub > .market > .list > .sort > a {
+#sub > .market > .list > #sortBox > p.sort > a {
     display: block;
     width: 80px;
     height: 35px;
@@ -484,13 +510,51 @@ main > .info > div > .account {
     border-radius: 20px;
     margin-bottom: 10px;
 }
-#sub > .market > .list > .sort > .on {
+#sub > .market > .list > #sortBox > p.sort > .on {
     width: 80px;
     height: 35px;
     line-height: 35px;
     color: #fff;
     background-color: #707070;
 }
+
+#sub > .market > .list > #sortBox > .searchBox {
+    position: relative;
+    left: 30px;
+    top: 20px;
+}
+
+#sub > .market > .list > #sortBox > .searchBox > input {
+    width: 200px;
+}
+
+#sub > .market > .list > #sortBox > .searchBox > #select {
+    height: 30px;
+    border: 1px solid #5c636a;
+    border-radius: 5px;
+}
+
+#sub > .market > .list > #sortBox > .searchBox > #prod_search {
+    width: 220px;
+    height: 30px;
+    border: 1px solid #5c636a;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#sub > .market > .list > #sortBox > .searchBox > .searchBtn {
+    background-color: transparent;
+    border: none;
+}
+
+#sub > .market > .list > #sortBox > .searchBox > .searchBtn > img {
+    width: 20px;
+    position: relative;
+    right: 30px;
+    bottom: 2px;
+}
+
+
 #sub > .market > .list > table {
     width: 100%;
     border-collapse: collapse;
@@ -1116,7 +1180,7 @@ input[type=number]::-webkit-outer-spin-button {
 .login input.loginBtn {
     width: 380px;
     height: 35px;
-    background-color: #77dc25;
+    background-color: #4ca900d1;
     color: #fff;
     font-weight: bold;
     font-size: 16px;
