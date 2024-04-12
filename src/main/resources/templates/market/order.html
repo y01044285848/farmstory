@@ -9,7 +9,83 @@
     <meta charset="UTF-8">
     <title>팜스토리::장보기</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
+    <link rel="stylesheet" th:href="@{../css2/style.css}"/>
+    <style>
+
+        *, ::after, ::before {
+            box-sizing: inherit;
+        }
+
+        dl, ol, ul {
+            margin-bottom: 0;
+        }
+
+        header > .gnb {
+            left: -24px;
+        }
+
+        header > img {
+            margin-top: 14px;
+        }
+
+        #sub > .market > .list > table th {
+            text-align: center;
+        }
+
+        #sub > .market > .list > table tr > td:nth-child(3) {
+            text-align: center;
+        }
+
+        /* 부트스트랩 게시판 리스트 텍스트 정렬*/
+        table > th {
+            text-align: center;
+        }
+
+        #sub > .market > .view > .basic > form > table tr {
+            font-size: 15px;
+            text-align: left;
+        }
+
+        #sub > .market > .view > .basic > form > table tr > td {
+            padding: 6px 0;
+            font-size: 17px;
+        }
+
+        #sub > .market > .view > .basic > form > table tr > td:nth-child(1) {
+            font-weight: bold;
+        }
+
+        #sub > .market > .view > .basic > form > table tr > td.prodName {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #sub > .market > .view > .basic > form > table tr > td > span {font-size: 18px}
+        #sub > .market > .view > .basic > form > table tr > td > em {color: #fd5900}
+
+        /* 🎈 market 목록 */
+        #sub > .market > .list > table tr > td {
+            color: #222;
+            font-size: 15px;
+        }
+
+        #sub > .market > .list > table tr > td:nth-child(4){
+            color: #fd5900;
+            font-weight: bold;
+        }
+
+        #sub > .market > .order > .final > table caption {
+            text-align: center;
+            font-size: 20px;
+            caption-side: top;
+            color: #111;
+            margin-bottom: 5px;
+        }
+
+
+    </style>
 </head>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     window.onload = function(){
