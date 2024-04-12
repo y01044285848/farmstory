@@ -41,9 +41,11 @@ public class AdminController {
 
         List<UserDTO> users = adminService.adminIdxUsers();
         List<ProductDTO> products = adminService.adminIdxProducts();
+        List<OrderlistDTO> orderlist = adminService.adminSelectOrderlimit();
 
         model.addAttribute("users", users);
         model.addAttribute("products", products);
+        model.addAttribute("orderlist", orderlist);
 
         return "/admin/index";
     }
@@ -196,7 +198,7 @@ public class AdminController {
         return "/admin/product/list";
     }
 
-    /*
+
     @GetMapping("/admin/order/list")
     public String adminOrderlist(Model model, Integer pageNum, Integer pageSize){
 
@@ -204,17 +206,18 @@ public class AdminController {
         pageSize = pageSize == null ? 10 : pageSize;
 
         PageHelper.startPage(pageNum, pageSize);
-        List<OrderlistDTO> adminOrder = adminService.adminselectOrder();
+        List<OrderlistDTO> adminOrder = adminService.adminSelectOrder();
 
         PageInfo<OrderlistDTO> adminOrderPage = new PageInfo<>(adminOrder);
-        log.info("adminOrder : " +adminOrderPage);
+        log.info("adminOrderPage : " +adminOrderPage);
 
         model.addAttribute("adminOrder", adminOrder);
+        log.info("adminOrder : " +adminOrder);
         model.addAttribute("adminOrderPage", adminOrderPage);
 
         return "/admin/order/list";
     }
-     */
+
 
 
     @GetMapping("/admin/product/register")
@@ -267,9 +270,15 @@ public class AdminController {
         return "redirect:/admin/product/register?success=200";
     }
 
-
-    @GetMapping("/admin/order/list")
-    public String orderlist(){
-        return "/admin/order/list";
+    //주문목록 삭제
+    @PostMapping("/admin/order/delete")
+    public String adminOrderDelete(@RequestParam List<String> checkbox){
+        for(String ono : checkbox){
+            int orderid = Integer.parseInt(ono);
+            adminService.adminOrderDelete(orderid);
+        }
+        log.info(checkbox.toString());
+        return "redirect:/admin/order/list";
     }
+
 }

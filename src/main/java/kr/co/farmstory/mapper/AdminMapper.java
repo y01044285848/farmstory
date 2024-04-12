@@ -21,6 +21,7 @@ public interface AdminMapper {
     public List<UserDTO> adminSelectUsers();
 
     public List<OrderlistDTO> adminSelectOrder();
+    public List<OrderlistDTO> adminSelectOrderlimit();
 
     // admin.user.modify 출력
     public UserDTO adminSelectUserByUid(String uid);
@@ -34,6 +35,8 @@ public interface AdminMapper {
     public List<ProductDTO> adminSelectProducts();
 
     public void adminUserDelete(String uid);
+
+    public void adminOrderDelete(int ono);
 
     public void adminProductDelete(int pno);
 

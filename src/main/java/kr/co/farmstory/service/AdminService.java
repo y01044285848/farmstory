@@ -32,8 +32,12 @@ public class AdminService {
     }
 
     //admin.order.list 출력
-    public List<OrderlistDTO> adminselectOrder(){
+    public List<OrderlistDTO> adminSelectOrder(){
         return adminMapper.adminSelectOrder();
+    }
+
+    public List<OrderlistDTO> adminSelectOrderlimit(){
+        return adminMapper.adminSelectOrderlimit();
     }
 
     // admin.user 정보 조회 및 수정
@@ -69,6 +73,10 @@ public class AdminService {
 
     public void adminProductDelete(int pno){
         adminMapper.adminProductDelete(pno);
+    }
+
+    public void adminOrderDelete(int ono){
+        adminMapper.adminOrderDelete(ono);
     }
 
 

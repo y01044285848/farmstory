@@ -74,9 +74,28 @@
         DELETE FROM `user` WHERE uid = #{uid}
     </delete>
 
+    <delete id="adminOrderDelete" parameterType="kr.co.farmstory.dto.OrderlistDTO">
+        DELETE FROM `orders` WHERE ono = #{ono}
+    </delete>
+
     <delete id="adminProductDelete" parameterType="kr.co.farmstory.dto.ProductDTO">
         DELETE FROM `product` WHERE pno = #{pno}
     </delete>
+
+    <select id="adminSelectOrder" parameterType="kr.co.farmstory.dto.OrderlistDTO">
+        SELECT a.*, b.*, c.*
+        FROM `orders` AS a
+        JOIN `orderlist` AS b ON a.ono = b.ono
+        JOIN product AS c ON b.pno = c.pno
+    </select>
+
+    <select id="adminSelectOrderlimit" parameterType="kr.co.farmstory.dto.OrderlistDTO">
+        SELECT a.*, b.*, c.*
+        FROM `orders` AS a
+        JOIN `orderlist` AS b ON a.ono = b.ono
+        JOIN product AS c ON b.pno = c.pno
+        order by a.odate DESC limit 5
+    </select>
 
 
 </mapper>
