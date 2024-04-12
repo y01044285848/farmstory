@@ -7,7 +7,7 @@
 
     <select id="selectRecentArticles" resultType="kr.co.farmstory.dto.ArticleDTO">
         SELECT * FROM `article`
-        WHERE `cate`=#{cate}
+        WHERE `cate`=#{cate} AND parent = 0
         ORDER BY `rdate` DESC
         LIMIT 5
     </select>

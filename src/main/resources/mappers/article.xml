@@ -27,7 +27,7 @@
 
     <select id="selectArticlesMain" resultType="kr.co.farmstory.dto.ArticleDTO">
         SELECT * FROM `article`
-        WHERE `cate`=#{cate}
+        WHERE `cate`=#{cate} AND parent=0
         ORDER BY `rdate` DESC
         LIMIT 3
     </select>
