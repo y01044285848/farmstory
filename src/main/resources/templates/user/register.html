@@ -322,7 +322,7 @@
 
             // 우편번호 주소검색
             // 다음 우편번호 API 스크립트 상단 추가
-            const inputZip = document.getElementById('inputZip');
+            const inputZip = document.getElementById('btnZip');
 
             inputZip.onclick = function (e){
                 e.preventDefault();
@@ -557,13 +557,14 @@
                         <div>
                             <input
                                     type="text"
+                                    id="inputZip"
                                     name="zip"
                                     placeholder="우편번호 검색"
                                     readonly
                                     required
                             />
 
-                            <button id="inputZip">
+                            <button id="btnZip">
                                 <img th:src="@{../images/user/chk_post.gif}" alt="우편번호 검색" />
                             </button>
                         </div>

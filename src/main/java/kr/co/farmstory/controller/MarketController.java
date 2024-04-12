@@ -183,17 +183,28 @@ public class MarketController {
 
         UserDTO userDTO = userService.selectUser(principal.getName());
         log.info(userDTO.toString());
+        //cartService.insertCart(principal.getName(), cartDTO.getPno(), cartDTO.getPcount());
 
         List<CartDTO> cartDTOList = cartService.selectCartList2(principal.getName());
-        for(CartDTO cartDTO1 : cartDTOList){
 
-            log.info(cartDTO1.toString());
-        }
         model.addAttribute(userDTO);
         model.addAttribute(cartDTOList);
         return "/market/order";
     }
 
+    @GetMapping("/market/order")
+    public String order(Principal principal, Model model){
+
+
+        UserDTO userDTO = userService.selectUser(principal.getName());
+        log.info(userDTO.toString());
+
+        List<CartDTO> cartDTOList = cartService.selectCartList2(principal.getName());
+
+        model.addAttribute(userDTO);
+        model.addAttribute(cartDTOList);
+        return "/market/order";
+    }
 
 
     @PostMapping("/market/order/save")
