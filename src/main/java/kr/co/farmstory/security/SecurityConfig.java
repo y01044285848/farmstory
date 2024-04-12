@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .requestMatchers("/article/**").authenticated()
                 //.requestMatchers("/admin/**").permitAll()
                 //.hasAuthority("ADMIN")
-                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER")
+                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "MANAGER", "admin")
                 .anyRequest().permitAll());
 
         // 사이트 위변조 방지 설정
