@@ -76,10 +76,12 @@ header .middle_nav .searchBox .searchBtn img {
 header .rightNav a {
     margin-left: 15px;
 }
-
+/*
 header .rightNav:last-child {
-    padding-right: 75px;
+    padding-right: 0px;
 }
+*/
+
 
 header .rightNav > a > img{
     width: 30px;

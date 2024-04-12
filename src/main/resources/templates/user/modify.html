@@ -9,6 +9,45 @@
     <title>팜스토리::회원 정보</title>
     <link rel="stylesheet" th:href="@{../css/style.css}"/>
     <link rel="stylesheet" th:href="@{../css/style2.css}"/>
+    <style>
+        nav {
+            display: flex;
+        }
+        .userModify {
+            font-size: 15px;
+            margin-top: 50px;
+            color: #585858;
+        }
+
+        #sub > section > aside > ul {
+            position: relative;
+            top: 70px;
+        }
+
+        .table>:not(caption)>*>* {
+            text-align: center;
+        }
+
+        .table>:not(caption)>*>input {
+            border: none;
+        }
+
+        button, input, optgroup, select, textarea {
+            border: none;
+        }
+
+        #btnModify {
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            background-color: tomato;
+            color: #ffffff;
+            border-radius: 5px;
+            position: relative;
+            right: -335px;
+        }
+
+    </style>
     <script>
         function showSuccessMessage(){
             alert('수정이 성공적으로 완료되었습니다.');
@@ -22,7 +61,7 @@
         <aside th:replace="~{/common/fragments/userAsideLayout}"></aside>
         <article>
             <nav>
-                <img th:src="@{../static/images/sub_nav_tit_cate3_tit2.png}" alt="회원 정보 수정"/>
+                <h5 class="userModify">회원정보수정</h5>
                 <p>
                     HOME > 마이 페이지 > <em>정보 수정</em>
                 </p>
@@ -32,7 +71,7 @@
                 <article>
                     <h3 th:text="${user.uid} + '님 정보 입니다. '" style="font-size: 18px;"></h3>
                     <form th:action="@{/user(uid=${user.uid})}" method="POST" onsubmit="showSuccessMessage()">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="table">
                             <tr>
                                 <th>User ID</th>
                                 <td th:text="${user.uid}" name="uid" style="text-align: center"></td>
