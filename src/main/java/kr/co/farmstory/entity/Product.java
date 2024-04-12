@@ -35,6 +35,6 @@ public class Product {
     @Builder.Default
     private int point = 0;
 
-    private String etc;
+    private String info;
 
 }

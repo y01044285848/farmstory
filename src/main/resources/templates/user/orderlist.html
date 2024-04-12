@@ -45,10 +45,11 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">상품명: [[${orderList.pname}]]</h5>
-                            <p class="card-text">주문자: [[${orderList.receiver}]]</p>
+                            <h6 class="card-title">상품 정보: [[${orderList.info}]]</h6>
+                            <p class="card-text">받는 사람: [[${orderList.receiver}]]</p>
                             <p class="card-text">배송지: [[${orderList.addr1}]]</p>
                             <p class="card-text">요청 메세지: [[${orderList.etc}]]</p>
-                            <p class="card-text"><small class="text-body-secondary">상품 가격: [[${orderList.price}]] 원, 주문량: [[${orderList.pcount}]] 개</small></p>
+                            <p class="card-text"><big class="text-body-secondary">상품 가격: [[${orderList.price}]] 원, 주문량: [[${orderList.pcount}]] 개</big></p>
                         </div>
                     </div>
                 </div>
@@ -59,6 +60,26 @@
             </a>
             <!-- 내용 끝 -->
 
+            <!-- 페이지네이션 -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <li th:if="${!orderPage.isIsFirstPage()}" class="page-item">
+                        <a class="page-link" th:href="@{/user/orderlist(uid=${#authentication.principal.user.uid},pageNum=${orderPage.pageNum} -1)}">이전</a>
+                    </li>
+                    <!--
+                    <li th:each="num : ${#numbers.sequence(1, (articlePage.pages/10)*10)}" class="page-item">
+                        <a class="page-link" th:href="@{/community/notice(pageNum=${num})}">[[${num}]]</a>
+                    </li>
+                    -->
+                    <li th:each="num : ${#numbers.sequence(orderPage.navigateFirstPage,orderPage.navigateLastPage)}" class="page-item">
+                        <a class="page-link" th:href="@{/user/orderlist(uid=${#authentication.principal.user.uid},pageNum=${num})}">[[${num}]]</a>
+                    </li>
+
+                    <li th:if="${orderPage.hasNextPage}" class="page-item">
+                        <a class="page-link" th:href="@{/user/orderlist(uid=${#authentication.principal.user.uid},pageNum=${orderPage.pageNum} +1)}">다음</a>
+                    </li>
+                </ul>
+            </nav>
         </article>
     </section>
 </div>

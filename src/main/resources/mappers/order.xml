@@ -10,7 +10,7 @@
     FROM `orders` AS a
     JOIN `orderlist` AS b ON a.ono = b.ono
     JOIN product AS c ON b.pno = c.pno
-    JOIN img AS d ON c.pno = d.pno;
+    JOIN img AS d ON c.pno = d.pno WHERE a.uid = #{uid}
 </select>
 
 
