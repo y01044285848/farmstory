@@ -213,4 +213,27 @@ window.onload = function () {
     } else {
         console.log("#top 요소를 찾을 수 없습니다.");
     }
+
+    const mypage = document.getElementById('mypage');
+    const cart = document.getElementById('cart');
+
+    if(mypage){
+        mypage.onclick = async function (e){
+            e.preventDefault();
+            const answer = await confirmModal("로그인 화면으로 이동하시겠습니까?");
+            if(answer == true){
+                location.href = '/farmstory/user/login';
+            }
+        }
+    }
+    if(cart){
+        cart.onclick = async function (e){
+            e.preventDefault();
+            const answer = await confirmModal("로그인 화면으로 이동하시겠습니까?");
+            if(answer == true){
+                location.href = '/farmstory/user/login';
+            }
+        }
+    }
+
 }
